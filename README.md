@@ -1,4 +1,4 @@
-www.jak95.ru-joomla
-===================
+My joomla site:
+===============
 
 www.jak95.ru/joomla
