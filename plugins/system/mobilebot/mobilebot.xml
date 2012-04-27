@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<install version="1.5" type="plugin" group="system" method="upgrade">
+	<name>Mobile Joomla!</name>
+	<version>1.0.3</version>
+	<author>Mobile Joomla!</author>
+	<copyright>(C) 2008-2012 Kuneri Ltd.</copyright>
+	<creationDate>April 2012</creationDate>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
+	<license>GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<description>Mobile Joomla!</description>
+	<files>
+		<filename plugin="mobilebot">mobilebot.php</filename>
+	</files>
+	<params />
+</install>

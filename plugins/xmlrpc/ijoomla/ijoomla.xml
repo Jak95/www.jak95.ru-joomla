@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="xmlrpc">
+	<name>iJoomla! Plugin</name>
+	<version>1.0.0</version>
+	<creationDate>2011/03/13</creationDate>
+	<author>Giuliani Stefano</author>
+	<authorEmail>info@ijoomla.it</authorEmail>
+	<authorUrl></authorUrl>
+	<copyright>Copyright (C) 2011 Giuliani Stefano. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>XML-RPC to access iJoomla! functionality. Please ensure that you have enabled "Web Services" for your site. This can be found in Site->Global Configuration, in the System tab.</description>
+	<files>
+		<filename plugin="ijoomla">ijoomla.php</filename>
+	</files>
+</install>

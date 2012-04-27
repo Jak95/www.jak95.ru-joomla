@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.6" type="plugin" group="content" method="upgrade">
+	<name>Content - JooComments</name>
+	<author>BullRaider.com</author>
+	<creationDate>Sept 2011</creationDate>
+    <copyright>Copyright (C), BullRaider.com, Ltd. All Rights Reserved.</copyright>
+	<license>license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<authorEmail>bullraider@bullraider.com</authorEmail>
+	<authorUrl>www.BullRaider.com</authorUrl>
+	<version>1.0.2</version>
+	<description>DESCRIPTION</description>
+	<files>
+		<folder>helpers</folder>
+		<filename plugin="joocomments">joocomments.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_content_joocomments.ini</language>
+	</languages>
+	<config/>	
+</install>

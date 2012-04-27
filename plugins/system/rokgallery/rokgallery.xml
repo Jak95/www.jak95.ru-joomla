@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="system" version="1.6.0" method="update">
+	<name>System - RokGallery</name>
+    <creationDate>December 15, 2011</creationDate>
+    <author>RocketTheme, LLC</author>
+    <authorEmail>support@rockettheme.com</authorEmail>
+    <authorUrl>http://www.rockettheme.com</authorUrl>
+    <copyright>(C) 2005 - 2011 RocketTheme, LLC. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <version>2.4</version>
+	<description>A system level support plugin for RokGallery.</description>
+	<files>
+		<filename plugin="rokgallery">rokgallery.php</filename>
+	</files>
+</extension>

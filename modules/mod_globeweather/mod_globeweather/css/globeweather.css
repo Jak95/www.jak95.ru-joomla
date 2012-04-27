@@ -1,0 +1,60 @@
+/************************/
+/*** GlobeWeather CSS ***/
+/************************/
+
+/*
+// GlobeWeather 1.3 module CSS - build 110406
+// (c) 2010-2012 INNATO BV - www.innato.nl
+// @license - See LICENSE.txt
+// **************************************************************************
+// A metar station weather fetching module for Joomla! 1.6/1.7 by Innato B.V.
+// @authorcode	gAk9geprut4uCaprEfrazemasPEWec3e
+// @filecode	rquhRCvV5m4BxDvwhVjTa5Ea11m3MSIv
+// **************************************************************************
+*/
+
+/*
+Look at the source code of your website to see what the class names are.
+Then copy and past from below classes and edit in line with your website's classes.
+*/
+
+div.module_globeweather {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+div.module_globeweather h3 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 0px;
+	text-align: left;
+}
+
+div.moduletable_globeweather {
+	padding-top: 0px;
+	padding-bottom: 20px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+div.moduletable_globeweather h3 {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	text-align: left;
+}
+
+.module_globeweather_details_button_png img,
+.module_globeweather_details_button_png a:link,
+.module_globeweather_details_button_png a:hover,
+.module_globeweather_details_button_png a:focus,
+.module_globeweather_details_button_png a:active,
+.module_globeweather_details_button_png a:visited
+{
+	background:transparent;
+	border:none;
+}

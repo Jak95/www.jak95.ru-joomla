@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="attribs">
+            <fieldset name="imagesizer"  label="ImageSizer">
+                <field name="imagesizer_folder" type="media" directory="images" default="0" label="jfacebookcomments" description="desc_jfacebookcomments" />
+            </fieldset>
+	</fields>
+</form>

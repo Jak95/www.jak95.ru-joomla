@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content">
+	<name>Content - YouTube</name>
+	<author>Stian Totland</author>
+	<creationDate>Desember 2007</creationDate>
+	<copyright>Stian Totland. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>totland@gmail.com</authorEmail>
+	<authorUrl>www.trippel.no</authorUrl>
+	<version>1.1</version>
+	<description>Plugin for YouTube videos</description>
+	<files>
+		<filename plugin="youtube">youtube.php</filename>
+		<filename plugin="youtube">youtube.js</filename>
+	</files>
+	<params>
+		<param name="enabled" type="radio" default="1" label="Enable plugin" description="PARAMENABLED">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="color1" type="text" default="" label="Color 1" description="COLOR DESC" />
+		<param name="color2" type="text" default="" label="Color 2" description="COLOR DESC" />
+		<param name="border" type="radio" default="1" label="Show border" description="SHOW BORDER DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="width" type="text" default="" label="Width" description="DIMENSIONS DESC" />
+		<param name="height" type="text" default="" label="Height" description="DIMENSIONS DESC" />
+		<param name="related" type="radio" default="1" label="Show related videos" description="SHOW RELATED VIDEOS DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="useswf" type="radio" default="1" label="Use SWFObject" description="USE SWFOBJECT DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="includeswf" type="radio" default="1" label="Include SWFObject" description="INCLUDE SWFOBJECT DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+	<languages>
+		<language tag="en-GB">en-GB.plg_content_youtube.ini</language>
+		<language tag="nb-NO">nb-NO.plg_content_youtube.ini</language>
+		<language tag="de-DE">de-DE.plg_content_youtube.ini</language>
+	</languages>
+</install>

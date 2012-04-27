@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" version="1.6" client="site" method="upgrade">
+
+  <name>GlobeWeather</name>
+  <creationDate>Jan-2012</creationDate>
+  <author>INNATO BV</author>
+  <copyright>This module is released under the GNU/GPL License</copyright>    
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <authorEmail>webdesign@innato.nl</authorEmail>
+  <authorUrl>http://www.innato.nl</authorUrl>
+  <version>1.3.5</version>
+  <description>GLOBEWEATHERDESC</description>
+  
+  <files>
+    <filename module="mod_globeweather">changelog.php</filename>
+    <filename module="mod_globeweather">index.html</filename>
+    <filename module="mod_globeweather">mod_globeweather.php</filename>
+	<folder module="mod_globeweather">mod_globeweather/</folder>
+  </files>
+
+  <languages>
+    <language tag="en-GB">/admin/language/en-GB.mod_globeweather.ini</language>
+  </languages>
+
+<config>
+<fields name="params">
+<fieldset name="basic">
+	<field name="template" type="list" default="metric" label="TEMPLATELABEL" description="TEMPLATEDESC">
+	  	<option value="metric">TEMPLATEOPTION1</option>
+        <option value="usa">TEMPLATEOPTION2</option>
+	</field>
+	<field name="weather_icon_show" type="list" default="yes" label="WEATHERICONSHOWLABEL" description="WEATHERICONSHOWDESC">
+        <option value="yes">JYES</option>
+        <option value="no">JNO</option>
+	</field>
+	<field name="icon_set" type="list" default="iconset1" label="ICONSETLABEL" description="ICONSETDESC">
+	  <option value="iconset1">ICONSETOPTION1</option>
+        <option value="iconset2">ICONSETOPTION2</option>
+        <option value="iconset3">ICONSETOPTION3</option>
+        <option value="iconset4">ICONSETOPTION4</option>
+    </field>
+	<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+	<field name="station" type="text" default="EHAM,KNYC,RJAA" label="METARSTATIONLABEL" description="METARSTATIONDESC" />
+	<field name="location" type="text" default="Amsterdam,New York,Tokyo" label="LOCATIONLABEL" description="LOCATIONDESC" />
+	<field name="time_zone" type="text" default="1,-5,9" label="TIMEZONELABEL" description="TIMEZONEDESC" />
+	<field name="sunrise_hour" type="text" default="6,6,6" label="SUNRISEHOURLABEL" description="SUNRISEHOURDESC" />
+	<field name="sunset_hour" type="text" default="18,18,18" label="SUNSETHOURLABEL" description="SUNSETHOURDESC" />
+    <field type="spacer" hr="true"/>
+    <field name="offset" type="list" default="0" label="OFFSETLABEL" description="OFFSETDESC">
+        <option value="-12">-12:00</option>
+        <option value="-11">-11:00</option>
+        <option value="-10">-10:00</option>
+        <option value="-9.30">-09:30</option>
+        <option value="-9">-09:00</option>
+        <option value="-8">-08:00</option>
+        <option value="-7">-07:00</option>
+        <option value="-6">-06:00</option>
+        <option value="-5">-05:00</option>
+        <option value="-4.30">-04:30</option>
+        <option value="-4">-04:00</option>
+        <option value="-3.30">-03:30</option>
+        <option value="-3">-03:00</option>
+        <option value="-2">-02:00</option>
+        <option value="-1">-01:00</option>
+        <option value="0">00:00</option>
+        <option value="1">+01:00</option>
+        <option value="2">+02:00</option>
+        <option value="3">+03:00</option>
+        <option value="3.30">+03:30</option>
+        <option value="4">+04:00</option>
+        <option value="4.30">+04:30</option>
+        <option value="5">+05:00</option>
+        <option value="5.30">+05:30</option>
+        <option value="5.45">+05:45</option>
+        <option value="6">+06:00</option>
+        <option value="6.30">+06:30</option>
+        <option value="7">+07:00</option>
+        <option value="8">+08:00</option>
+        <option value="9">+09:00</option>
+        <option value="9.30">+09:30</option>
+        <option value="10">+10:00</option>
+        <option value="10.30">+10:30</option>
+        <option value="11">+11:00</option>
+        <option value="11.30">+11:30</option>
+        <option value="12">+12:00</option>
+        <option value="12.45">+12:45</option>
+        <option value="13">+13:00</option>
+        <option value="14">+14:00</option>
+    </field>
+</fieldset>
+
+<fieldset name="advanced">
+	<field name="metar_mode" type="list" default="HTTP1" label="METARMODELABEL" description="METARMODEDESC">
+		<option value="HTTP1">METARMODEOPTION2</option>
+    	<option value="FTP">METARMODEOPTION3</option>
+	</field>
+	<field name="metar_http_port" type="text" default="80" size="4" label="HTTPPORTLABEL" description="HTTPPORTDESC" />
+	<field name="metar_http_timeout" type="text" default="10" size="4" label="HTTPTIMEOUTLABEL" description="HTTPTIMEOUTDESC" />
+	<field name="metar_ftp_port" type="text" default="21" size="4" label="FTPPORTLABEL" description="FTPPORTDESC" />
+	<field name="metar_ftp_timeout" type="text" default="10" size="4" label="FTPTIMEOUTLABEL" description="FTPTIMEOUTDESC" />
+	
+    <field type="spacer" hr="true"/>
+	
+	<field name="metar_cache_perms_write" type="text" default="0757" size="4" label="METARCACHEPERMSWRITELABEL" description="METARCACHEPERMSWRITEDESC" />
+	
+    <field type="spacer" hr="true"/>
+	
+	<field name="param_display_width_px" type="text" default="" size="4" label="PARAMDISPLAYWIDTHLABEL" description="PARAMDISPLAYWIDTHDESC" />
+	<field name="metar_temp_separator" type="list" default="yes" label="METARTEMPSEPARATORLABEL" description="METARTEMPSEPARATORDESC">
+        <option value="yes">JYES</option>
+        <option value="no">JNO</option>
+	</field>
+
+	<field name="use_marquee" type="list" default="yes" label="USEMARQUEELABEL" description="USEMARQUEEDESC">
+        <option value="yes">JYES</option>
+        <option value="no">JNO</option>
+	</field>
+    <field name="marquee_with_icons" type="list" default="no" label="MARQUEEWITHICONSLABEL" description="MARQUEEWITHICONSDESC">
+        <option value="yes">JYES</option>
+        <option value="no">JNO</option>
+    </field>
+    <field name="details_link_type" type="list" default="text" label="DETAILSLINKTYPELABEL" description="DETAILSLINKTYPEDESC">
+        <option value="text">Text</option>
+        <option value="arrow_down">Black arrow down</option>
+        <option value="arrow_down_white">White arrow down</option>
+    </field>
+    <field name="station_selector_button" type="list" default="black" label="STATIONSELECTORBUTTONLABEL" description="STATIONSELECTORBUTTONDESC">
+        <option value="black">Black arrow</option>
+        <option value="white">White arrow</option>
+    </field>
+
+</fieldset>
+</fields>
+
+</config>
+</extension>

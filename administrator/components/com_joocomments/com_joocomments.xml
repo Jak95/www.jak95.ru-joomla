@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" version="1.6.0" method="upgrade">
+	<name>JooComments</name>
+	<creationDate>May 2011</creationDate>
+	<copyright>Copyright (C),BullRaider.com. All Rights Reserved.
+	</copyright>
+	<license>license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+	</license>
+	<author>BullRaider</author>
+	<authorEmail>bullraider@bullraider.com</authorEmail>
+	<authorUrl>www.BullRaider.com</authorUrl>
+	<version>1.0.2</version>
+	<description>Comment component Joomla 1.6</description>
+	<scriptfile>script.php</scriptfile>
+	<update> <!-- Runs on update; New in 1.6 -->
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/installer.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>joocomments.php</filename>
+		<filename>controller.php</filename>
+		<folder>assets</folder>
+		<folder>captcha</folder>
+		<folder>controllers</folder>
+		<folder>models</folder>
+		<folder>helpers</folder>
+		<folder>tables</folder>
+		<folder>views</folder>
+	</files>
+		<languages folder="site">
+			<language tag="en-GB">language/en-GB/en-GB.com_joocomments.ini</language>
+		</languages>
+	<administration>
+		<menu view="comments">COM_JOOCOMMENTS</menu>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>joocomments.php</filename>
+			<filename>controller.php</filename>
+			<folder>sql</folder>
+			<folder>controllers</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_joocomments.sys.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_joocomments.ini</language>
+		</languages>
+	</administration>
+	
+	
+</extension>

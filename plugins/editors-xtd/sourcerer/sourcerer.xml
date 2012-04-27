@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="plugin" group="editors-xtd" version="1.6">
+	<name>Button - Sourcerer</name>
+	<description>PLG_EDITORS-XTD_SOURCERER_DESC</description>
+	<version>2.11.3</version>
+	<creationDate>November 2011</creationDate>
+	<author>NoNumber! (Peter van Westen)</author>
+	<authorEmail>peter@nonumber.nl</authorEmail>
+	<authorUrl>http://www.nonumber.nl</authorUrl>
+	<copyright>Copyright © 2011 NoNumber! All Rights Reserved</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+
+	<files>
+		<filename plugin="sourcerer">sourcerer.php</filename>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+	</files>
+
+	<!-- Parameters -->
+	<config>
+		<fields name="params" addfieldpath="/plugins/system/nnframework/fields">
+			<fieldset name="basic">
+				<field name="@license" type="nn_license" extension="SOURCERER" />
+				<field name="@version" type="nn_version" extension="SOURCERER" xml="/plugins/editors-xtd/sourcerer/sourcerer.xml" />
+				<field name="@dependency" type="nn_dependency"
+					label="SRC_THE_SYSTEM_PLUGIN"
+					file="/plugins/system/sourcerer/sourcerer.php" />
+				<field name="@header" type="nn_header"
+					label="SOURCERER"
+					description="SOURCERER_DESC"
+					xml="/plugins/editors-xtd/sourcerer/sourcerer.xml"
+					image="/plugins/editors-xtd/sourcerer/images/logo.png"
+					image_w="60" image_h="80"
+					url="http://www.nonumber.nl/sourcerer"
+					help_url="http://www.nonumber.nl/sourcerer" />
+
+				<field name="button_text" type="text" default="Insert Code" label="NN_BUTTON_TEXT" description="NN_BUTTON_TEXT_DESC" />
+				<field name="button_icon" type="radio" default="1" label="NN_SHOW_ICON" description="NN_SHOW_ICON_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="enable_frontend" type="radio" default="1" label="NN_ENABLE_IN_FRONTEND" description="NN_ENABLE_IN_FRONTEND_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="@block_defaults_a" type="nn_block" start="1" label="SRC_DEFAULTS" description="SRC_DEFAULTS_DESC" />
+					<field name="addsourcetags" type="radio" default="1" label="SRC_ADD_SOURCE_TAGS" description="SRC_ADD_SOURCE_TAGS_DESC">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+					</field>
+					<field name="keepindent" type="radio" default="1" label="SRC_PRESERVE_INDENTATION" description="SRC_PRESERVE_INDENTATION_DESC">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+					</field>
+					<field name="keepcolors" type="radio" default="0" label="SRC_PRESERVE_COLORS" description="SRC_PRESERVE_COLORS_DESC">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+					</field>
+				<field name="@block_defaults_b" type="nn_block" end="1" />
+
+				<field name="@block_example_a" type="nn_block" start="1" label="SRC_EXAMPLE_CODE" />
+					<field name="use_example_code" type="radio" default="1" label="SRC_USE_EXAMPLE_CODE" description="SRC_USE_EXAMPLE_CODE_DESC">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+						<option value="2">SRC_ONLY_IN_ADMINISTRATOR</option>
+					</field>
+					<field name="@toggler_example_a" type="nn_toggler" param="use_example_code" value="1,2" />
+						<field name="example_code" type="nn_textareaplus" filter="RAW" texttype="html" width="400" height="300" default="&lt;!-- You can place html anywhere within the source tags -->&lt;br />&lt;br />&lt;br />&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;>&lt;br />    // You can place JavaScript like this&lt;br />    &lt;br />&lt;/script>&lt;br />&lt;?php&lt;br />    // You can place PHP like this&lt;br />    &lt;br />?>" label="SRC_EXAMPLE_CODE" description="SRC_EXAMPLE_CODE_DESC" />
+					<field name="@toggler_example_b" type="nn_toggler" />
+				<field name="@block_example_b" type="nn_block" end="1" />
+			</fieldset>
+		</fields>
+	</config>
+</install>

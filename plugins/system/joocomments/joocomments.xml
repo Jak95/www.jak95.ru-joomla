@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="system" method="upgrade">
+	<name>plg_system_joocomments</name>
+	<author>BullRaider.com</author>
+	<creationDate>Sept 2011</creationDate>
+	<copyright>Copyright (C), BullRaider.com, Ltd. All Rights Reserved.</copyright>
+	<license>license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<authorEmail>bullraider@bullraider.com</authorEmail>
+	<authorUrl>www.BullRaider.com</authorUrl>
+	<version>1.0.2</version>
+	<description>PLG_SYSTEM_JOOCOMMENTS_DESCRIPTION</description>
+	<files>
+		<folder plugin="joocomments">article</folder>
+		<filename plugin="joocomments">joocomments.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_joocomments.sys.ini</language>
+		<language tag="en-GB">en-GB.plg_system_joocomments.ini</language>
+    </languages>	
+</extension>

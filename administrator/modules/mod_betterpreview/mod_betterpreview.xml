@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.6" type="module">
+	<name>MOD_BETTERPREVIEW</name>
+	<description>MOD_BETTERPREVIEW_DESC</description>
+	<version>1.11.3</version>
+	<creationDate>December 2011</creationDate>
+	<author>NoNumber! (Peter van Westen)</author>
+	<authorEmail>peter@nonumber.nl</authorEmail>
+	<authorUrl>http://www.nonumber.nl</authorUrl>
+	<copyright>Copyright © 2011 NoNumber! All Rights Reserved</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+
+	<files>
+		<filename module="mod_betterpreview">mod_betterpreview.php</filename>
+		<folder>betterpreview</folder>
+	</files>
+
+	<!-- Parameters -->
+	<config>
+		<fields name="params" addfieldpath="/plugins/system/nnframework/fields">
+			<fieldset name="basic">
+				<field name="@loadlanguage" type="nn_loadlanguage" extension="mod_betterpreview" admin="1" />
+				<field name="@license" type="nn_license" extension="BETTER_PREVIEW" />
+				<field name="@version" type="nn_version" extension="BETTER_PREVIEW" xml="administrator/modules/mod_betterpreview/mod_betterpreview.xml" />
+				<field name="@header" type="nn_header"
+					label="BETTER_PREVIEW"
+					description="BETTER_PREVIEW_DESC"
+					image="administrator/modules/mod_betterpreview/betterpreview/images/logo.png"
+					image_w="60" image_h="80"
+					url="http://www.nonumber.nl/betterpreview"
+					help_url="http://www.nonumber.nl/betterpreview" />
+
+				<field name="display_link" type="radio" default="both" label="NN_DISPLAY_LINK" description="NN_DISPLAY_LINK_DESC">
+					<option value="icon">NN_ICON_ONLY</option>
+					<option value="text">NN_TEXT_ONLY</option>
+					<option value="both">NN_BOTH</option>
+				</field>
+				<field name="@toggler_link_1a" type="nn_toggler" param="display_link" value="icon,both" />
+					<field name="show_icon" type="radio" default="1" label="BP_ICON_TYPE" description="BP_ICON_TYPE_DESC">
+						<option value="2">JDEFAULT</option>
+						<option value="1">BETTER_PREVIEW</option>
+					</field>
+				<field name="@toggler_link_1b" type="nn_toggler" />
+				<field name="@toggler_link_2a" type="nn_toggler" param="display_link" value="text,both" />
+					<field name="icon_text" type="text" default="Preview" label="NN_LINK_TEXT" description="NN_LINK_TEXT_DESC" />
+				<field name="@toggler_link_2b" type="nn_toggler" />
+				<field name="show_tooltip" type="radio" default="1" label="NN_DISPLAY_TOOLTIP" description="NN_DISPLAY_TOOLTIP_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="show_copy_icon" type="radio" default="1" label="BP_SHOW_COPY_TO_CLIPBOARD_ICON" description="BP_SHOW_COPY_TO_CLIPBOARD_ICON_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="@hr_list_layout" type="nn_hr" />
+
+				<field name="list_layout" type="radio" default="blog" label="BP_OPEN_SECTIONS_CATEGORIES_AS" description="BP_OPEN_SECTIONS_CATEGORIES_AS_DESC">
+					<option value="-">NN_LIST</option>
+					<option value="blog">BP_BLOG</option>
+				</field>
+
+				<field name="@hr_components" type="nn_hr" />
+
+				<field name="components" type="nn_components" default="com_search" label="NN_DISABLE_ON_COMPONENTS" description="BP_DISABLE_ON_COMPONENTS_DESC" />
+
+				<field name="@hr_homepage" type="nn_hr" />
+
+				<field name="homepage" type="text" default="" label="BP_HOMEPAGE" description="BP_HOMEPAGE_DESC" />
+
+				<field name="@toggler_comp_a" type="nn_toggler" param="components" value="com_banners" />
+					<field name="@block_comp" type="nn_block" nostyle="1"
+						description="&#60;&#99;&#101;&#110;&#116;&#101;&#114;&#62;&#60;&#105;&#109;&#103;&#32;&#115;&#114;&#99;&#61;&#34;&#109;&#111;&#100;&#117;&#108;&#101;&#115;&#47;&#109;&#111;&#100;&#95;&#98;&#101;&#116;&#116;&#101;&#114;&#112;&#114;&#101;&#118;&#105;&#101;&#119;&#47;&#98;&#101;&#116;&#116;&#101;&#114;&#112;&#114;&#101;&#118;&#105;&#101;&#119;&#47;&#105;&#109;&#97;&#103;&#101;&#115;&#47;&#112;&#114;&#101;&#118;&#105;&#101;&#119;&#46;&#103;&#105;&#102;&#34;&#32;&#47;&#62;&#60;&#47;&#99;&#101;&#110;&#116;&#101;&#114;&#62;" />
+				<field name="@toggler_comp_b" type="nn_toggler" />
+			</fieldset>
+		</fields>
+	</config>
+</install>

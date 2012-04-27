@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" client="site" method="upgrade">
+	<name>Mobile Menu</name>
+	<version>1.0.3</version>
+	<author>Mobile Joomla!</author>
+	<copyright>(C) 2008-2012 Kuneri Ltd.</copyright>
+	<creationDate>April 2012</creationDate>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
+	<license>GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<description>Displays a menu.</description>
+	<files>
+		<filename module="mod_mj_menu">mod_mj_menu.php</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_mj_menu.ini</language>
+	</languages>
+	<params>
+		<param name="menutype" type="mos_menu" default="mainmenu" label="Menu Name"
+				description="The name of the menu (default is mainmenu)"/>
+		<param name="layout" type="list" default="" label="Layout"
+				description="">
+			<option value="">Auto</option>
+			<option value="h">Horizontal</option>
+			<option value="v">Vertical</option>
+		</param>
+		<param name="type" type="list" default="submenu" label="Type"
+				description="">
+			<option value="submenu">Submenu only</option>
+			<option value="menu">Current level with submenu</option>
+		</param>
+	</params>
+	<params group="advanced">
+		<param name="class_sfx" type="text" default="" label="Menu Class Suffix"
+				description="A suffix to be applied to the CSS class of the Menu Items"/>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</params>
+	<params group="other">
+		<param name="excludemenu" type="text" default="" label="Exclude Menu Items"
+				description="Comma separated IDs of menu items to be excluded"/>
+		<param name="format" type="list" default="0" label="Format"
+				description="Alignment of menu text and image">
+			<option value="0">Text only</option>
+			<option value="1">Image only</option>
+			<option value="2">Image on the Left</option>
+			<option value="3">Image on the Right</option>
+			<option value="4">Image above Text</option>
+			<option value="5">Image below Text</option>
+		</param>
+		<param name="accesskey" type="radio" default="1" label="Accesskey attribute"
+				description="Enable Accesskey attribute">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+	<config><fields name="params">
+	<fieldset name="basic">
+		<field name="menutype" type="menu" default="mainmenu" label="Menu Name"
+				description="The name of the menu (default is mainmenu)"/>
+		<field name="layout" type="list" default="" label="Layout"
+				description="">
+			<option value="">Auto</option>
+			<option value="v">Vertical</option>
+			<option value="h">Horizontal</option>
+		</field>
+		<field name="type" type="list" default="submenu" label="Type"
+				description="">
+			<option value="submenu">Submenu only</option>
+			<option value="menu">Current level with submenu</option>
+		</field>
+	</fieldset>
+	<fieldset name="advanced">
+		<field name="class_sfx" type="text" default="" label="Menu Class Suffix"
+				description="A suffix to be applied to the CSS class of the Menu Items"/>
+		<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix"
+				description="PARAMMODULECLASSSUFFIX"/>
+	</fieldset>
+	<fieldset name="other">
+		<field name="excludemenu" type="text" default="" label="Exclude Menu Items"
+				description="Comma separated IDs of menu items to be excluded"/>
+		<field name="format" type="list" default="0" label="Format"
+				description="Alignment of menu text and image">
+			<option value="0">Text only</option>
+			<option value="1">Image only</option>
+			<option value="2">Image on the Left</option>
+			<option value="3">Image on the Right</option>
+			<option value="4">Image above Text</option>
+			<option value="5">Image below Text</option>
+		</field>
+		<field name="accesskey" type="radio" default="1" label="Accesskey attribute"
+				description="Enable Accesskey attribute">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+	</fieldset>
+	</fields></config>
+</install>

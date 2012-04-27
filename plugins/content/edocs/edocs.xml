@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content" method="upgrade">
+    <name>Edocs - Embed Documents</name>
+    <author>MediaEventi</author>
+    <creationDate>February 2010</creationDate>
+    <copyright>Copyright (C) 2010 MediaEventi. All rights reserved.</copyright>
+    <license>GNU General Public License</license>
+    <authorEmail>webmaster@mediaeventi.it</authorEmail>
+    <authorUrl>http://www.mediaeventi.it</authorUrl>
+    <version>1.0</version>
+    <description>EDOCS_DESCRIPTION</description>
+    
+    <files>
+        <filename plugin="edocs">edocs.php</filename>
+    </files>
+    
+    <languages folder="language">
+      <language tag="en-GB">en-GB/en-GB.plg_content_edocs.ini</language>
+      <language tag="it-IT">it-IT/it-IT.plg_content_edocs.ini</language>
+    </languages>
+    
+    <params>
+		<param name="download_text"
+		type="text"
+		default="Download"
+		label="DOWNLOAD_TEXT_LABEL"
+		description="DOWNLOAD_TEXT_DESC" />	
+
+		<param name="root"
+		type="text"
+		default="images/stories"
+		label="ROOT_LABEL"
+		description="ROOT_DESC" />	  
+
+		<param name="debug"
+		type="radio" 
+		default="0"
+		label="DEBUG_LABEL"
+		description="DEBUG_DESC" >	 
+			<option value="1">DEBUG_VALUE_YES</option>
+			<option value="0">DEBUG_VALUE_NO</option>
+		</param>
+
+		<param name="ie_compatibility"
+		type="radio" 
+		default="0"
+		label="IE_COMPATIBILITY"
+		description="IE_COMPATIBILITY_DESC" >	 
+			<option value="1">IE_COMPATIBILITY_VALUE_YES</option>
+			<option value="0">IE_COMPATIBILITY_VALUE_NO</option>
+		</param>	
+
+		<param name="ie_text"
+		type="text"
+		default="Click here to view online"
+		label="IE_TEXT_LABEL"
+		description="IE_TEXT_LABEL_DESC" />	  		
+    </params>
+</install>

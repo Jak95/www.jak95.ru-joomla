@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset name="component"
+		addfieldpath="/administrator/components/com_gcalendar/models/fields">
+		<field name="google_apps_domain" type="text" default="" size="100"
+			label="COM_GCALENDAR_FIELD_CONFIG_APPS_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_APPS_DESC" />
+		<field name="timezone" type="googletimezones" default=""
+			label="COM_GCALENDAR_FIELD_CONFIG_TIMEZONE_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_TIMEZONE_DESC" />
+		<field name="gc_cache" type="list" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_SETTINGS_CACHING" description="COM_GCALENDAR_FIELD_CONFIG_SETTINGS_CACHING_DESC">
+			<option value="2">COM_GCALENDAR_FIELD_CONFIG_SETTINGS_CACHING_GLOBAL
+			</option>
+			<option value="1">COM_GCALENDAR_FIELD_CONFIG_SETTINGS_CACHING_ALWAYS
+			</option>
+			<option value="0">COM_GCALENDAR_FIELD_CONFIG_SETTINGS_CACHING_NEVER
+			</option>
+		</field>
+		<field name="gc_cache_time" type="text" default="900"
+			label="COM_GCALENDAR_FIELD_CONFIG_SETTINGS_CACHING_TIME" description="COM_GCALENDAR_FIELD_CONFIG_SETTINGS_CACHING_TIME_DESC" />
+
+		<field name="loadJQuery" type="radio" default="COM_GCALENDAR_FIELD_YES"
+			label="COM_GCALENDAR_FIELD_CONFIG_JQUERY_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_JQUERY_DESC">
+			<option value="no">COM_GCALENDAR_FIELD_NO</option>
+			<option value="yes">COM_GCALENDAR_FIELD_YES</option>
+		</field>
+		<param name="event_description_format" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_DESCRIPTION_FORMAT_LABEL"
+			description="COM_GCALENDAR_FIELD_CONFIG_EVENT_DESCRIPTION_FORMAT_DESC">
+			<option value="1">Yes</option>
+			<option value="2">No</option>
+		</param>
+		<field name="@spacer" type="spacer" default="Event output"
+			label="" description="" />
+		<field name="show_calendar_name" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_CAL_NAME_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_CAL_NAME_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_title" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_TITLE_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_TITLE_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_date" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_DATE_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_DATE_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_attendees" type="radio" default="2"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_ATTENDEE_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_ATTENDEE_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_description" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_DESCRIPTION_LABEL"
+			description="COM_GCALENDAR_FIELD_CONFIG_EVENT_DESCRIPTION_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_location" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_LOCATION_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_LOCATION_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_location_map" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_LOCATION_MAP_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_LOCATION_MAP_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_author" type="radio" default="2"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_AUTHOR_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_AUTHOR_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="show_event_copy_info" type="radio" default="1"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_COPY_LABEL" description="COM_GCALENDAR_FIELD_CONFIG_EVENT_COPY_DESC">
+			<option value="1">COM_GCALENDAR_FIELD_YES</option>
+			<option value="2">COM_GCALENDAR_FIELD_NO</option>
+		</field>
+		<field name="event_date_format" type="text" size="80" default="d.m.Y"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_DATE_FORMAT_LABEL"
+			description="COM_GCALENDAR_FIELD_CONFIG_EVENT_DATE_FORMAT_DESC" />
+		<field name="event_time_format" type="text" size="80" default="H:i"
+			label="COM_GCALENDAR_FIELD_CONFIG_EVENT_TIME_FORMAT_LABEL"
+			description="COM_GCALENDAR_FIELD_CONFIG_EVENT_TIME_FORMAT_DESC" />
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL"
+			class="inputbox" validate="rules" filter="rules" component="com_gcalendar"
+			section="component" />
+	</fieldset>
+</config>

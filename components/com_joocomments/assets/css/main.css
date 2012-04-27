@@ -1,0 +1,169 @@
+.comment-header{
+text-align: center;
+clear: both;
+}
+#loader{
+font-weight:bold;
+text-align: center;
+}
+#comments_form{
+	display:block;
+	width:100%;
+	clear:both;
+}
+#comment-wrapper{
+	width:100%;
+	clear:both;
+	}
+	
+	
+	#myForm fieldset {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #c0c0c0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+#myForm ul {
+    list-style: none !important;;
+	padding:0px !important;
+}
+#myForm ul li  {
+    list-style: none !important;;
+    padding: 0px;
+    overflow:visible;
+
+}
+#myForm li {
+    position: relative;
+}
+
+#myForm [type=text],
+#myForm [type=submit],
+#myForm textarea {
+    margin-top: 3px;
+    padding: 1px;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+#myForm [type=check],
+#myForm [type=radio],
+#myForm [type=submit] {
+    cursor: pointer;
+}
+
+#myForm label {
+    display: block;
+}
+
+#myForm [type=check] + label,
+#myForm [type=radio] + label {
+    display: inline-block;
+    cursor: pointer;
+}
+
+#myForm input:hover,
+#myForm textarea:hover,
+#myForm input:focus,
+#myForm textarea:focus {
+    background-color: #ddffdd;
+}
+
+#myForm .validation-failed {
+    border-color: #ff0000;
+    background-color: #ffdddd;
+}
+
+#myForm .validation-advice {
+    padding-bottom: 5px;
+    font-weight: bold;
+    color: #ff0000;
+}
+
+#myForm #myResult {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #0000ff;
+    background-color: #ddddff;
+}
+
+#myForm #myResult:empty {
+    border-width: 0;
+    padding: 0;
+}
+
+#myForm .spinner {
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    background-color: #f0f0f0;
+}
+
+#myForm .overTxtLabel {
+    color: #888888;
+}
+#wmd-button-row li{
+	position: absolute !important;
+}
+#captcha-text{
+	vertical-align: bottom;
+}
+#captcha-image{
+	border:thin solid;
+}
+.baksha {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 3px 3px 3px 3px;
+    padding: 3px;
+}
+.baksha p {
+color:#000000;
+}
+.baksha .comment {
+    margin: 0;
+}
+.comment {
+    border: 1px solid #CACACA;
+    margin: 10px 0;
+}
+.comment .cmeta {
+    background: url("../img/metabar.gif") repeat-x scroll 0 0 transparent;
+    border-bottom: 1px solid #CCCCCC;
+    height: 33px;
+    padding: 0 6px;
+}
+.comment .cmeta p.author {
+    float: left;
+    font-size: 12px;
+    height: 33px;
+    line-height: 33px;
+    margin: 0;
+    max-width: 600px;
+    overflow: hidden;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+}
+.comment .cmeta p.info {
+    float: right;
+    font-size: 11px;
+    height: 33px;
+    line-height: 33px;
+    margin: 0;
+}
+.comment .cmeta p.info em.date{
+	color: #666666;
+    font-style: normal;
+}
+.comment .body {
+    background: none repeat scroll 0 0 #FBFBFB;
+    color: #333333;
+    font-size: 12px;
+    overflow: auto;
+    padding: 6px;
+    position: relative;
+}

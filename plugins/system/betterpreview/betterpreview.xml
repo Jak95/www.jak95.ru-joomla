@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="plugin" group="system" version="1.6">
+	<name>PLG_SYSTEM_BETTERPREVIEW</name>
+	<description>PLG_SYSTEM_BETTERPREVIEW_DESC</description>
+	<version>1.11.3</version>
+	<creationDate>December 2011</creationDate>
+	<author>NoNumber! (Peter van Westen)</author>
+	<authorEmail>peter@nonumber.nl</authorEmail>
+	<authorUrl>http://www.nonumber.nl</authorUrl>
+	<copyright>Copyright © 2011 NoNumber! All Rights Reserved</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+
+	<!-- Files -->
+	<files>
+		<filename plugin="betterpreview">betterpreview.php</filename>
+		<filename>index.html</filename>
+		<folder>images</folder>
+	</files>
+
+	<!-- Parameters -->
+	<config>
+		<fields name="params" addfieldpath="/plugins/system/nnframework/fields">
+			<fieldset name="basic">
+				<field name="@loadlanguage" type="nn_loadlanguage" extension="plg_system_betterpreview" />
+				<field name="@license" type="nn_license" extension="BETTER_PREVIEW" />
+				<field name="@version" type="nn_version" extension="BETTER_PREVIEW" xml="/plugins/system/betterpreview/betterpreview.xml" />
+				<field name="@dependency" type="nn_dependency"
+					label="BP_THE_MODULE"
+					file="/administrator/modules/mod_betterpreview/mod_betterpreview.php" />
+				<field name="@header" type="nn_header"
+					label="BETTER_PREVIEW"
+					description="BETTER_PREVIEW_DESC"
+					xml="/plugins/system/betterpreview/betterpreview.xml"
+					image="/plugins/system/betterpreview/images/logo.png"
+					image_w="60" image_h="80"
+					url="http://www.nonumber.nl/betterpreview"
+					help_url="http://www.nonumber.nl/betterpreview" />
+			</fieldset>
+		</fields>
+	</config>
+</install>

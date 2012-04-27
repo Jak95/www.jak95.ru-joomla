@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="system" method="upgrade">
+	<name>ImageSizer</name>
+	<author>Norbert Bayer - reDim</author>
+	<creationDate>24.08.2011</creationDate>
+	<copyright>www.redim.de</copyright>
+	<license>http://www.gnu.org/licenseses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>info@redim.de</authorEmail>
+	<authorUrl>www.redim.de</authorUrl>
+	<version>1.6.2</version>
+	<description>PLG_IMAGESIZER_XML_DESCRIPTION</description>
+	<files>
+		<folder>formfields</folder>
+		<folder>language</folder>
+		<folder>lbscripts</folder>
+		<folder>libraries</folder>
+		<folder>xml</folder>
+		<folder>js</folder>
+		<filename plugin="imagesizer">imagesizer.php</filename>
+		<filename>index.html</filename>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_imagesizer.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_imagesizer.sys.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_system_imagesizer.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_system_imagesizer.sys.ini</language>
+	</languages>
+
+	<config>
+		<fields name="params" addfieldpath="plugins/system/imagesizer/formfields">
+
+			<fieldset name="redim" label="reDim" >
+				<field name="redim" type="redim" view="logo" label=""  path="plugins/system/imagesizer" description="" />
+				<field name="version" type="redim" objname="imagesizer" view="version" label="IMAGESIZER_Version" description="" />
+				<field name="check" type="redim"  objname="imagesizer" view="updatecheck" label="" description="" />
+				<!--<field name="orderid" type="text" label="IMAGESIZER_ORDERID" size="60" description="IMAGESIZER_DESC_ORDERID" />-->
+			</fieldset>
+
+			<fieldset name="basics" label="IMAGESIZER_BASICS">
+
+                <field name="thumbspath" type="text" default="cache" size="40" label="IMAGESIZER_THUMBS_SAVE_PATH" description="IMAGESIZER_DESC_THUMBS_SAVE_PATH" />
+                <field name="picclass" type="text" default="thumb" size="40" label="IMAGESIZER_PIC_CSS_CLASS" description="IMAGESIZER_DESC_PIC_CSS_CLASS" />
+                <field name="linkclass" type="text" default="linkthumb" size="40" label="IMAGESIZER_LINK_CSS_CLASS" description="IMAGESIZER_DESC_LINK_CSS_CLASS" />
+                <field name="lbscript" type="filelist" directory="/plugins/system/imagesizer/lbscripts/" default="slimbox.php" label="IMAGESIZER_LIGHTBOX_SCRIPT" description="IMAGESIZER_DESC_LIGHTBOX_SCRIPT" />
+                <field name="minsizex" type="text" default="120" size="3" label="IMAGESIZER_MIN_SIZE_X" description="IMAGESIZER_DESC_MIN_SIZE_X" />
+                <field name="minsizey" type="text" default="120" size="3" label="IMAGESIZER_MIN_SIZE_Y" description="IMAGESIZER_DESC_MIN_SIZE_Y" />
+                <field name="maxsizex" type="text" default="800" size="3" label="IMAGESIZER_MAX_SIZE_X" description="IMAGESIZER_DESC_MAX_SIZE_X" />
+                <field name="maxsizey" type="text" default="800" size="3" label="IMAGESIZER_MAX_SIZE_Y" description="IMAGESIZER_DESC_MAX_SIZE_Y" />
+                <field name="pro" type="text" default="85" size="3" label="IMAGESIZER_JPG_QUALITY" description="IMAGESIZER_DESC_JPG_QUALITY" />
+                <field name="chmod" type="text" default="0774" size="4" label="IMAGESIZER_CHMOD" description="IMAGESIZER_DESC_CHMOD" />
+        		<!--
+
+                <field name="dbsave" type="list" default="0" label="IMAGESIZER_SAVE_DATA_IN_DB" description="IMAGESIZER_DESC_SAVE_DATA_IN_DB">
+                   <option value="0">IMAGESIZER_NO</option>
+                   <option value="1">IMAGESIZER_YES</option>
+                </field>
+-->
+			</fieldset>
+
+			<fieldset name="functions" label="IMAGESIZER_FUNCTIONS">
+
+                <field name="generate" type="list" default="2" label="IMAGESIZER_GENERATION" description="IMAGESIZER_DESC_GENERATION">
+                   <option value="2">Backend</option>
+                   <option value="1">Frontend</option>
+                </field>
+
+                <field name="generate2" type="list" default="before" label="IMAGESIZER_PLUGIN_EVENT" description="IMAGESIZER_DESC_PLUGIN_EVENT">
+                   <option value="prepare">onContentPrepare</option>
+                   <option value="render">onAfterRender</option>
+                </field>
+
+                <field name="deltc" type="list" default="1" label="IMAGESIZER_DELETE_THUMB_CACHE" description="IMAGESIZER_DESC_DELETE_THUMB_CACHE">
+                   <option value="0">IMAGESIZER_NO</option>
+                   <option value="1">IMAGESIZER_YES</option>
+                </field>
+        		<!--
+                <field name="readmore" type="list" default="0" label="IMAGESIZER_READMORE" description="IMAGESIZER_DESC_READMORE">
+                   <option value="0">IMAGESIZER_NO</option>
+                   <option value="1">IMAGESIZER_YES</option>
+                </field>
+                -->
+
+                <field name="insert" type="list" default="0" label="IMAGESIZER_INSERT_SCALE" description="IMAGESIZER_DESC_INSERT_SCALE">
+                   <option value="0">IMAGESIZER_NO</option>
+                   <option value="1">IMAGESIZER_YES</option>
+                </field>
+
+			</fieldset>
+
+			<fieldset name="info" label="IMAGESIZER_INFO">
+				<field name="infomode" type="redim" view="infomode" label="" description="" />
+			</fieldset>
+
+			<fieldset name="help" label="IMAGESIZER_HELP">
+            	<field name="help" type="redimhelp" default="120" size="3" label="" description="IMAGESIZER_HELP_TEXT" />
+                <field name="supportredim" type="list" default="1" label="IMAGESIZER_SUPPORT_REDIM" description="IMAGESIZER_DESC_SUPPORT_REDIM">
+                   <option value="0">IMAGESIZER_NO</option>
+                   <option value="1">IMAGESIZER_YES</option>
+                </field>
+			</fieldset>
+
+
+		</fields>
+	</config>
+
+	<updateservers>
+		<server name="ImageSizer - Update" type="extension">http://www.redim.de/update/61</server>
+	</updateservers>
+
+</extension>

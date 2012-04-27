@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="attribs">
+		<fieldset name="article_joocomments" label="JooComments Options">
+			<field name="comments_enabled" type="radio" default="1" label="PLG_SYSTEM_JOOCOMMENTS_ENABLE" 
+				description="PLG_SYSTEM_JOOCOMMENTS_ENABLE_TOOLTIP">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="comments_allowed" type="radio" default="0" label="PLG_SYSTEM_JOOCOMMENTS_CLOSE"
+				description="PLG_SYSTEM_JOOCOMMENTS_CLOSE_TOOLTIP">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+		</fieldset>
+	</fields>
+</form>

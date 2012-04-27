@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="mobile" method="upgrade">
+	<name>Mobile - Domains</name>
+	<version>1.0.3</version>
+	<author>Mobile Joomla!</author>
+	<creationDate>April 2012</creationDate>
+	<copyright>(C) 2008-2012 Kuneri Ltd.</copyright>
+	<license>GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
+	<description>Mobile domains support</description>
+	<files>
+		<filename plugin="domains">domains.php</filename>
+	</files>
+	<params />
+</install>

@@ -1,0 +1,101 @@
+/* Mobile Joomla! 1.0.3 | mobilejoomla.com/license.html */
+#adminForm table
+{
+	width:100%;
+}
+
+#adminForm p{
+	margin:0;
+	padding:0;
+}
+
+#adminForm td,
+#adminForm th
+{
+	padding:0.5em 0;
+	white-space:nowrap;
+}
+
+#adminForm td label
+{
+	min-width: 5em;
+	float:none;
+	margin-right:2em;
+	display:inline-block;
+}
+
+#adminForm th
+{
+	width:18em;
+	text-align:left;
+	font-weight:normal;
+}
+
+.fltrt {
+	float:right;
+}
+.fltlft {
+	float:left;
+}
+
+#adminForm fieldset
+{
+	padding-left:1.5em;
+}
+
+#adminForm fieldset input,
+#adminForm fieldset textarea,
+#adminForm fieldset select,
+#adminForm fieldset img,
+#adminForm fieldset button
+{
+	float:none;
+	margin:0;
+}
+
+#adminForm fieldset input.inputradio,
+#adminForm fieldset textarea,
+#adminForm fieldset select,
+#adminForm fieldset img,
+#adminForm fieldset button
+{
+	vertical-align:text-bottom;
+}
+
+#adminForm .inputradio
+{
+	border:none;
+}
+
+#adminForm .fullwidth
+{
+	width:100%;
+}
+
+#mjconfig_jpegquality_slider
+{
+	display:inline-block;
+	height:0.6em;
+	width:15em;
+	background:#666;
+	border-radius:0.3em;
+	overflow:visible;
+	margin:0 2em 0 0;
+	vertical-align:middle;
+}
+
+#mjconfig_jpegquality_knob
+{
+	display:block;
+	width:1.2em;
+	height:1.2em;
+	background:#fff;
+	border:0.1em solid #666;
+	border-radius:0.7em;
+	margin-top:-0.4em;
+}
+
+#mjconfig_latestver
+{
+	white-space:normal;
+}

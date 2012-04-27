@@ -1,0 +1,120 @@
+/**
+ * Stylesheet
+ *
+ * @package			Better Preview
+ * @version			1.11.3
+ *
+ * @author			Peter van Westen <peter@nonumber.nl>
+ * @link			http://www.nonumber.nl
+ * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
+ * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ */
+
+#module-status {
+	background-image: none !important;
+}
+#module-status span.preview {
+	display: none;
+}
+
+#module-status span.betterpreview_status {
+}
+#module-status span.betterpreview_status a.nn_status_link span {
+	background: transparent url(../images/icon.png) no-repeat 3px 3px;
+	padding-right: 0;
+	min-height: 16px;
+	cursor: pointer;
+}
+#module-status span.betterpreview_status a.nn_status_link .inactive {
+	background-image: url(../images/icon_grey.png);
+}
+#module-status span.betterpreview_status a.nn_status_link .no_icon {
+	background-image: none;
+	padding-left: 0;
+}
+#module-status span.betterpreview_status a.nn_status_link .no_text {
+	padding-left: 0;
+	width: 22px;
+}
+
+.betterpreview_title {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+.betterpreview_url {
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 1.1em;
+}
+#betterpreview_clip {
+	display: inline;
+}
+#betterpreview_clip img {
+	margin-top: 3px;
+}
+#betterpreview_clip_msg,
+#betterpreview_clip_msg.visible {
+	display: none;
+}
+body>#betterpreview_clip_msg {
+	position: fixed;
+	z-index: 200;
+	top: 0;
+	right: 0;
+	padding: 5px 20px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #666666;
+	border-left: 2px solid #CCCCCC;
+	border-bottom: 2px solid #CCCCCC;
+}
+body>#betterpreview_clip_msg.visible {
+	display: inline;
+}
+
+/* AP template */
+#ap-wrapper #ap-toolbar span#Preview {
+	display: none;
+}
+#ap-wrapper #ap-toolbar span.betterpreview_status {
+	position: relative;
+}
+#ap-wrapper #ap-toolbar span span.betterpreview_status a.nn_status_link {
+	padding: 0;
+}
+#ap-wrapper #ap-toolbar span span.betterpreview_status a.nn_status_link span {
+	background: transparent url(../images/icon_ap2.png) no-repeat 50% 0;
+	padding: 24px 4px 4px;
+	border: none;
+}
+#ap-wrapper #ap-toolbar span span.betterpreview_status a.nn_status_link:hover span {
+	background-position: 50% -40px;
+}
+#ap-wrapper #ap-toolbar span span.betterpreview_status a.nn_status_link:hover span.active {
+	background-position: 50% -80px;
+}
+
+#ap-wrapper #betterpreview_clip {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#ap-wrapper #betterpreview_clip img {
+	margin: 1px;
+}
+
+/* APLite template */
+#module-status.ap-status span.betterpreview_status {
+	float: none;
+	margin-right: 8px;
+}
+#module-status.ap-status span.betterpreview_status a.nn_status_link span {
+	display: inline-block;
+	background-position: 0 0;
+	margin-right: 0;
+}
+#module-status.ap-status span.betterpreview_status a.nn_status_link .no_text {
+	width: 16px;
+}
+#module-status.ap-status #betterpreview_clip {
+	margin-left: 2px;
+}

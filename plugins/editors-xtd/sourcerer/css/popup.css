@@ -1,0 +1,30 @@
+/**
+ * Sourcerer editor button popup stylesheet
+ *
+ * @package			Sourcerer
+ * @version			2.11.3
+ *
+ * @author			Peter van Westen <peter@nonumber.nl>
+ * @link			http://www.nonumber.nl
+ * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
+ * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ */
+
+.button2-left .sourcetags_0	a {
+	background-image: url(../images/button_right_addsourcetags_0.png);
+}
+.button2-left .sourcetags_1	a {
+	background-image: url(../images/button_right_addsourcetags_1.png);
+}
+.button2-left .tagstyle_0 a {
+	background-image: url(../images/button_right_converttags_0.png);
+}
+.button2-left .tagstyle_1 a {
+	background-image: url(../images/button_right_converttags_1.png);
+}
+
+#source, #frame_source {
+	width: 100%;
+	height: 330px;
+	margin-bottom: 10px;
+}

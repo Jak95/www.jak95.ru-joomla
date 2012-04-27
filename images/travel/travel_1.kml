@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>Thailand_Cambodia_Vietnam_2012</name>
+  <description><![CDATA[Маршрут планируемого путешествия в 2012. См. http://jak95.ru/joomla/]]></description>
+  <NetworkLink>
+    <name>Thailand_Cambodia_Vietnam_2012</name>
+    <Link>
+      <href>http://maps.google.ru/maps/ms?authuser=0&amp;vps=2&amp;hl=ru&amp;ie=UTF8&amp;oe=UTF8&amp;msa=0&amp;msid=200841047707492018768.0004a02f91c688a289e57&amp;output=kml</href>
+    </Link>
+  </NetworkLink>
+</Document>
+</kml>

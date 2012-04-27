@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content">
+	<name>Content - SmartResizer</name>
+	<author>igort</author>
+	<creationDate>November 2011</creationDate>
+	<copyright>Copyright (C) 2009-2011 LoT studio. All rights reserved.</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>support@lot-studio.ru</authorEmail>
+	<authorUrl>www.lot-studio.ru</authorUrl>
+	<version>1.14 J17</version>
+	<description>Plugin for automatic creation thumbnails for images in articles, blogs and other content. How to use: http://lot-studio.ru/devarticles/111-artsmartresizer</description>
+	<files>
+		<filename plugin="smartresizer">smartresizer.php</filename>
+		<filename>smartresizer/smartimagehandler.php</filename>
+		<filename>smartresizer/idna_convert.class.php</filename>
+		<filename>smartresizer/js/multithumb.js</filename>
+		<filename>smartresizer/index.html</filename>
+	</files>
+	<languages folder="">
+		<language tag="en-GB">en-GB.plg_content_smartresizer.ini</language>
+		<language tag="ru-RU">ru-RU.plg_content_smartresizer.ini</language>
+		<language tag="fr-FR">fr-FR.plg_content_smartresizer.ini</language>
+		<language tag="de-DE">de-DE.plg_content_smartresizer.ini</language>
+		<language tag="es-ES">es-ES.plg_content_smartresizer.ini</language>
+   	</languages>	
+	
+<config>	
+	<fields name="params">
+		<fieldset name="basic">
+			<field name="" type="spacer" />	
+			<field name="thumb_width" type="text" default="" label="Thumbnail width for blogs" description="THUMBNAIL WIDTH FOR BLOGS DESC">
+			</field>
+			<field name="thumb_height" type="text" default="" label="Thumbnail height for blogs" description="THUMBNAIL HEIGHT FOR BLOGS DESC">
+			</field>
+			
+			<field name="" type="spacer" />	
+			
+			<field name="thumb_medium_width" type="text" default="" label="Default thumbnail width for articles" description="DEFAULT THUMBNAIL WIDTH FOR ARTICLES DESC">
+			</field>
+			<field name="thumb_medium_height" type="text" default="" label="Default thumbnail height for articles" description="DEFAULT THUMBNAIL HEIGHT FOR ARTICLES DESC">
+			</field>
+			
+			<field name="" type="spacer" description="Thumbnail size for other components" />	
+			
+			<field name="thumb_other_width" type="text" default="" label="Default thumbnail width for others" description="DEFAULT THUMBNAIL WIDTH FOR OTHERS DESC">
+			</field>
+			<field name="thumb_other_height" type="text" default="" label="Default thumbnail height for others" description="DEFAULT THUMBNAIL HEIGHT FOR OTHERS DESC">
+			</field>
+		</fieldset>
+		<fieldset name="advanced">
+			<field name="processall" type="radio" default="0" label="Create thumb for all images" description="CREATE THUMB FOR ALL IMAGES DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			
+			<field name="ignoreindividual" type="radio" default="0" label="Ignore individual image size" description="IGNORE INDIVIDUAL IMAGE SIZE DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="readmorelink" type="radio" default="1" label="Create link on article in blogs" description="Create link DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="imgstyleblog" type="text" size="60" default="" label="Image style for blog" description="Image style DESC">
+			</field>
+			<field name="imgstylearticle" type="text" size="60" default="" label="Image style for article" description="Image style DESC">
+			</field>
+			<field name="imgstyleother" type="text" size="60" default="" label="Image style for other content" description="Image style DESC">
+			</field>
+	
+			<field name="openstyle" type="radio" default="0" label="Full image display style" description="full image display style">
+				<option value="0">New window or RokBox</option>
+				<option value="1">Popup window</option>
+			</field>
+			<field name="storethumb" type="list" default="1" label="Store thumbnails in" description="Store thumbnails in">
+				<option value="0">same folder as original</option>
+				<option value="2">smart_thumbs subfolder of original folder</option>
+				<option value="1">cache folder</option>
+			</field>
+	
+			<field name="thumb_quality" type="text" default="90" label="Thumbnail quality" description="THUMBNAIL QUALITY DESC">
+			</field>
+	
+			<field name="thumb_ext" type="text" default="_thumb" label="Thumbnail Extension" description="THUMBNAIL EXTENSION DESC">
+			</field>
+		</fieldset>
+	</fields>
+</config>	
+	
+</install>
