@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.6" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYS_ADMINEXILE</name>
+	<author>Michael Richey</author>
+	<creationDate>Jan 2011</creationDate>
+	<copyright>Copyright (C) 2011 Michael Richey. All rights reserved.</copyright>
+	<license>GNU General Public License</license>
+	<authorEmail>adminexile@richeyweb.com</authorEmail>
+	<authorUrl>http://www.richeyweb.com</authorUrl>
+	<version>1.11</version>
+	<description>PLG_SYS_ADMINEXILE_XML_DESC</description>
+	<files>
+                <folder>fields</folder>
+		<filename plugin="adminexile">adminexile.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_adminexile.ini</language>
+		<language tag="en-GB">en-GB.plg_system_adminexile.sys.ini</language>
+	</languages>
+	<config>
+	  <fields name="params" addfieldpath="plugins/system/adminexile/fields">
+	    <fieldset name="basic">
+              <field type="spacer" label="PLG_SYS_ADMINEXILE_BACKEND_LABEL" />
+	      <field name="key" type="text" default="adminexile" label="PLG_SYS_ADMINEXILE_KEY_LABEL" description="PLG_SYS_ADMINEXILE_KEY_DESC" class="inputbox validate-notnumeric" />
+              <field name="twofactor" type="radio" default="0" label="PLG_SYS_ADMINEXILE_KEYPAIR_LABEL" description="PLG_SYS_ADMINEXILE_KEYPAIR_DESC">
+                  <option value="0">JNO</option>
+                  <option value="1">JYES</option>
+              </field>
+              <field name="keyvalue" type="text" default="ROCKS" label="PLG_SYS_ADMINEXILE_KEYVALUE_LABEL" description="PLG_SYS_ADMINEXILE_KEYVALUE_DESC" class="inputbox" />
+              <field name="redirect" type="text" default="{HOME}" label="PLG_SYS_ADMINEXILE_REDIRECT_LABEL" description="PLG_SYS_ADMINEXILE_REDIRECT_DESC" />
+              <field name="fourofour" type="textarea" default="" filter="raw" label="PLG_SYS_ADMINEXILE_FOUROFOUR_LABEL" description="PLG_SYS_ADMINEXILE_FOUROFOUR_DESC" />
+              <field type="spacer" label="&lt;hr /&gt;" />
+              <field type="spacer" label="PLG_SYS_ADMINEXILE_FRONTEND_LABEL" />
+              <field name="frontrestrict" type="radio" default="0" label="PLG_SYS_ADMINEXILE_FRONTRESTRICT_LABEL" description="PLG_SYS_ADMINEXILE_FRONTRESTRICT_DESC">
+                  <option value="0">JNO</option>
+                  <option value="1">JYES</option>
+              </field>
+              <field type="usergroup" name="restrictgroup" multiple="true" default="" label="PLG_SYS_ADMINEXILE_RESTRICTGROUP_LABEL" description="PLG_SYS_ADMINEXILE_RESTRICTGROUP_DESC" />
+              <field name="javascripts" type="javascript" label="" />
+	    </fieldset>
+	  </fields>
+	</config>
+</install>
