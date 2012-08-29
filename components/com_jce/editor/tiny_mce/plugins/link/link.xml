@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <install version="1.5.0" type="plugin" plugin="link" core="1" editable="1">
 	<name>WF_LINK_TITLE</name>
-	<version>2.0.21</version>
-	<creationDate>15 February 2012</creationDate>
+	<version>2.2.4</version>
+	<creationDate>16 July 2012</creationDate>
 	<author>Ryan Demmer</author>
 	<authorEmail>info@joomlacontenteditor.net</authorEmail>
 	<authorUrl>http://www.joomlacontenteditor.net/</authorUrl>
@@ -39,12 +39,12 @@
             <option value="0">WF_OPTION_NO</option>
 		</param>
 	</params>
-	<extensions>links,popups</extensions>
+	<extensions>links,popups,search</extensions>
 	<languages></languages>
 	<help>
 		<topic key="link.about" title="WF_LINK_HELP_ABOUT" />
 		<topic key="link.interface" title="WF_LINK_HELP_INTERFACE" />
-		<topic key="link.content" title="WF_LINK_HELP_LINKS" />
+		<!--topic key="link.content" title="WF_LINK_HELP_LINKS" /-->
 		<topic key="link.advanced" title="WF_LINK_HELP_ADVANCED" />
 		<topic key="link.insert" title="WF_LINK_HELP_INSERT" />
 		<topic key="link.email" title="WF_LINK_HELP_EMAIL" />

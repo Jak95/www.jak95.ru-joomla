@@ -17,17 +17,16 @@
  * @copyright 2007-2011 Allon Moritz
  * @since 2.2.0
  */
+
 defined('_JEXEC') or die( 'Restricted access' );
 
 require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendar'.DS.'dbutil.php');
+JFormHelper::loadFieldClass('list');
 
-class JFormFieldGCalendar extends JFormFieldList
-{
+class JFormFieldGCalendar extends JFormFieldList{
 	protected $type = 'GCalendar';
-	protected $forceMultiple = true;
 
-	protected function getOptions()
-	{
+	protected function getOptions(){
 		$accounts = GCalendarDBUtil::getAllCalendars();
 		$options = array();
 		foreach($accounts as $account)
@@ -38,4 +37,3 @@ class JFormFieldGCalendar extends JFormFieldList
 		return $options;
 	}
 }
-?>

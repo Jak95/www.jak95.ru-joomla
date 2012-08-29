@@ -1,17 +1,15 @@
 html, body{height:100%;}
-.mceContentBody{height:100%;min-width:90%;padding:5px;background: #FFFFFF none; color:#000000; text-align:left;}
+.mceContentBody{height:100%;min-width:90%;padding:5px;}
 body, td, pre {color:#000; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:11px; margin:8px;}
 body {background:#FFF;}
 body.mceContentReset {background: #FFFFFF none !important; color:#000000 !important; text-align:left !important;}
-body.mceContentReset a:link, body.mceContentReset a:visited {color: #000000 !important;}
 h1 {font-size: 2em}
 h2 {font-size: 1.5em}
 h3 {font-size: 1.17em}
 h4 {font-size: 1em}
 h5 {font-size: .83em}
 h6 {font-size: .75em}
-.mceItemTable, .mceItemTable td, .mceItemTable th, .mceItemTable caption, .mceItemVisualAid {border: 1px dashed #BBB;border-collapse: separate !important;border-spacing: 2px;}
-a.mceItemAnchor:empty {padding-left:15px;background:url(../default/img/items.gif) no-repeat center;}
+.mceItemTable, .mceItemTable td, .mceItemTable th, .mceItemTable caption, .mceItemVisualAid {border: 1px dashed #BBB;}
 span.mceItemNbsp {background: #DDD}
 td.mceSelected, th.mceSelected {background-color:#3399ff !important}
 img {border:0;}
@@ -27,5 +25,10 @@ img:-moz-broken {-moz-force-broken-image-icon:1; width:24px; height:24px}
 font[face=mceinline] {font-family:inherit !important}
 *[contentEditable]:focus {outline:0}
 
+img::selection {
+    background: #b4d4ff !important;
+}
+
 /** bookmark **/
-span[data-mce-type="bookmark"] {font-size: 0;}	
+span[data-mce-type="bookmark"] {font-size: 0;}
+pre.mcePreformatted {margin:0;padding:0;}

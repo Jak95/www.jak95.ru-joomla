@@ -1070,7 +1070,7 @@ class Zend_Gdata_Gapps extends Zend_Gdata
         $nickname = $this->newNickname($nickname);
         $login = $this->newLogin($username);
         $entry->nickname = $nickname;
-        $entry->login = $login;
+        $entry->login = $login;
         return $this->insertNickname($entry);
     }
 

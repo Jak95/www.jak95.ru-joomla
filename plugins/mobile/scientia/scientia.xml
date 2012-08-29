@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="mobile" method="upgrade">
+	<name>Mobile - ScientiaMobile</name>
+	<version>1.1-2012.03.26</version>
+	<author>Mobile Joomla!</author>
+	<creationDate>June 2012</creationDate>
+	<copyright>(C) 2008-2012 Kuneri Ltd.</copyright>
+	<license>AGPL</license>
+	<authorEmail>hello@mobilejoomla.com</authorEmail>
+	<authorUrl>http://www.mobilejoomla.com</authorUrl>
+	<description>PLG_MOBILE_SCIENTIA__SCIENTIA_CHECKER</description>
+	<files>
+		<filename plugin="scientia">scientia.php</filename>
+		<filename>scientia_app.php</filename>
+		<folder>scientia</folder>
+	</files>
+	<scriptfile>install.php</scriptfile>
+	<languages>
+		<language tag="en-GB">en-GB.plg_mobile_scientia.ini</language>
+	</languages>
+	<params>
+		<param name="mysql4" type="radio" default="0" label="PLG_MOBILE_SCIENTIA__MYSQL4_LABEL" description="PLG_MOBILE_SCIENTIA__MYSQL4_DESC">
+			<option value="0">PLG_MOBILE_SCIENTIA__USEMYSQL5</option>
+			<option value="1">PLG_MOBILE_SCIENTIA__MYSQL4</option>
+		</param>
+		<param name="cache" type="radio" default="0" label="PLG_MOBILE_SCIENTIA__CACHE_LABEL" description="PLG_MOBILE_SCIENTIA__CACHE_DESC">
+			<option value="0">PLG_MOBILE_SCIENTIA__NO</option>
+			<option value="1">PLG_MOBILE_SCIENTIA__YES</option>
+		</param>
+	</params>
+	<config><fields name="params">
+	<fieldset name="basic">
+		<field name="mysql4" type="radio" default="0" label="PLG_MOBILE_SCIENTIA__MYSQL4_LABEL" description="PLG_MOBILE_SCIENTIA__MYSQL4_DESC">
+			<option value="0">PLG_MOBILE_SCIENTIA__USEMYSQL5</option>
+			<option value="1">PLG_MOBILE_SCIENTIA__MYSQL4</option>
+		</field>
+		<field name="cache" type="radio" default="0" label="PLG_MOBILE_SCIENTIA__CACHE_LABEL" description="PLG_MOBILE_SCIENTIA__CACHE_DESC">
+			<option value="0">PLG_MOBILE_SCIENTIA__NO</option>
+			<option value="1">PLG_MOBILE_SCIENTIA__YES</option>
+		</field>
+	</fieldset>
+	</fields></config>
+</install>

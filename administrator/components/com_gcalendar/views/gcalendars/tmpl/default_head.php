@@ -6,5 +6,6 @@ defined('_JEXEC') or die('Restricted Access');
 		onclick="checkAll(<?php echo count( $this->items ); ?>);" /></th>
 	<th><?php echo JText::_( 'COM_GCALENDAR_FIELD_NAME_LABEL' ); ?></th>
 	<th><?php echo JText::_( 'COM_GCALENDAR_FIELD_COLOR_LABEL' ); ?></th>
-	<th align="left"><?php echo JText::_( 'COM_GCALENDAR_VIEW_GCALENDARS_COLUMN_DETAILS' ); ?></th>
+	<th><?php echo JText::_( 'COM_GCALENDAR_FIELD_CALENDAR_ID_LABEL' ); ?></th>
+	<th><?php echo JText::_( 'COM_GCALENDAR_VIEW_GCALENDARS_COLUMN_AUTHENTICATION' ); ?></th>
 </tr>

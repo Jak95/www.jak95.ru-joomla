@@ -1,25 +1,25 @@
 <?php
 /**
- * NoNumber! Framework Helper File: Assignments: Users
+ * NoNumber Framework Helper File: Assignments: Users
  *
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2012 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 // No direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die;
 
 /**
  * Assignments: Users
  */
 class NNFrameworkAssignmentsUsers
 {
-	var $_version = '12.1.6';
+	var $_version = '12.7.9';
 
 	/**
 	 * passUserGroupLevels
@@ -30,16 +30,17 @@ class NNFrameworkAssignmentsUsers
 	 *
 	 * @return <bool>
 	 */
-	function passUserGroupLevels( &$main, &$params, $selection = array(), $assignment = 'all' )
+	function passUserGroupLevels(&$main, &$params, $selection = array(), $assignment = 'all')
 	{
 		$user = JFactory::getUser();
-		if ( isset( $user->groups ) && !empty( $user->groups ) ) {
-			$groups = array_values( $user->groups );
+
+		if (isset($user->groups) && !empty($user->groups)) {
+			$groups = array_values($user->groups);
 		} else {
 			$groups = $user->getAuthorisedGroups();
 		}
 
-		return $main->passSimple( $groups, $selection, $assignment );
+		return $main->passSimple($groups, $selection, $assignment);
 	}
 
 	/**
@@ -51,10 +52,10 @@ class NNFrameworkAssignmentsUsers
 	 *
 	 * @return <bool>
 	 */
-	function passUsers( &$main, &$params, $selection = array(), $assignment = 'all' )
+	function passUsers(&$main, &$params, $selection = array(), $assignment = 'all')
 	{
 		$user = JFactory::getUser();
 
-		return $main->passSimple( $user->get( 'id' ), $selection, $assignment );
+		return $main->passSimple($user->get('id'), $selection, $assignment);
 	}
 }

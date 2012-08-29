@@ -20,7 +20,7 @@
 #popup .galleries-list:hover{border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0}#popup .galleries-list.disabled:hover .galleries-dropdown,#popup .galleries-list.hidden:hover .galleries-dropdown{visibility:hidden}
 #popup .galleries-list.hidden:hover{border-radius:6px;-webkit-border-radius:6px;border:1px solid #ddd}#popup .galleries-dropdown ul{list-style:none;margin:0;padding:0}
 #popup .galleries-dropdown ul li{border-bottom:1px solid #eaeaea;padding:5px 10px;line-height:18px;min-width:116px}#popup .galleries-dropdown ul li.selected span:after{content:'\2713';float:right}
-#popup .selected-files{color:#aaa;float:right;margin-top:10px}#popup .selected-files span{font-weight:bold}#popup #mass-file-tags .gallery-minilabel{float:left;margin-right:20px}
+#popup .selected-files{color:#aaa;float:right;margin-top:10px}#popup .selected-files span{font-weight:bold}#popup #mass-file-tags .gallery-minilabel{float:left;margin-right:20px}
 label.gallery-label{display:block;padding:2px;color:#888}input.gallery-input{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;color:#666;padding:5px;margin-bottom:10px;width:96%;border:1px solid #ddd;box-shadow:0 0 5px rgba(0,0,0,0.1) inset;-webkit-box-shadow:0 0 5px rgba(0,0,0,0.1) inset;-moz-box-shadow:0 0 5px rgba(0,0,0,0.1) inset}
 label.gallery-minilabel{color:#888;font-size:11px;display:block}input.gallery-minilabel{margin-left:0}#popup .gallery-minilabel.thumb-height{margin-left:20px}
 #popup .separator.block-title{font-size:11px;color:#ccc}#popup .mini-label{margin:0 2px 0 0;min-width:35px;display:inline-block;text-align:left}#popup .galleries-inputs .separator{color:#ccc}

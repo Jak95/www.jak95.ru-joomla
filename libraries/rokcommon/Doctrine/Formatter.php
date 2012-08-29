@@ -250,7 +250,7 @@ class Doctrine_Formatter extends Doctrine_Connection_Module
     }
     
     /**
-     * Formatting a foreign Key name
+     * Formatting a foreign Key name
      *
      * @param string    name of the foreign key
      * @return string   formatted foreign key name

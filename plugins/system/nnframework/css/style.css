@@ -1,13 +1,13 @@
 /**
- * NoNumber! Framework general stylesheet
+ * NoNumber Framework general stylesheet
  *
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2012 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 input[type="checkbox"],
@@ -63,9 +63,15 @@ span.nn_code {
 	font-size: 12px;
 	color: #666666;
 }
+input.nn_codefield {
+	font-family: monospace;
+	font-size: 2em;
+	padding: 2px 5px;
+	text-align: center;
+}
 
 div#view_state_div {
-	margin: 0 auto;
+	margin: 10px 0;
 }
 .button_view_state {
 	background-image: url(../images/button_left.png) !important;

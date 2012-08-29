@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site"  method="upgrade">
+	
+    <name>Youtube Gallery Module</name>
+    <author>Design Compass corp</author>
+    <creationDate>June 2012</creationDate>
+    <copyright>Copyright (C) 2009-2011 DesignCompassCorp. All rights reserved.</copyright>
+    <license>GNU General Public License</license>
+    <authorEmail>admin@designcompasscorp.com</authorEmail>
+    <authorUrl>http://www.designcompasscorp.com/</authorUrl>
+    <version>2.2.4</version>
+    <description>MOD_YOUTUBEGALLERY_DESC</description>
+    <files>
+        <filename module="mod_youtubegallery">mod_youtubegallery.php</filename>
+        <filename>mod_youtubegallery.xml</filename>
+		<filename>index.html</filename>
+    </files>
+	
+	<config>
+	<fields name="params">
+		<fieldset name="basic" addfieldpath="administrator/components/com_youtubegallery/models/fields/">
+		
+		<field
+                                name="galleryid"
+                                type="youtubegallery"
+                                label="MOD_YOUTUBEGALLERY_FIELD_GALLERYNAME_LABEL"
+                                description="MOD_YOUTUBEGALLERY_FIELD_GALLERYNAME_DESC"
+                        />
+		
+		<field
+                            name="galleryalign"
+                            type="list"
+                            label="MOD_YOUTUBEGALLERY_ALIGN_LABEL"
+                            description="MOD_YOUTUBEGALLERY_ALIGN_DESC"
+                        >
+                            <option value="">MOD_YOUTUBEGALLERY_ALIGN_UNSET</option>
+                            <option value="left">MOD_YOUTUBEGALLERY_ALIGN_LEFT</option>
+                            <option value="center">MOD_YOUTUBEGALLERY_ALIGN_CENTER</option>
+                            <option value="right">MOD_YOUTUBEGALLERY_ALIGN_RIGHT</option>
+        </field>
+		
+		</fieldset>
+	
+	</fields>
+	
+	</config>
+	<languages>
+        <language tag="en-GB">language/en-GB.mod_youtubegallery.ini</language>
+        <language tag="en-GB">language/en-GB.mod_youtubegallery.sys.ini</language>
+    </languages>
+</extension>

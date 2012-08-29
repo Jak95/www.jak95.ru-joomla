@@ -57,4 +57,3 @@ class GCalendarModelGCalendar extends JModelAdmin
 		return $data;
 	}
 }
-?>

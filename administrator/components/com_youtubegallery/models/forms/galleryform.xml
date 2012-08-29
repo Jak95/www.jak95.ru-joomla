@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+         addrulepath="administrator/components/com_youtubegallery/models/rules"
+         
+      >
+
+        <fieldset  addfieldpath="administrator/components/com_youtubegallery/models/fields">
+                <field
+                        name="id"
+                        type="hidden"
+                />
+                
+                <field name="spacer0" type="spacer" default="" label="COM_YOUTUBEGALLERY_SPACER_GENERAL" description="" />
+                
+                <field
+                        name="catid"
+                        type="category"
+                        label="COM_YOUTUBEGALLERY_FIELD_CATEGORY_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_CATEGORY_DESC"
+                        class="inputbox"
+                        required="false"
+                        default=""
+                />
+                
+                
+                <field
+                        name="galleryname"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_GALLERYNAME_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_GALLERYNAME_DESC"
+                        size="40"
+                        class="inputbox validate-greeting"
+                        validate="galleryname"
+                        required="true"
+                        default=""
+                />
+                
+                <field
+                        name="showgalleryname"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWGALLERYNAME_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWGALLERYNAME_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                </field>
+                
+                
+                
+                <field
+                        name="gallerynamestyle"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_GALLERYNAMESTYLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_GALLERYNAMESTYLE_DESC"
+                        size="40"
+                        class="inputbox"
+                        default=""
+                />
+                
+                
+                <field name="spacer1" type="spacer" default="" label="COM_YOUTUBEGALLERY_SPACER_GALLERYLIST" description="" />
+                
+                <field
+                        name="gallerylist"
+                        type="textarea"
+                        label="COM_YOUTUBEGALLERY_FIELD_GALLERYLIST_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_GALLERYLIST_DESC"
+                        class="inputbox"
+                        default=""
+                        cols="90"
+                        rows="27"
+                />
+                
+                <field
+                        name="playvideo"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWFIRTVIDEO_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWFIRTVIDEO_DESC"
+                        class="inputbox"
+                        default="1"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                </field>
+                
+                
+                <field name="spacer2" type="spacer" default="" label="COM_YOUTUBEGALLERY_SPACER_ACTIVEVIDEO" description="" />
+                
+                <field
+                        name="showactivevideotitle"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWACTIVEVIDEOTITLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWACTIVEVIDEOTITLE_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                </field>
+
+
+                <field
+                        name="activevideotitlestyle"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_ACTIVEVIDEOTITLESTYLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_ACTIVEVIDEOTITLESTYLE_DESC"
+                        size="40"
+                        class="inputbox"
+                        default=""
+                />
+
+
+                <field
+                        name="description"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWACTIVEVIDEODESC_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWACTIVEVIDEODESC_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                </field>
+                
+                
+                <field
+                        name="descr_position"
+                        type="list"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWDESCPOSITION_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWDESCPOSITION_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="0">COM_YOUTUBEGALLERY_FIELD_SHOWDESCPOSITION_ABOVE</option>
+                        <option value="1">COM_YOUTUBEGALLERY_FIELD_SHOWDESCPOSITION_BELOW</option>
+                </field>                
+                
+                
+                <field
+                        name="descr_style"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_ACTIVEVIDEODESCSTYLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_ACTIVEVIDEODESCSTYLE_DESC"
+                        size="40"
+                        class="inputbox"
+                        default=""
+                />
+                
+                
+                <field name="spacer3" type="spacer" default="" label="COM_YOUTUBEGALLERY_SPACER_PLAYER" description="" />
+                
+                  <field
+                        name="width"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_WIDTH_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_WIDTH_DESC"
+                        size="40"
+                        class="inputbox"
+                        default="400"
+                />
+
+                <field
+                        name="height"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_HEIGHT_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_HEIGHT_DESC"
+                        size="40"
+                        class="inputbox"
+                        default="300"
+                />
+				
+				
+                <field
+                        name="border"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWBORDER_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWBORDER_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                </field>
+		
+				
+                <field
+                        name="color1"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_PRIBORDERCOLOR_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_PRIBORDERCOLOR_DESC"
+                        size="40"
+                        class="inputbox"
+                        default=""
+                />
+                
+                
+                <field
+                        name="color2"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_SECBORDERCOLOR_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SECBORDERCOLOR_DESC"
+                        size="40"
+                        class="inputbox"
+                        default=""
+                />
+
+				
+                <field
+                        name="autoplay"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_AUTOPLAY_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_AUTOPLAY_DESC"
+                        size="40"
+                        class="inputbox"
+                        default="0"
+                >        
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                </field>          
+                
+                <field
+                        name="repeat"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_REPEAT_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_REPEAT_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                </field>
+
+				
+                
+                <field
+                        name="fullscreen"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_FULLSCREEN_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_FULLSCREEN_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                <field
+                        name="related"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_RELATED_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_RELATED_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+				<field
+                        name="showinfo"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWINFO_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWINFO_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                <field
+                        name="controls"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_CONTROLS_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_CONTROLS_DESC"
+                        class="inputbox"
+                        default="1"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                <field
+                        name="muteonplay"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_MUTE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_MUTE_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                <field
+                        name="volume"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_VOLUME_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_VOLUME_DESC"
+                        class="inputbox"
+                        default="50"
+                />
+                
+                <field
+                        name="playertype"
+                        type="list"
+                        label="COM_YOUTUBEGALLERY_FIELD_PLAYERTYPE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_PLAYERTYPE_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_PLAYERTYPE_HTML5</option>
+                        <option value="0">COM_YOUTUBEGALLERY_PLAYERTYPE_FLASH</option>
+                        <option value="2">COM_YOUTUBEGALLERY_PLAYERTYPE_FLASH_WITH_CHECK</option>
+                        
+                </field>
+                
+                
+                
+                <field
+                        name="youtubeparams"
+                        type="textarea"
+                        label="COM_YOUTUBEGALLERY_FIELD_YOUTUBEPARAMS_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_YOUTUBEPARAMS_DESC"
+                        class="inputbox"
+                        default=""
+                        cols="60"
+                        rows="5"
+                />
+                
+                
+                
+                
+                <field name="spacer4" type="spacer" default="" label="COM_YOUTUBEGALLERY_SPACER_NAVBAR" description="" />
+                
+                <field
+                        name="navbarstyle"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_NAVBARSTYLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_NAVBARSTYLE_DESC"
+                        class="inputbox"
+                        default=""
+                />
+
+                	<field
+                        name="cols"
+                        type="list"
+                        label="COM_YOUTUBEGALLERY_FIELD_COLS_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_COLS_DESC"
+                        class="inputbox"
+                        default="3"
+                >
+                        
+                        <option value="1">Table with 1 column</option>
+                        <option value="2">Table with 2 columns</option>
+                        <option value="3">Table with 3 columns</option>
+                        <option value="4">Table with 4 columns</option>
+                        <option value="5">Table with 5 columns</option>
+                        <option value="6">Table with 6 columns</option>
+                        <option value="7">Table with 7 columns</option>
+                        <option value="8">Table with 8 columns</option>
+
+                </field>
+				
+			
+                <field
+                        name="bgcolor"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_BGCOLOR_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_BGCOLOR_DESC"
+                        class="inputbox"
+                        default=""
+                />
+                
+                <field
+                        name="thumbnailstyle"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_THUMBSTYLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_THUMBSTYLE_DESC"
+                        class="inputbox"
+                        default=""
+                        size="60"
+                />
+                
+				<field
+                        name="showtitle"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_SHOWTITLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_SHOWTITLE_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                
+                <field
+                        name="pagination"
+                        type="list"
+                        label="COM_YOUTUBEGALLERY_FIELD_PAGINATION_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_PAGINATION_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="0">COM_YOUTUBEGALLERY_FIELD_PAGINATION_NONE</option>
+                        <option value="1">COM_YOUTUBEGALLERY_FIELD_PAGINATION_ABOVE</option>
+                        <option value="2">COM_YOUTUBEGALLERY_FIELD_PAGINATION_BELOW</option>
+                        <option value="3">COM_YOUTUBEGALLERY_FIELD_PAGINATION_BOTH</option>
+                        
+                </field>
+                
+                <field
+                        name="customlimit"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_CUSTOMLIMIT_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_CUSTOMLIMIT_DESC"
+                        class="inputbox"
+                        default=""
+                        size="60"
+                />
+                	
+                
+                <field name="spacer5" type="spacer" default="" label="COM_YOUTUBEGALLERY_SPACER_MISC" description="" />
+                
+				
+				<field
+                        name="linestyle"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_LINESTYLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_LINESTYLE_DESC"
+                        class="inputbox"
+                        default=""
+                        size="60"
+                />
+				
+				<field
+                        name="cssstyle"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_CSSSTYLE_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_CSSSTYLE_DESC"
+                        class="inputbox"
+                        default=""
+                        size="60"
+                />
+                
+                <field
+                        name="openinnewwindow"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_OPENINNEWWINDOW_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_OPENINNEWWINDOW_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                <field
+                        name="rel"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_REL_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_REL_DESC"
+                        class="inputbox"
+                        default=""
+                        size="60"
+                />
+                <field
+                        name="hrefaddon"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_HREFADDON_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_HREFADDON_DESC"
+                        class="inputbox"
+                        default=""
+                        size="60"
+                />
+                
+                <field
+                        name="useglass"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_USEGLASS_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_USEGLASS_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+
+                <field
+                        name="logocover"
+                        type="text"
+                        label="COM_YOUTUBEGALLERY_FIELD_LOGOCOVER_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_LOGOCOVER_DESC"
+                        class="inputbox"
+                        default=""
+                        size="60"
+                />
+                
+                <field
+                        name="randomization"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_RANDOMIZATION_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_RANDOMIZATION_DESC"
+                        class="inputbox"
+                        default="0"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                
+                <field
+                        name="prepareheadtags"
+                        type="radio"
+                        label="COM_YOUTUBEGALLERY_FIELD_PREPAREHEADTAGS_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_PREPAREHEADTAGS_DESC"
+                        class="inputbox"
+                        default="1"
+                >
+                        <option value="1">COM_YOUTUBEGALLERY_YES</option>
+                        <option value="0">COM_YOUTUBEGALLERY_NO</option>
+                        
+                </field>
+                
+                
+                <field type="textarea" name="customlayout" default="" filter="raw" label="Custom Layout" description="See documentation" cols="40" rows="23" />
+                
+                <field
+                        name="updateperiod"
+                        type="list"
+                        label="COM_YOUTUBEGALLERY_FIELD_UPDATEPERIOD_LABEL"
+                        description="COM_YOUTUBEGALLERY_FIELD_UPDATEPERIOD_DESC"
+                        class="inputbox"
+                        default="7"
+                >
+                        
+                        <option value="1">Every Day</option>
+                        <option value="3">Every 3 Days</option>
+                        <option value="7">Every Week</option>
+                        <option value="10">Every 10 Days</option>
+                        <option value="30">Every Month</option>
+                        <option value="365">Every Year</option>
+                        
+                </field>
+
+
+        </fieldset>
+
+</form>

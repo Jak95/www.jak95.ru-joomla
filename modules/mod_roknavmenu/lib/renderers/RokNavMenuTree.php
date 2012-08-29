@@ -493,7 +493,7 @@ class RokNavMenuNode extends RokMenuTreeBase
 		return rtrim(ltrim($html_classes));		
 	}
 	
-	function addLinkClass($class) {
+	function addLinkClass($class) {
 		$this->_a_classes[] = $class;	
 	}
 	

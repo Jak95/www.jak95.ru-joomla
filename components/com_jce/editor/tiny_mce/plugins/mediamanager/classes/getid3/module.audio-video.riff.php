@@ -521,7 +521,7 @@ class getid3_riff extends getid3_handler
 					}
 				}
 				if (isset($thisfile_audio_dataformat) && ($thisfile_audio_dataformat == 'ac3')) {
-					unset($thisfile_audio['bits_per_sample']);
+					unset($thisfile_audio['bits_per_sample']);
 					if (!empty($info['ac3']['bitrate']) && ($info['ac3']['bitrate'] != $thisfile_audio['bitrate'])) {
 						$thisfile_audio['bitrate'] = $info['ac3']['bitrate'];
 					}

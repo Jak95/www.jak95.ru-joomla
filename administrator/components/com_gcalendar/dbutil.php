@@ -18,31 +18,31 @@
  * @since 2.2.0
  */
 
+defined('_JEXEC') or die();
+
+JLoader::import('joomla.application.component.model');
+JModel::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendar'.DS.'models', 'GCalendarModel');
+
 class GCalendarDBUtil{
 
-	public static function getCalendars($calendarIDs) {
-		$condition = '';
-		if(!empty($calendarIDs)){
-			if(is_array($calendarIDs)) {
-				$condition = 'id IN ( ' . rtrim(implode( ',', $calendarIDs ), ',') . ')';
-			} else {
-				$condition = 'id = '.(int)rtrim($calendarIDs, ',');
-			}
-		}else
-		return GCalendarDBUtil::getAllCalendars();
+	public static function getCalendar($calendarID) {
+		$model = JModel::getInstance('GCalendars', 'GCalendarModel', array('ignore_request' => true));
+		$model->setState('ids',$calendarID);
+		$items = $model->getItems();
+		if(empty($items)){
+			return null;
+		}
+		return $items[0];
+	}
 
-		$db =& JFactory::getDBO();
-		$query = "SELECT id, calendar_id, name, color, magic_cookie  FROM #__gcalendar where ".$condition;
-		$db->setQuery( $query );
-		$results = $db->loadObjectList();
-		return $results;
+	public static function getCalendars($calendarIDs) {
+		$model = JModel::getInstance('GCalendars', 'GCalendarModel', array('ignore_request' => true));
+		$model->setState('ids', $calendarIDs);
+		return $model->getItems();
 	}
 
 	public static function getAllCalendars() {
-		$db =& JFactory::getDBO();
-		$query = "SELECT id, calendar_id, name, color, magic_cookie  FROM #__gcalendar";
-		$db->setQuery( $query );
-		return $db->loadObjectList();
+		$model = JModel::getInstance('GCalendars', 'GCalendarModel', array('ignore_request' => true));
+		return $model->getItems();
 	}
 }
-?>

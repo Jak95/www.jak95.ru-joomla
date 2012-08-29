@@ -45,4 +45,3 @@ if(file_exists($path)){
 $controller = JController::getInstance('GCalendar');
 $controller->execute(JRequest::getCmd('task'));
 $controller->redirect();
-?>

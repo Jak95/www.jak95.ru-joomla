@@ -18,9 +18,10 @@
  * @since 2.2.0
  */
 
-// no direct access
 defined('_JEXEC') or die('Restricted access');
+
 jimport('joomla.database.table');
+jimport('joomla.utilities.simplecrypt');
 
 class GCalendarTableGCalendar extends JTable
 {
@@ -38,25 +39,33 @@ class GCalendarTableGCalendar extends JTable
 			$parameter->loadArray($array['params']);
 			$array['params'] = (string)$parameter;
 		}
+		
 		return parent::bind($array, $ignore);
 	}
-
-	protected function _getAssetName()
+	
+	public function load($keys = null, $reset = true)
 	{
-		$k = $this->_tbl_key;
-		return 'com_gcalendar.calendar.'.(int) $this->$k;
+		$result = parent::load($keys, $reset);
+		
+		if(isset($this->password) && !empty($this->password)){
+			$cryptor = new JSimpleCrypt();
+			$this->password = $cryptor->decrypt($this->password);
+		}
+		
+		return $result;
 	}
-
-	protected function _getAssetTitle()
+	
+	public function store($updateNulls = false)
 	{
-		return $this->name;
-	}
-
-	protected function _getAssetParentId()
-	{
-		$asset = JTable::getInstance('Asset');
-		$asset->loadByName('com_gcalendar');
-		return $asset->id;
+		$oldPassword = $this->password;
+		if(!empty($oldPassword)){
+			$cryptor = new JSimpleCrypt();
+			$this->password = $cryptor->encrypt($oldPassword);
+		}
+		$result = parent::store($updateNulls);
+		
+		$this->password = $oldPassword;
+		
+		return $result;
 	}
 }
-?>

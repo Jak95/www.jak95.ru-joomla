@@ -403,7 +403,7 @@ class getid3_id3v2 extends getid3_handler
 
 					} else {
 
-						$info['error'][] = 'error parsing "'.$frame_name.'" ('.$framedataoffset.' bytes into the ID3v2.'.$id3v2_majorversion.' tag).';
+						$info['error'][] = 'error parsing "'.$frame_name.'" ('.$framedataoffset.' bytes into the ID3v2.'.$id3v2_majorversion.' tag).';
 
 					}
 
@@ -1440,7 +1440,7 @@ class getid3_id3v2 extends getid3_handler
 			// Encrypted datablock   <binary data>
 
 			$frame_offset = 0;
-			$frame_terminatorpos = strpos($parsedFrame['data'], "\x00", $frame_offset);
+			$frame_terminatorpos = strpos($parsedFrame['data'], "\x00", $frame_offset);
 			$frame_ownerid = substr($parsedFrame['data'], $frame_offset, $frame_terminatorpos - $frame_offset);
 			$frame_offset = $frame_terminatorpos + strlen("\x00");
 
@@ -1597,7 +1597,7 @@ class getid3_id3v2 extends getid3_handler
 			// Text encoding      $xx
 			// Price string       <text string> $00
 			// Valid until        <text string>
-			// Contact URL        <text string> $00
+			// Contact URL        <text string> $00
 			// Received as        $xx
 			// Name of seller     <text string according to encoding> $00 (00)
 			// Description        <text string according to encoding> $00 (00)
@@ -1973,7 +1973,7 @@ class getid3_id3v2 extends getid3_handler
 			KWD	Dinars
 			KYD	Dollars
 			KZT	Tenge
-			LAK	Kips
+			LAK	Kips
 			LBP	Pounds
 			LKR	Rupees
 			LRD	Dollars
@@ -2637,7 +2637,7 @@ class getid3_id3v2 extends getid3_handler
 			sio	Siouan Languages
 			sit	Sino-Tibetan (Other)
 			sla	Slavic (Other)
-			slk	Slovak
+			slk	Slovak
 			slo	Slovak
 			slv	Slovenian
 			smi	Sami Languages

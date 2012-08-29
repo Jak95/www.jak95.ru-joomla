@@ -113,7 +113,7 @@ class Zend_Gdata_Gapps_EmailListRecipientEntry extends Zend_Gdata_Entry
                 $this->_who = $who;
                 break;
             default:
-                parent::takeChildFromDOM($child);
+                parent::takeChildFromDOM($child);
                 break;
         }
     }

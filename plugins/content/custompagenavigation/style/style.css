@@ -1,0 +1,19 @@
+
+/**
+ * @package Plugin Custom Page Navigation for Joomla! 1.5
+ * @version $Id: custompagenavigation.php 456 2011-02-22 19:00:30 $
+ * @author E-max
+ * @copyright Copyright (C) 2011 - E-max
+ * @license GNU/GPL http://www.gnu.org/copyleft/gpl.html
+ **/
+ 
+ ul.pagenav { list-style-type:none; padding: 0; }
+ ul.pagenav li {line-height:32px;}
+.pagenav-prev, .pagenav-next {line-height: 32px;}
+.pagenav-prev { float:left; }
+.pagenav-next { float:right; }
+.pagenav-prev img {width:32px; height:32px; vertical-align:middle; padding-right:5px;}
+.pagenav-next img {width:32px; height:32px; vertical-align:middle; float:right; padding-left:5px;}
+.pagenav-prev span {}
+.pagenav-next span {}
+.pagenavigation_credits {wisth:100%; text-align:center; font-size:90%; text-decoration:none;}

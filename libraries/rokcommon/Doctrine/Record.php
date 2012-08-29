@@ -251,7 +251,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             // set the default values for this record
             $this->assignDefaultValues();
         } else {
-            $this->_state = Doctrine_Record::STATE_CLEAN;
+            $this->_state = Doctrine_Record::STATE_CLEAN;
 
             if ($this->isInProxyState()) {
                 $this->_state  = Doctrine_Record::STATE_PROXY;
@@ -2420,7 +2420,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * removes links from this record to given records
      * if no ids are given, it removes all links
      *
-     * @param string $alias     related component alias
+     * @param string $alias     related component alias
      * @param array $ids        the identifiers of the related records
      * @param boolean $now      whether or not to execute now or set as pending unlinks
      * @return Doctrine_Record  this object (fluent interface)

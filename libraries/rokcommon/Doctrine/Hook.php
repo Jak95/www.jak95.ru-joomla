@@ -112,7 +112,7 @@ class Doctrine_Hook
     }
 
     /**
-     * setFieldParser
+     * setFieldParser
      *
      * @param string $field             field name
      * @param string|object $parser     parser name or custom parser object

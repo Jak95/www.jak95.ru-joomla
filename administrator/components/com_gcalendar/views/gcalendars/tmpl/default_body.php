@@ -13,17 +13,15 @@ defined('_JEXEC') or die('Restricted Access');
 			</a>
 		</td>
 		<td width="40px"><div style="background-color: <?php echo GCalendarUtil::getFadedColor($item->color);?>;width: 40px;height: 40px;"></div></td>
-		<td>
-		<table>
-			<tr>
-				<td style="border: 0;"><b><?php echo JText::_( 'COM_GCALENDAR_FIELD_CALENDAR_ID_LABEL' ); ?>:</b></td>
-				<td style="border: 0;"><?php echo $item->calendar_id; ?></td>
-			</tr>
-			<tr>
-				<td style="border: 0;"><b><?php echo JText::_( 'COM_GCALENDAR_FIELD_MAGIC_COOKIE_LABEL' ); ?>:</b></td>
-				<td style="border: 0;"><?php echo $item->magic_cookie; ?></td>
-			</tr>
-		</table>
-		</td>
+		<td style="border: 0;"><?php echo urldecode($item->calendar_id); ?></td>
+		<td style="border: 0;"><?php 
+		if(!empty($item->magic_cookie)){
+			echo JText::_('COM_GCALENDAR_FIELD_MAGIC_COOKIE_LABEL');
+		} else if(!empty($item->username)){
+			echo JText::_('COM_GCALENDAR_VIEW_GCALENDARS_COLUMN_AUTHENTICATION_USERNAME');
+		} else {
+			echo JText::_('COM_GCALENDAR_VIEW_GCALENDARS_COLUMN_AUTHENTICATION_NO');
+		}
+		?></td>
 	</tr>
 <?php } ?>

@@ -1,25 +1,25 @@
 <?php
 /**
- * NoNumber! Framework Helper File: Assignments: Components
+ * NoNumber Framework Helper File: Assignments: Components
  *
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2012 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 // No direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die;
 
 /**
  * Assignments: Components
  */
 class NNFrameworkAssignmentsComponents
 {
-	var $_version = '12.1.6';
+	var $_version = '12.7.9';
 
 	/**
 	 * passComponents
@@ -30,8 +30,8 @@ class NNFrameworkAssignmentsComponents
 	 *
 	 * @return <bool>
 	 */
-	function passComponents( &$main, &$params, $selection = array(), $assignment = 'all' )
+	function passComponents(&$main, &$params, $selection = array(), $assignment = 'all')
 	{
-		return $main->passSimple( strtolower( $main->_params->option ), $selection, $assignment );
+		return $main->passSimple(strtolower($main->_params->option), $selection, $assignment);
 	}
 }

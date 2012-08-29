@@ -78,16 +78,16 @@ defined('_JEXEC') or die('Restricted access');
 					$solution = "<ul><li>If the error is the same as in the connection test use the solution described there.</li>";
 					$solution .= "<li>Please check your shared settings of the calendar and the events, ";
 					$solution .= "if you do not share your calendar with the public the <a href=\"http://code.google.com/apis/calendar/docs/2.0/developers_guide_protocol.html#AuthMagicCookie\">magic cookie</a> field must be set.</li>";
-					$solution .= "<li><b>If the problem still exists check the forum at <a href=\"http://g4j.laoneo.net\">g4j.laoneo.net</a>.</b></li>";
+					$solution .= "<li><b>If the problem still exists check the forum at <a href=\"http://g4j.laoneo.net\">g4j.laoneo.net</a>.</b></li></ul>";
 					$status = 'failure';
 				}else if(empty($events)){
 					$solution = 'Create events in the calendar.';
 					$status = 'warning';
-					$desc = 'Simplepie could check the events without any problems from calendar '.$result->name.'. But the result was empty.';
+					$desc = 'GCalendar could check the events without any problems from calendar '.$result->name.'. But the result was empty.';
 				}else{
 					$solution = '';
 					$status = 'ok';
-					$desc = 'Simplepie could read the events without any problems from calendar '.$result->name.'.';
+					$desc = 'GCalendar could read the events without any problems from calendar '.$result->name.'.';
 				}
 // 				$desc .= $desc.'<br><a href="'.$feed->feed_url.'" target="_blank">Here</a> is the url of the generated google calendar feed.';
 				$tmp[] = array('name'=>$result->name.' Check', 'description'=>$desc, 'status'=>$status, 'solution'=>$solution);

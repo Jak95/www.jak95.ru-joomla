@@ -37,7 +37,7 @@ class plgSearchGCalendar extends JPlugin
 	public function onContentSearchAreas()
 	{
 		static $areas = array(
-		'gcalendar' => 'GCalendar'
+				'gcalendar' => 'GCalendar'
 		);
 		return $areas;
 	}
@@ -51,7 +51,7 @@ class plgSearchGCalendar extends JPlugin
 			return array();
 		}
 		if($phrase == 'exact')
-		$text = "\"".$text."\"";
+			$text = "\"".$text."\"";
 
 		switch ( $ordering )
 		{
@@ -78,7 +78,7 @@ class plgSearchGCalendar extends JPlugin
 		$pastevents = $pluginParams->get( 'pastevents', 1 ) == 1;
 		$results = GCalendarDBUtil::getCalendars($calendarids);
 		if(empty($results))
-		return array();
+			return array();
 
 		$events = array();
 		foreach ($results as $result) {
@@ -97,38 +97,32 @@ class plgSearchGCalendar extends JPlugin
 
 		$return = array();
 		foreach($events as $event){
-			// the date formats from http://php.net/date
-			$dateformat = 'd.m.Y';
-			$timeformat = 'H:i';
+			$params = clone JComponentHelper::getParams('com_gcalendar');
 
-			// These are the dates we'll display
-			$startDate = GCalendarUtil::formatDate($dateformat, $event->getStartDate());
-			$startTime = GCalendarUtil::formatDate($timeformat, $event->getEndDate());
+			// enable all params
+			$params->set('show_calendar_name', 1);
+			$params->set('show_event_title', 1);
+			$params->set('show_event_date', 1);
+			$params->set('show_event_attendees', 1);
+			$params->set('show_event_location', 1);
+			$params->set('show_event_location_map', 1);
+			$params->set('show_event_description', 1);
+			$params->set('show_event_author', 1);
+			$params->set('show_event_copy_info', 1);
 
-			$timeString = $startTime.' '.$startDate;
-			switch($event->getDayType()){
-				case GCalendar_Entry::SINGLE_WHOLE_DAY:
-					$timeString = $startDate;
-					break;
-				case GCalendar_Entry::SINGLE_PART_DAY:
-					$timeString = $startTime.' '.$startDate;
-					break;
-				case GCalendar_Entry::MULTIPLE_WHOLE_DAY:
-					$timeString = $startDate;
-					break;
-				case GCalendar_Entry::MULTIPLE_PART_DAY:
-					$timeString = $startTime.' '.$startDate;
-					break;
-			}
+			$title = GCalendarUtil::renderEvents(array($event), '{{#events}}{{date}} {{{title}}}{{/events}}', $params);
+			$text = GCalendarUtil::renderEvents(array($event), '{{#events}}{{{description}}}{{/events}}', $params);
 
 			$itemID = GCalendarUtil::getItemId($event->getParam('gcid'));
-			if(!empty($itemID))$itemID = '&Itemid='.$itemID;
+			if(!empty($itemID))
+				$itemID = '&Itemid='.$itemID;
+
 			$row->href = JRoute::_('index.php?option=com_gcalendar&view=event&eventID='.$event->getGCalId().'&gcid='.$event->getParam('gcid').$itemID);
-			$row->title = $timeString.' '.$event->getTitle();
-			$row->text = $event->getContent();
+			$row->title = $title;
+			$row->text = $text;
 			$row->section = JText::_('PLG_SEARCH_GCALENDAR_OUTPUT_CATEGORY');
 			$row->category = $event->getParam('gcid');
-			$row->created = $event->getStartDate();
+			$row->created = $event->getStartDate()->format('U', true);
 			$row->browsernav = '';
 			$return[] = $row;
 			$row = null;
@@ -136,4 +130,3 @@ class plgSearchGCalendar extends JPlugin
 		return $return;
 	}
 }
-?>

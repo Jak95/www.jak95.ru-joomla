@@ -22,8 +22,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 
 JFormHelper::loadFieldClass('textarea');
 
-class JFormFieldTextarea2 extends JFormFieldTextarea
-{
+class JFormFieldTextarea2 extends JFormFieldTextarea{
 	protected $type = 'Textarea2';
 
 	public function getInput(){
@@ -35,12 +34,10 @@ class JFormFieldTextarea2 extends JFormFieldTextarea
 		return $buffer;
 	}
 
-	public function setup(& $element, $value, $group = null)
-	{
+	public function setup(& $element, $value, $group = null){
 		if(isset($element->content) && empty($value)){
 			$value = $element->content;
 		}
 		return parent::setup($element,$value,$group);
 	}
 }
-?>

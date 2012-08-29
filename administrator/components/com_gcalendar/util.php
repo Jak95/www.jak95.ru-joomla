@@ -18,73 +18,47 @@
  * @since 2.2.0
  */
 
-require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendar'.DS.'dbutil.php');
+defined('_JEXEC') or die('Restricted access');
 
-/**
- * A util class with some static helper methodes used in GCalendar.
- *
- * @author allon
- */
+require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendar'.DS.'dbutil.php');
+
+if(!class_exists('Mustache')){
+	require_once(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendar'.DS.'libraries'.DS.'mustache'.DS.'Mustache.php');
+}
+
 class GCalendarUtil{
 
-	/**
-	 * Loads JQuery if the component parameter is set to yes.
-	 */
-	public static function loadJQuery(){
-		static $jQueryloaded;
-		if($jQueryloaded == null){
-			$param   = GCalendarUtil::getComponentParameter('loadJQuery');
-			$document =& JFactory::getDocument();
-			if(!JFactory::getApplication()->get('jquery', false) && ($param == 'yes' || empty($param))){
-				$document->addScript(JURI::base().'components/com_gcalendar/libraries/jquery/jquery.min.js');
-				JFactory::getApplication()->set('jquery', true);
-			}
-			$document->addScriptDeclaration("jQuery.noConflict();");
-			$jQueryloaded = 'loaded';
-		}
-	}
-
-	/**
-	 * Returns the component parameter for the given key.
-	 *
-	 * @param $key
-	 * @param $defaultValue
-	 * @return the component parameter
-	 */
 	public static function getComponentParameter($key, $defaultValue = null){
-		$params   = JComponentHelper::getParams('com_gcalendar');
-		return $params->get($key, $defaultValue);
+		$params = JComponentHelper::getParams('com_gcalendar');
+		$value = $params->get($key, $defaultValue);
+
+		if($key == 'timezone' && empty($value)) {
+			$user = JFactory::getUser();
+			if($user->get('id')) {
+				$value = $user->getParam('timezone');
+			}
+			if(empty($value)){
+				$value = JFactory::getApplication()->getCfg('offset', 'UTC');
+			}
+		}
+		return $value;
 	}
 
-	/**
-	 * Returns the correct configured frontend language for the
-	 * joomla web site.
-	 * The format is something like de-DE which can be passed to google.
-	 *
-	 * @return the frontend language
-	 */
 	public static function getFrLanguage(){
-		$conf	=& JFactory::getConfig();
+		$conf = JFactory::getConfig();
 		return $conf->getValue('config.language');
-		//		$params   = JComponentHelper::getParams('com_languages');
-		//		return $params->get('site', 'en-GB');
 	}
 
-	/**
-	 * Returns a valid Item ID for the given calendar id. If none is found
-	 * NULL is returned.
-	 *
-	 * @param $cal_id
-	 * @return the item id
-	 */
-	public static function getItemId($cal_id){
-		$component	= &JComponentHelper::getComponent('com_gcalendar');
-		$menu = &JSite::getMenu();
-		$items		= $menu->getItems('component_id', $component->id);
+	public static function getItemId($calendarId, $strict = false){
+		$component = JComponentHelper::getComponent('com_gcalendar');
+		$menu = JFactory::getApplication()->getMenu();
+		$items = $menu->getItems('component_id', $component->id);
 
+		$default = null;
 		if (is_array($items)){
 			foreach($items as $item) {
-				$paramsItem	=& $menu->getParams($item->id);
+				$default = $item;
+				$paramsItem	= $menu->getParams($item->id);
 				$calendarids = $paramsItem->get('calendarids');
 				if(empty($calendarids)){
 					$results = GCalendarDBUtil::getAllCalendars();
@@ -98,9 +72,9 @@ class GCalendarUtil{
 				$contains_gc_id = FALSE;
 				if ($calendarids){
 					if( is_array( $calendarids ) ) {
-						$contains_gc_id = in_array($cal_id,$calendarids);
+						$contains_gc_id = in_array($calendarId,$calendarids);
 					} else {
-						$contains_gc_id = $cal_id == $calendarids;
+						$contains_gc_id = $calendarId == $calendarids;
 					}
 				}
 				if($contains_gc_id){
@@ -108,104 +82,196 @@ class GCalendarUtil{
 				}
 			}
 		}
-		return null;
+		if($strict = true){
+			return null;
+		}
+		return $default;
 	}
 
-	/**
-	 * The simplepie event is rendered for the given formats and
-	 * returned as HTML code.
-	 *
-	 * @param $event
-	 * @param $format
-	 * @param $dateformat
-	 * @param $timeformat
-	 * @return the HTML code of the efent
-	 */
-	public static function renderEvent(GCalendar_Entry $event, $format, $dateformat, $timeformat){
-		$tz = GCalendarUtil::getComponentParameter('timezone');
-		if($tz == ''){
-			$tz = $event->getTimezone();
+	public static function renderEvents(array $events = null, $output, $params = null, $eventParams = array()){
+		if($events === null){
+			$events = array();
 		}
 
-		$itemID = GCalendarUtil::getItemId($event->getParam('gcid'));
-		if(!empty($itemID)){
-			$itemID = '&Itemid='.$itemID;
-		}else{
-			$menu=JSite::getMenu();
-			$activemenu=$menu->getActive();
-			if($activemenu != null)
-			$itemID = '&Itemid='.$activemenu->id;
+		JFactory::getLanguage()->load('com_gcalendar', JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendar');
+
+		$lastHeading = '';
+
+		$configuration = array();
+		$configuration['events'] = array();
+		foreach ($events as $event) {
+			if(!is_object($event)) {
+				continue;
+			}
+			$variables = $eventParams;
+
+			$itemID = GCalendarUtil::getItemId($event->getParam('gcid', null));
+			if(!empty($itemID) && JRequest::getVar('tmpl', null) != 'component' && $event != null){
+				$component = JComponentHelper::getComponent('com_gcalendar');
+				$menu = JFactory::getApplication()->getMenu();
+				$item = $menu->getItem($itemID);
+				if($item !=null){
+					$backLinkView = $item->query['view'];
+					$dateHash = '';
+					if($backLinkView == 'gcalendar'){
+						$day = $event->getStartDate()->format('d', true);
+						$month = $event->getStartDate()->format('m', true);
+						$year = $event->getStartDate()->format('Y', true);
+						$dateHash = '#year='.$year.'&month='.$month.'&day='.$day;
+					}
+				}
+				$variables['calendarLink'] = JRoute::_('index.php?option=com_gcalendar&Itemid='.$itemID.$dateHash);
+			}
+
+			$itemID = GCalendarUtil::getItemId($event->getParam('gcid'));
+			if(!empty($itemID)){
+				$itemID = '&Itemid='.$itemID;
+			}else{
+				$menu = JFactory::getApplication()->getMenu();
+				$activemenu = $menu->getActive();
+				if($activemenu != null){
+					$itemID = '&Itemid='.$activemenu->id;
+				}
+			}
+
+			$variables['backlink'] = JRoute::_('index.php?option=com_gcalendar&view=event&eventID='.$event->getGCalId().'&gcid='.$event->getParam('gcid').$itemID);
+
+			$variables['link'] = $event->getLink('alternate')->getHref();
+			$variables['calendarcolor'] = $event->getParam('gccolor');
+
+			// the date formats from http://php.net/date
+			$dateformat = $params->get('event_date_format', 'm.d.Y');
+			$timeformat = $params->get('event_time_format', 'g:i a');
+
+			// These are the dates we'll display
+			$startDate = $event->getStartDate()->format($dateformat, true);
+			$startTime = $event->getStartDate()->format($timeformat, true);
+			$endDate = $event->getEndDate()->format($dateformat, true);
+			$endTime = $event->getEndDate()->format($timeformat, true);
+			$dateSeparator = '-';
+
+			$timeString = $startTime.' '.$startDate.' '.$dateSeparator.' '.$endTime.' '.$endDate;
+			$copyDateTimeFormat = 'Ymd';
+			switch($event->getDayType()){
+				case GCalendar_Entry::SINGLE_WHOLE_DAY:
+					$timeString = $startDate;
+					$copyDateTimeFormat = 'Ymd';
+
+					$startTime = '';
+					$endTime = '';
+					$dateSeparator = '';
+					break;
+				case GCalendar_Entry::SINGLE_PART_DAY:
+					$timeString = $startDate.' '.$startTime.' '.$dateSeparator.' '.$endTime;
+					$copyDateTimeFormat = 'Ymd\THis';
+					break;
+				case GCalendar_Entry::MULTIPLE_WHOLE_DAY:
+					$tmp = clone $event->getEndDate();
+					$tmp->modify('-1 day');
+					$endDate = $tmp->format($dateformat, true);
+					$timeString = $startDate.' '.$dateSeparator.' '.$endDate;
+					$copyDateTimeFormat = 'Ymd';
+
+					$startTime = '';
+					$endTime = '';
+					$dateSeparator = '';
+					break;
+				case GCalendar_Entry::MULTIPLE_PART_DAY:
+					$timeString = $startTime.' '.$startDate.' '.$dateSeparator.' '.$endTime.' '.$endDate;
+					$copyDateTimeFormat = 'Ymd\THis';
+					break;
+			}
+			$variables['calendarName'] = $params->get('show_calendar_name', 1) == 1 ? $event->getParam('gcname') : null;
+			$variables['title'] = $params->get('show_event_title', 1) == 1 ? (string)$event->getTitle() : null;
+			if($params->get('show_event_date', 1) == 1){
+				$variables['date'] = $timeString;
+				$variables['startDate'] = $startDate;
+				$variables['startTime'] = $startTime;
+				$variables['endDate'] = $endDate;
+				$variables['endTime'] = $endTime;
+				$variables['dateseparator'] = $dateSeparator;
+
+				$variables['month'] = strtoupper($event->getStartDate()->format('M', true));
+				$variables['day'] = $event->getStartDate()->format('d', true);
+			}
+			$variables['modifieddate'] = $params->get('show_event_modified_date', 1) == 1 ? $event->getModifiedDate()->format($timeformat, true).' '.$event->getModifiedDate()->format($dateformat, true) : null;
+
+			if($params->get('show_event_attendees', 2) == 1 && count($event->getWho()) > 0){
+				$variables['hasAttendees'] = true;
+				$variables['attendees'] = array();
+				foreach ($event->getWho() as $a) {
+					$variables['attendees'][] = array('name' => (string)$a->getValueString(), 'email' =>  base64_encode(str_replace('@','#',$a->getEmail())));
+				}
+			}
+			$location = $event->getLocation();
+			$variables['location'] = $params->get('show_event_location', 1) == 1 ? $location : null;
+			if(!empty($location)){
+				$variables['maplink'] = $params->get('show_event_location_map', 1) == 1 ? "http://maps.google.com/?q=".urlencode($location).'&hl='.substr(GCalendarUtil::getFrLanguage(),0,2).'&output=embed' : null;
+			}
+
+			if($params->get('show_event_description', 1) == 1) {
+				$variables['description'] = (string)$event->getContent();
+				if($params->get('event_description_format', 1) == 1) {
+					$variables['description'] = preg_replace("@(src|href)=\"https?://@i",'\\1="', $event->getContent());
+					$variables['description'] = nl2br(preg_replace("@(((f|ht)tp:\/\/)[^\"\'\>\s]+)@",'<a href="\\1" target="_blank">\\1</a>', $variables['description']));
+				}
+			}
+			if($params->get('show_event_author', 2) == 1){
+				$variables['hasAuthor'] = true;
+				$variables['author'] = array();
+				foreach ($event->getAuthor() as $author) {
+					$variables['author'][] = array('name' => (string)$author->getName(), 'email' =>  base64_encode(str_replace('@','#',$author->getEmail())));
+				}
+			}
+
+			if($params->get('show_event_copy_info', 1) == 1){
+				$variables['copyGoogleUrl'] = 'http://www.google.com/calendar/render?action=TEMPLATE&text='.urlencode($event->getTitle());
+				$variables['copyGoogleUrl'] .= '&dates='.$event->getStartDate()->format($copyDateTimeFormat).'%2F'.$event->getEndDate()->format($copyDateTimeFormat);
+				$variables['copyGoogleUrl'] .= '&location='.urlencode($event->getLocation());
+				$variables['copyGoogleUrl'] .= '&details='.urlencode($event->getContent());
+				$variables['copyGoogleUrl'] .= '&hl='.GCalendarUtil::getFrLanguage().'&ctz=Etc/GMT';
+				$variables['copyGoogleUrl'] .= '&sf=true&output=xml';
+
+				$ical_timeString_start =  $startTime.' '.$startDate;
+				$ical_timeString_start = strtotime($ical_timeString_start);
+				$ical_timeString_end =  $endTime.' '.$endDate;
+				$ical_timeString_end = strtotime($ical_timeString_end);
+				$loc = $event->getLocation();
+				$variables['copyOutlookUrl'] = JRoute::_("index.php?option=com_gcalendar&view=ical&format=raw&eventID=".$event->getGCalId().'&gcid='.$event->getParam('gcid'));
+			}
+
+			$groupHeading = $event->getStartDate()->format($params->get('grouping', ''), true);
+			if ($groupHeading != $lastHeading) {
+				$lastHeading = $groupHeading;
+				$variables['header'] =  $groupHeading;
+			}
+
+			$variables['calendarLinkLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_CALENDAR_BACK_LINK');
+			$variables['calendarNameLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_CALENDAR_NAME');
+			$variables['titleLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_EVENT_TITLE');
+			$variables['dateLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_WHEN');
+			$variables['attendeesLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_ATTENDEES');
+			$variables['locationLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_LOCATION');
+			$variables['descriptionLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_DESCRIPTION');
+			$variables['authorLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_AUTHOR');
+			$variables['copyLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_COPY');
+			$variables['copyGoogleLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_COPY_TO_MY_CALENDAR');
+			$variables['copyOutlookLabel'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_COPY_TO_MY_CALENDAR_ICS');
+			$variables['language'] = substr(GCalendarUtil::getFrLanguage(),0,2);
+
+			$configuration['events'][] = $variables;
 		}
 
-		// These are the dates we'll display
-		$startDate = GCalendarUtil::formatDate($dateformat, $event->getStartDate());
-		$startTime = GCalendarUtil::formatDate($timeformat, $event->getStartDate());
-		$endDate = GCalendarUtil::formatDate($dateformat, $event->getEndDate());
-		$endTime = GCalendarUtil::formatDate($timeformat, $event->getEndDate());
+		$configuration['emptyText'] = JText::_('COM_GCALENDAR_FIELD_CONFIG_EVENT_LABEL_NO_EVENT_TEXT');
 
-		$temp_event = $format;
-
-		switch($event->getDayType()){
-			case GCalendar_Entry::SINGLE_WHOLE_DAY:
-				$temp_event=str_replace("{startdate}",$startDate,$temp_event);
-				$temp_event=str_replace("{starttime}","",$temp_event);
-				$temp_event=str_replace("{dateseparator}","",$temp_event);
-				$temp_event=str_replace("{enddate}","",$temp_event);
-				$temp_event=str_replace("{endtime}","",$temp_event);
-				break;
-			case GCalendar_Entry::SINGLE_PART_DAY:
-				$temp_event=str_replace("{startdate}",$startDate,$temp_event);
-				$temp_event=str_replace("{starttime}",$startTime,$temp_event);
-				$temp_event=str_replace("{dateseparator}","-",$temp_event);
-				$temp_event=str_replace("{enddate}","",$temp_event);
-				$temp_event=str_replace("{endtime}",$endTime,$temp_event);
-				break;
-			case GCalendar_Entry::MULTIPLE_WHOLE_DAY:
-				$SECSINDAY=86400;
-				$endDate = GCalendarUtil::formatDate($dateformat, $event->getEndDate()-$SECSINDAY);
-				$temp_event=str_replace("{startdate}",$startDate,$temp_event);
-				$temp_event=str_replace("{starttime}","",$temp_event);
-				$temp_event=str_replace("{dateseparator}","-",$temp_event);
-				$temp_event=str_replace("{enddate}",$endDate,$temp_event);
-				$temp_event=str_replace("{endtime}","",$temp_event);
-				break;
-			case GCalendar_Entry::MULTIPLE_PART_DAY:
-				$temp_event=str_replace("{startdate}",$startDate,$temp_event);
-				$temp_event=str_replace("{starttime}",$startTime,$temp_event);
-				$temp_event=str_replace("{dateseparator}","-",$temp_event);
-				$temp_event=str_replace("{enddate}",$endDate,$temp_event);
-				$temp_event=str_replace("{endtime}",$endTime,$temp_event);
-				break;
+		try{
+			$m = new Mustache;
+			return $m->render($output, $configuration);
+		}catch(Exception $e){
+			echo $e->getMessage();
 		}
-		if(GCalendarUtil::getComponentParameter('event_description_format', 1) == 2) {
-			$desc = html_entity_decode($event->getContent());
-		}else{
-			//Make any URLs used in the description also clickable
-			$desc = preg_replace("@(src|href)=\"https?\://@i",'\\1="',$event->getContent());
-			$desc = preg_replace("@(((f|ht)tps?://)[^\"\'\>\s]+)@",'<a href="\\1" target="_blank">\\1</a>', $desc);
-			//or "�(((f|ht)tp:\/\/)[\-a-zA-Z0-9@:%_\+\.~#\?,\/=&;]+)�"
-		}
-
-		$temp_event=str_replace("{title}",$event->getTitle(),$temp_event);
-		$temp_event=str_replace("{description}",$desc,$temp_event);
-		$temp_event=str_replace("{where}",$event->getLocation(),$temp_event);
-		$temp_event=str_replace("{backlink}",htmlentities(JRoute::_('index.php?option=com_gcalendar&view=event&eventID='.$event->getGCalId().'&gcid='.$event->getParam('gcid').$itemID)),$temp_event);
-		$temp_event=str_replace("{link}",$event->getLink().'&ctz='.$tz,$temp_event);
-		$temp_event=str_replace("{maplink}","http://maps.google.com/?q=".urlencode($event->getLocation()),$temp_event);
-		$temp_event=str_replace("{calendarname}",$event->getParam('gcname'),$temp_event);
-		$temp_event=str_replace("{calendarcolor}",$event->getParam('gccolor'),$temp_event);
-		// Accept and translate HTML
-		$temp_event = html_entity_decode($temp_event);
-		return $temp_event;
 	}
 
-	/**
-	 * Returns the faded color for the given color.
-	 *
-	 * @param $color
-	 * @param $percentage
-	 * @return the faded color
-	 */
 	public static function getFadedColor($color, $percentage = 85) {
 		$percentage = 100 - $percentage;
 		$rgbValues = array_map( 'hexDec', str_split( ltrim($color, '#'), 2 ) );
@@ -217,13 +283,6 @@ class GCalendarUtil{
 		return '#'.implode('', $rgbValues);
 	}
 
-	/**
-	 * Translates day of week number to a string.
-	 *
-	 * @param	integer	The numeric day of the week.
-	 * @param	boolean	Return the abreviated day string?
-	 * @return	string	The day of the week.
-	 */
 	public static function dayToString($day, $abbr = false)
 	{
 		$name = '';
@@ -253,13 +312,6 @@ class GCalendarUtil{
 		return addslashes($name);
 	}
 
-	/**
-	 * Translates month number to a string.
-	 *
-	 * @param	integer	The numeric month of the year.
-	 * @param	boolean	Return the abreviated month string?
-	 * @return	string	The month of the year.
-	 */
 	public static function monthToString($month, $abbr = false)
 	{
 		$name = '';
@@ -304,21 +356,6 @@ class GCalendarUtil{
 		return addslashes($name);
 	}
 
-	public static function formatDate($dateFormat,$date,$strf = false){
-		$dateObj = JFactory::getDate($date);
-
-		$gcTz = GCalendarUtil::getComponentParameter('timezone');
-		if(!empty($gcTz)){
-			$tz = new DateTimeZone($gcTz);
-			$dateObj->setTimezone($tz);
-		}
-		if ($strf) {
-			return $dateObj->toFormat($dateFormat, true);
-		}
-
-		return $dateObj->format($dateFormat, true);
-	}
-
 	public static function getActions($calendarId = 0){
 		$user  = JFactory::getUser();
 		$result  = new JObject;
@@ -338,5 +375,17 @@ class GCalendarUtil{
 
 		return $result;
 	}
+
+	// http://core.trac.wordpress.org/browser/trunk/wp-includes/formatting.php#L1461
+	public static function transformUrl( $text ) {
+		$ret = ' ' . $ret;
+		// in testing, using arrays here was found to be faster
+		$ret = preg_replace_callback('#([\s>])([\w]+?://[\w\#$%&~/.\-;:=,?@\[\]+]*)#is', '_make_url_clickable_cb', $ret);
+		$ret = preg_replace_callback('#([\s>])((www|ftp)\.[\w\#$%&~/.\-;:=,?@\[\]+]*)#is', '_make_web_ftp_clickable_cb', $ret);
+		$ret = preg_replace_callback('#([\s>])([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})#i', '_make_email_clickable_cb', $ret);
+		// this one is not in an array because we need it to run last, for cleanup of accidental links within links
+		$ret = preg_replace("#(<a( [^>]+?>|>))<a [^>]+?>([^>]+?)</a></a>#i", "$1$3</a>", $ret);
+		$ret = trim($ret);
+		return $ret;
+	}
 }
-?>

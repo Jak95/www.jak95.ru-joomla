@@ -147,7 +147,7 @@ final class WFEditorTheme extends WFEditor
       	
       	$tabs = WFTabs::getInstance(array(
       		'base_path' => WF_EDITOR_THEMES.DS.$this->get('theme')
-      	));
+      	));
 
       	$tabs->addPanel($this->get('dialog'), 1);
 	}

@@ -1,4 +1,4 @@
-/* Mobile Joomla! 1.0.3 | mobilejoomla.com/license.html */
+/* Mobile Joomla! 1.1.0 | mobilejoomla.com/license.html */
 function version_compare(v1, v2){
 	var vm = {'dev': -4, 'alpha': -3, 'beta': -2, 'rc': -1},
 		vprep = function(v){return ('' + v).toLowerCase().replace(/([^.\d]+)/g, '.$1.').replace(/\s+/g, '').replace(/\.{2,}/g, '.').split('.');},
@@ -20,21 +20,21 @@ window.addEvent('domready',function(){
 	function checkUpdate(){
 		if(typeof Request == "function"){
 			new Request.HTML( {
-				url: 'http://www.mobilejoomla.com/getver.php?v=' + escape('1.0.3'),
+				url: 'http://www.mobilejoomla.com/getver.php?v=' + escape('1.1.0'),
 				method: 'get',
 				update: 'mjlatestver',
 				onSuccess : function(tree, elements, response){
-					if(version_compare('1.0.3', response)>0){
+					if(version_compare('1.1.0', response)>0){
 						$('mjlatestverurl').setStyle('display', 'block');
 					}
 				}
 			}).send();
 		} else if(typeof Ajax == "function"){
-			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('1.0.3'), {
+			new Ajax( 'http://www.mobilejoomla.com/getver.php?v=' + escape('1.1.0'), {
 				method: 'get',
 				update: $('mjlatestver'),
 				onComplete: function(response){
-					if(version_compare('1.0.3', response)>0){
+					if(version_compare('1.1.0', response)>0){
 						$('mjlatestverurl').setStyle('display', 'block');
 					}
 				}

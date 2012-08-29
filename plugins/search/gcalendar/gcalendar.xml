@@ -2,7 +2,7 @@
 <extension version="1.6" type="plugin" group="search" method="upgrade">
 	<name>plg_search_gcalendar</name>
 	<author>G4J Project</author>
-	<creationDate>Feb 2012</creationDate>
+	<creationDate>Aug 2012</creationDate>
 	<copyright>This extension is released under the GNU/GPL License.
 	</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html
@@ -10,23 +10,16 @@
 	<authorEmail>info@g4j.laoneo.net
 	</authorEmail>
 	<authorUrl>g4j.laoneo.net</authorUrl>
-	<version>2.5.3</version>
+	<version>2.7.5</version>
 	<description>PLG_SEARCH_GCALENDAR_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="gcalendar">gcalendar.php</filename>
+		<folder>language</folder>
 	</files>
-	<languages>
-		<language tag="en-GB">languages/en-GB.plg_search_gcalendar.ini</language>
-		<language tag="en-GB">languages/en-GB.plg_search_gcalendar.sys.ini</language>
-		<language tag="de-DE">languages/de-DE.plg_search_gcalendar.ini</language>
-		<language tag="de-DE">languages/de-DE.plg_search_gcalendar.sys.ini</language>
-		<language tag="nl-NL">languages/nl-NL.plg_search_gcalendar.ini</language>
-		<language tag="nl-NL">languages/nl-NL.plg_search_gcalendar.sys.ini</language>
-	</languages>
 	<config>
 		<fields name="params" addfieldpath="/administrator/components/com_gcalendar/models/fields">
 			<fieldset name="basic">
-				<field name="calendarids" type="gcalendar" default=""
+				<field name="calendarids" type="gcalendar" default="" multiple="true"
 					label="PLG_SEARCH_GCALENDAR_FIELD_CALENDAR_IDS_LABEL"
 					description="PLG_SEARCH_GCALENDAR_FIELD_CALENDAR_IDS_DESC" />
 				<field name="search_limit" type="text" size="5" default="50"

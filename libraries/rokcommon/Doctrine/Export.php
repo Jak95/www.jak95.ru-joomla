@@ -657,7 +657,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
      *          Text value to be used as default for this field.
      *
      *      notnull
-     *          Boolean flag that indicates whether this field is constrained
+     *          Boolean flag that indicates whether this field is constrained
      *          to not be set to null.
      *      charset
      *          Text value with the default CHARACTER SET for this field.

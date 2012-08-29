@@ -3,23 +3,28 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <div class="countdown<?php echo $params->get('moduleclass_sfx'); ?>">
 
 <?php foreach ($list as $item) :?>
-<?php if ($item->title) { ?>
+<?php if (property_exists($item, 'title') && $item->title) { ?>
 	<span class="countdown_title"><?php echo $item->title; ?></span>
 <?php } else {} ?>
 
 <?php if ($item->displaydate) { ?>
 	<span class="countdown_displaydate"><?php echo $item->displaydate; ?></span>
 <?php } else {} ?>
+<?php if (($params->get("show_zero_day") && $item->daycount ==0) || $item->daycount > 0):?>
+    <span class="countdown_daycount" style="color:<?php echo $params->get('ev_color'); ?>;"><?php echo $item->daycount; ?></span>
+    
+    <?php if ($item->dney) { ?>
+        <span class="countdown_dney"><?php echo $item->dney; ?></span>
+    <?php } else {} ?>
+    
+    <?php echo $item->DetailCount; ?>
+    
+<?php else:?>
+    <span class="countdown_hourcount" style="color:<?php echo $params->get('ev_color'); ?>;"><?php echo $item->DetailCount; ?></span>
+    
+<?php endif;?>
 
-<span class="countdown_daycount" style="color:<?php echo $params->get('ev_color'); ?>;"><?php echo $item->daycount; ?></span>
-
-<?php if ($item->dney) { ?>
-	<span class="countdown_dney"><?php echo $item->dney; ?></span>
-<?php } else {} ?>
-
-<?php echo $item->DetailCount; ?>
-
-<?php if ($item->DetailLink) { ?>
+<?php if (property_exists($item, 'DetailLink') && $item->DetailLink) { ?>
 	<span class="countdown_link"><?php echo $item->DetailLink; ?></span>
 <?php } else {} ?>
 

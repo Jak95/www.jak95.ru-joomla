@@ -73,7 +73,7 @@
 			<fieldset name="SRC_SECURITY_SETTINGS_ARTICLES">
 				<field name="@block_articles" type="nn_block" description="SRC_SECURITY_SETTINGS_ARTICLES_DESC" />
 				<field name="articles_enable" type="radio" default="1" label="NN_ENABLE_IN_ARTICLES" description="SRC_ENABLE_IN_ARTICLES_DESC">
-					<option value="0">JNO</option>
+					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field name="@toggler_articles_a" type="nn_toggler" param="articles_enable" value="1" />

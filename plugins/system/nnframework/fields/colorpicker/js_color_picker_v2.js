@@ -30,7 +30,7 @@ var MSIE = navigator.userAgent.indexOf('MSIE') >= 0 ? true : false;
 var navigatorVersion = navigator.appVersion.replace(/.*?MSIE (\d\.\d).*/g, '$1')/1;
 
 var scripts = document.getElementsByTagName("script");
-var root = scripts[scripts.length-1].src.replace('js_color_picker_v2.js', '');
+var root = scripts[scripts.length-1].src.replace(/js_color_picker_v2\.js.*/i, '');
 
 var form_widget_amount_slider_handle = root+'slider_handle.gif';
 var slider_handle_image_obj = false;
@@ -41,11 +41,13 @@ var handle_start_x;
 var event_start_x;
 var currentSliderIndex;
 
-function form_widget_cancel_event() {
+function form_widget_cancel_event()
+{
 	return false;
 }
 
-function getImageSliderHeight() {
+function getImageSliderHeight()
+{
 	if (!slider_handle_image_obj) {
 		slider_handle_image_obj = new Image();
 		slider_handle_image_obj.src = form_widget_amount_slider_handle;
@@ -57,7 +59,8 @@ function getImageSliderHeight() {
 	}
 }
 
-function positionSliderImage(e, theIndex, inputObj) {
+function positionSliderImage(e, theIndex, inputObj)
+{
 	if (this) {
 		inputObj = this;
 	}
@@ -71,7 +74,8 @@ function positionSliderImage(e, theIndex, inputObj) {
 	setColorByRGB();
 }
 
-function adjustFormValue(theIndex) {
+function adjustFormValue(theIndex)
+{
 	var handleImg = document.getElementById('slider_handle'+theIndex);
 	var ratio = sliderObjectArray[theIndex]['width']/(sliderObjectArray[theIndex]['max']-sliderObjectArray[theIndex]['min']);
 	var currentPos = handleImg.style.left.replace('px', '');
@@ -79,7 +83,8 @@ function adjustFormValue(theIndex) {
 
 }
 
-function initMoveSlider(e) {
+function initMoveSlider(e)
+{
 
 	if (document.all) {
 		e = event;
@@ -91,7 +96,8 @@ function initMoveSlider(e) {
 	return false;
 }
 
-function startMoveSlider(e) {
+function startMoveSlider(e)
+{
 	if (document.all) {
 		e = event;
 	}
@@ -112,11 +118,13 @@ function startMoveSlider(e) {
 	}
 }
 
-function stopMoveSlider() {
+function stopMoveSlider()
+{
 	slideInProgress = false;
 }
 
-function form_widget_amount_slider(targetElId, formTarget, width, min, max, onchangeAction) {
+function form_widget_amount_slider(targetElId, formTarget, width, min, max, onchangeAction)
+{
 	if (!slider_handle_image_obj) {
 		getImageSliderHeight();
 	}
@@ -195,7 +203,8 @@ var color_picker_div = false;
 var color_picker_active_tab = false;
 var color_picker_form_field = false;
 var color_picker_active_input = false;
-function baseConverter(number, ob, nb) {
+function baseConverter(number, ob, nb)
+{
 	number = number+"";
 	number = number.toUpperCase();
 	var list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -216,7 +225,8 @@ function baseConverter(number, ob, nb) {
 	return number;
 }
 
-function colorPickerGetTopPos(inputObj) {
+function colorPickerGetTopPos(inputObj)
+{
 
 	var returnValue = inputObj.offsetTop;
 	while ((inputObj = inputObj.offsetParent) != null) {
@@ -225,7 +235,8 @@ function colorPickerGetTopPos(inputObj) {
 	return returnValue;
 }
 
-function colorPickerGetLeftPos(inputObj) {
+function colorPickerGetLeftPos(inputObj)
+{
 	var returnValue = inputObj.offsetLeft;
 	while ((inputObj = inputObj.offsetParent) != null) {
 		returnValue += inputObj.offsetLeft;
@@ -233,11 +244,13 @@ function colorPickerGetLeftPos(inputObj) {
 	return returnValue;
 }
 
-function cancelColorPickerEvent() {
+function cancelColorPickerEvent()
+{
 	return false;
 }
 
-function showHideColorOptions(e, inputObj) {
+function showHideColorOptions(e, inputObj)
+{
 
 	var thisObj = this;
 	if (inputObj) {
@@ -280,7 +293,8 @@ function showHideColorOptions(e, inputObj) {
 
 }
 
-function createColorPickerTopRow(inputObj) {
+function createColorPickerTopRow(inputObj)
+{
 	var tabs = 0;
 	if (mainColors) {
 		tabs = ['Main', 'RGB', 'Named', 'Slider'];
@@ -334,19 +348,23 @@ function createColorPickerTopRow(inputObj) {
 
 }
 
-function toggleCloseButton() {
+function toggleCloseButton()
+{
 	this.style.backgroundColor = '#CCCCCC';
 }
-function toggleOffCloseButton() {
+function toggleOffCloseButton()
+{
 	this.style.color = '';
 	this.style.backgroundColor = '';
 
 }
-function closeColorPicker() {
+function closeColorPicker()
+{
 	color_picker_div.style.display = 'none';
 }
 
-function createMainColors(inputObj) {
+function createMainColors(inputObj)
+{
 	var mainColorDiv = document.createElement('DIV');
 	inputObj.appendChild(mainColorDiv);
 	for (var no = 0; no < mainColors.length; no++) {
@@ -365,7 +383,8 @@ function createMainColors(inputObj) {
 
 }
 
-function createWebColors(inputObj, active) {
+function createWebColors(inputObj, active)
+{
 	var webColorDiv = document.createElement('DIV');
 	if (!active) {
 		webColorDiv.style.display = 'none';
@@ -394,7 +413,8 @@ function createWebColors(inputObj, active) {
 	}
 }
 
-function createNamedColors(inputObj) {
+function createNamedColors(inputObj)
+{
 	var namedColorDiv = document.createElement('DIV');
 	namedColorDiv.style.display = 'none';
 	inputObj.appendChild(namedColorDiv);
@@ -413,11 +433,13 @@ function createNamedColors(inputObj) {
 	}
 }
 
-function colorPickerHideStatusBarText() {
+function colorPickerHideStatusBarText()
+{
 	document.getElementById('colorPicker_statusBarTxt').innerHTML = '&nbsp;';
 }
 
-function colorPickerShowStatusBarText() {
+function colorPickerShowStatusBarText()
+{
 	var txt = this.getAttribute('rgbColor');
 	if (this.title.indexOf('#') < 0) {
 		txt = txt+" ("+this.title+")";
@@ -425,7 +447,8 @@ function colorPickerShowStatusBarText() {
 	document.getElementById('colorPicker_statusBarTxt').innerHTML = txt;
 }
 
-function createAllColorDiv(inputObj) {
+function createAllColorDiv(inputObj)
+{
 	var allColorDiv = document.createElement('DIV');
 	allColorDiv.style.display = 'none';
 	allColorDiv.className = 'js_color_picker_allColorDiv';
@@ -534,7 +557,8 @@ function createAllColorDiv(inputObj) {
 	form_widget_amount_slider('sliderBlueColor', document.getElementById('js_color_picker_blue_color'), 170, 0, 255, "setColorByRGB()");
 }
 
-function setPreviewColorFromTxt() {
+function setPreviewColorFromTxt()
+{
 	if (this.value.match(/\#[0-9A-F]{6}/g)) {
 		document.getElementById('colorPreview').style.backgroundColor = this.value;
 		var r = this.value.substr(1, 2);
@@ -551,13 +575,15 @@ function setPreviewColorFromTxt() {
 
 }
 
-function chooseColor() {
+function chooseColor()
+{
 	color_picker_form_field.value = this.getAttribute('rgbColor').replace('#', '');
-	color_picker_form_field.style.borderRightColor = this.getAttribute('rgbColor');
+	color_picker_form_field.style.backgroundColor = this.getAttribute('rgbColor');
 	color_picker_div.style.display = 'none';
 }
 
-function createStatusBar(inputObj) {
+function createStatusBar(inputObj)
+{
 	var div = document.createElement('DIV');
 	div.className = 'colorPicker_statusBar';
 	var innerSpan = document.createElement('SPAN');
@@ -566,13 +592,15 @@ function createStatusBar(inputObj) {
 	inputObj.appendChild(div);
 }
 
-function chooseColorSlider() {
+function chooseColorSlider()
+{
 	color_picker_form_field.value = document.getElementById('js_color_picker_color_code').value.replace('#', '');
-	color_picker_form_field.style.borderRightColor = document.getElementById('js_color_picker_color_code').value;
+	color_picker_form_field.style.backgroundColor = document.getElementById('js_color_picker_color_code').value;
 	color_picker_div.style.display = 'none';
 }
 
-function showColorPicker(inputObj, formField) {
+function showColorPicker(inputObj, formField)
+{
 	if (!color_picker_div) {
 		color_picker_div = document.createElement('DIV');
 		color_picker_div.id = 'dhtmlgoodies_colorPicker';
@@ -604,7 +632,8 @@ function showColorPicker(inputObj, formField) {
 	color_picker_active_input = inputObj;
 }
 
-function setColorByRGB() {
+function setColorByRGB()
+{
 	var formObj = document.forms[0];
 	var r = document.getElementById('js_color_picker_red_color').value.replace(/[^\d]/, '');
 	var g = document.getElementById('js_color_picker_green_color').value.replace(/[^\d]/, '');

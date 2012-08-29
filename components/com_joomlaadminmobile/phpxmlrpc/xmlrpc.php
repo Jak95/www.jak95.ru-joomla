@@ -763,7 +763,7 @@ $cp1252_to_xmlent =
 				//if(!@isset($GLOBALS['_xh']['ac']))
 				//{
 				//	$GLOBALS['_xh']['ac'] = '';
-				//}
+				//}
 				$GLOBALS['_xh']['ac'].=$data;
 			}
 		}
@@ -2039,7 +2039,7 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 		function xmlrpcmsg($meth, $pars=0)
 		{
 			$this->methodname=$meth;
-			if(is_array($pars) && count($pars)>0)
+			if(is_array($pars) && count($pars)>0)
 			{
 				for($i=0; $i<count($pars); $i++)
 				{

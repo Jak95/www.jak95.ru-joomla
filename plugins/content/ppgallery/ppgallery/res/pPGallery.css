@@ -1,0 +1,74 @@
+/* css for pPGallery */
+.ppg_clr { /*not in css class suffix!*/
+clear: both;
+}
+.ppgallery, .ppgallery_none, .ppgallery_noshadow, .ppgallery_canvas_border, .ppgallery_canvas_hover, .ppgallery_canvas, .ppgallery_border, .ppgallery_hover  { 
+clear: both; 
+display: table-cell; 
+}
+.ppg_thb, .ppg_thb_none, .ppg_thb_noshadow, .ppg_thb_canvas_border, .ppg_thb_canvas_hover, .ppg_thb_canvas, .ppg_thb_border, .ppg_thb_hover { 
+float :left; 
+position: relative; bottom: 2px; right: 2px; /*required for 'caption: label'*/
+}
+.ppg_thb { 
+margin: 4px 0 0 4px; /* needed for shadow, if adjusting here do also in ppgallery.php aHREF tag for fixed_width*/
+}
+
+/*drop shadow araound canvas of thumbnail*/
+.ppg_thb { 
+background-color: #CCCCCC; /*drop shadow color*/
+}
+
+/* canvas around thumbnail */
+.ppg_thb img,.ppg_thb_noshadow img, .ppg_thb_canvas_border img, .ppg_thb_canvas_hover img, .ppg_thb_canvas img  { 
+display: block; 
+position: relative; bottom: 2px; right: 2px; 
+margin: 0 !important;
+padding: 4px; 
+background: #FFFFFF; /*thumb canvas color*/
+}
+
+/* border around thumbnail */
+.ppg_thb img, .ppg_thb_noshadow img, .ppg_thb_canvas_border img, .ppg_thb_border img {
+border: 1px solid #BBBBBB; /*thumb border color*/
+}
+.ppg_thb_canvas_hover img, .ppg_thb_hover img { 
+border: 1px solid transparent; /*placeholder for no border*/
+}
+
+/* 'on mouse over' hover effect (and span for caption label) */
+.ppg_thb :hover img, .ppg_thb :hover span,
+.ppg_thb_noshadow :hover img, .ppg_thb_noshadow :hover span,
+.ppg_thb_canvas_border :hover img, .ppg_thb_canvas_border :hover span,
+.ppg_thb_canvas_hover :hover img, .ppg_thb_canvas_hover :hover span,
+.ppg_thb_border :hover img, .ppg_thb_border :hover span,
+.ppg_thb_hover :hover img, .ppg_thb_hover :hover span { 
+border: 1px solid navy; /*hover color*/
+}
+
+/*captions*/
+.ppg_captop, .ppg_captop_none, .ppg_captop_noshadow, .ppg_captop_canvas_border, .ppg_captop_canvas_hover, .ppg_captop_canvas, .ppg_captop_border, .ppg_captop_hover {
+display: block;
+padding-bottom: 2px;
+text-align: center; 
+font-size: 90%;
+height: 1.5em;
+}
+
+.ppg_caplbl, .ppg_caplbl_none, .ppg_caplbl_noshadow, .ppg_caplbl_canvas_border, .ppg_caplbl_canvas_hover, .ppg_caplbl_canvas, .ppg_caplbl_border, .ppg_caplbl_hover {
+display: block; 
+position: absolute; bottom: 8px; left: 2px;
+padding: 2px 4px; 
+color: black; 
+background: white; 
+border: 1px solid #666666; 
+font-style: italic; 
+font-size: 90%; 
+z-index: 10;
+}
+
+.ppg_capbot, .ppg_capbot_none, .ppg_capbot_noshadow, .ppg_capbot_canvas_border, .ppg_capbot_canvas_hover, .ppg_capbot_canvas, .ppg_capbot_border, .ppg_capbot_hover {
+display: block;
+text-align: center; 
+font-size: 90%;
+}

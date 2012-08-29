@@ -24,4 +24,3 @@ jimport('joomla.application.component.controllerform');
 
 class GCalendarControllerGCalendar extends JControllerForm
 {}
-?>

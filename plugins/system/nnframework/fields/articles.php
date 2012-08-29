@@ -3,33 +3,33 @@
  * Element: Articles
  * Displays an article id field with a button
  *
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2012 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 // No direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die;
 
 /**
  * Articles Element
  */
 class nnFieldArticles
 {
-	var $_version = '12.1.6';
+	var $_version = '12.7.9';
 
-	function getInput( $name, $id, $value, $params, $children, $j15 = 0 )
+	function getInput($name, $id, $value, $params, $children)
 	{
 		$this->params = $params;
 
-		JHtml::_( 'behavior.modal', 'a.modal' );
+		JHtml::_('behavior.modal', 'a.modal');
 
-		$_size = $this->def( 'size' );
-		$_multiple = $this->def( 'multiple', 1 );
+		$_size = $this->def('size');
+		$_multiple = $this->def('multiple', 1);
 
 		$_doc = JFactory::getDocument();
 
@@ -56,38 +56,27 @@ class nnFieldArticles
 				}
 				document.getElementById(object+'_id').value = vals.join();
 			}";
-		if ( $j15 ) {
-			$_js = "
-				function jSelectArticle( id, title, object )
-				{
-					".$_js_part."
-					document.getElementById('sbox-window').close();
-				}";
-			$_doc->addScriptDeclaration( $_js );
-			$_link = 'index.php?option=com_content&amp;task=element&amp;tmpl=component&amp;object='.$id;
-		} else {
-			$_js = "
-				function nnSelectArticle_".$id."( id, title, catid )
-				{
-					var object = '".$id."';
-					".$_js_part."
-					SqueezeBox.close();
-				}";
-			$_doc->addScriptDeclaration( $_js );
-			$_link = 'index.php?option=com_content&amp;view=articles&amp;layout=modal&amp;tmpl=component&amp;function=nnSelectArticle_'.$id;
-		}
+
+		$_js = "
+			function nnSelectArticle_".$id."( id, title, catid )
+			{
+				var object = '".$id."';
+				".$_js_part."
+				SqueezeBox.close();
+			}";
+		$_doc->addScriptDeclaration($_js);
+		$_link = 'index.php?option=com_content&amp;view=articles&amp;layout=modal&amp;tmpl=component&amp;function=nnSelectArticle_'.$id;
 
 		$html = "\n".'<div style="float: left;">';
-		if ( !$_multiple ) {
+		if (!$_multiple) {
 			$val_name = $value;
-			if ( $value ) {
+			if ($value) {
 				$db = JFactory::getDBO();
-				// load the list of menu types
-				$query = 'SELECT title'.
-					' FROM #__content'.
-					' WHERE id = '.$value.
-					' LIMIT 1';
-				$db->setQuery( $query );
+				$query = $db->getQuery(true);
+				$query->select('c.title');
+				$query->from('#__content AS c');
+				$query->where('c.id = '.(int) $value);
+				$db->setQuery($query);
 				$val_name = $db->loadResult();
 				$val_name .= ' ['.$value.']';
 			}
@@ -97,50 +86,29 @@ class nnFieldArticles
 			$html .= '<input type="text" name="'.$name.'" id="'.$id.'_id" value="'.$value.'" class="inputbox" size="'.$_size.'" />';
 		}
 		$html .= '</div>';
-		$html .= '<div class="button2-left"><div class="blank"><a class="modal" title="'.JText::_( 'NN_SELECT_AN_ARTICLE' ).'"  href="'.$_link.'" rel="{handler: \'iframe\', size: {x: 650, y: 375}}">'.JText::_( 'NN_SELECT' ).'</a></div></div>'."\n";
+		$html .= '<div class="button2-left"><div class="blank"><a class="modal" title="'.JText::_('NN_SELECT_AN_ARTICLE').'"  href="'.$_link.'" rel="{handler: \'iframe\', size: {x: 650, y: 375}}">'.JText::_('NN_SELECT').'</a></div></div>'."\n";
 
 		return $html;
 	}
 
-	private function def( $val, $default = '' )
+	private function def($val, $default = '')
 	{
-		return ( isset( $this->params[$val] ) && (string) $this->params[$val] != '' ) ? (string) $this->params[$val] : $default;
+		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
 	}
 }
 
-if ( version_compare( JVERSION, '1.6.0', 'l' ) ) {
-	// For Joomla 1.5
-	class JElementNN_Articles extends JElement
-	{
-		/**
-		 * Element name
-		 *
-		 * @access	protected
-		 * @var		string
-		 */
-		var $_name = 'Articles';
+class JFormFieldNN_Articles extends JFormField
+{
+	/**
+	 * The form field type
+	 *
+	 * @var		string
+	 */
+	public $type = 'Articles';
 
-		function fetchElement( $name, $value, &$node, $control_name )
-		{
-			$this->_nnfield = new nnFieldArticles();
-			return $this->_nnfield->getInput( $control_name.'['.$name.']', $control_name.$name, $value, $node->attributes(), $node->children(), 1 );
-		}
-	}
-} else {
-	// For Joomla 1.6
-	class JFormFieldNN_Articles extends JFormField
+	protected function getInput()
 	{
-		/**
-		 * The form field type
-		 *
-		 * @var		string
-		 */
-		public $type = 'Articles';
-
-		protected function getInput()
-		{
-			$this->_nnfield = new nnFieldArticles();
-			return $this->_nnfield->getInput( $this->name, $this->id, $this->value, $this->element->attributes(), $this->element->children() );
-		}
+		$this->_nnfield = new nnFieldArticles();
+		return $this->_nnfield->getInput($this->name, $this->id, $this->value, $this->element->attributes(), $this->element->children());
 	}
 }

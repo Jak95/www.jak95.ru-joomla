@@ -22,7 +22,6 @@ defined('_JEXEC') or die('Restricted access');
 
 $calendar = $this->gcalendar;
 
-defined('_JEXEC') or die('Restricted access');
 JHtml::_('behavior.tooltip');
 ?>
 
@@ -32,6 +31,14 @@ JHtml::_('behavior.tooltip');
 			<legend><?php echo JText::_( 'COM_GCALENDAR_VIEW_GCALENDAR_DETAILS' ); ?></legend>
 			<ul class="adminformlist">
 <?php foreach($this->form->getFieldset('details') as $field){ ?>
+				<li><?php echo $field->label;echo $field->input;?></li>
+<?php }; ?>
+			</ul>
+		</fieldset>
+		<fieldset class="adminform">
+			<legend><?php echo JText::_( 'COM_GCALENDAR_VIEW_GCALENDAR_ACCESS_CONTROL' ); ?></legend>
+			<ul class="adminformlist">
+<?php foreach($this->form->getFieldset('acl') as $field){ ?>
 				<li><?php echo $field->label;echo $field->input;?></li>
 <?php }; ?>
 			</ul>

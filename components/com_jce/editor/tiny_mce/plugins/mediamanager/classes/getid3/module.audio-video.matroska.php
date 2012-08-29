@@ -367,7 +367,7 @@ class getid3_matroska extends getid3_handler
 											break;
 										case EBML_ID_CRC32:
 											// probably not useful, ignore
-											break;
+											break;
 										default:
 											$this->warnings[] = 'Unhandled seekhead element ['.basename(__FILE__).':'.__LINE__.'] ('.$seek_entry['id'].'::'.$seek_entry['id_name'].') at '.$offset;
 											break;
@@ -1168,7 +1168,7 @@ class getid3_matroska extends getid3_handler
 											$offset += 1;
 											$cluster_block_data['flags']['keyframe']    = (($cluster_block_data['flags_raw'] & 0x80) >> 7);
 											$cluster_block_data['flags']['reserved1']   = (($cluster_block_data['flags_raw'] & 0x70) >> 4);
-											$cluster_block_data['flags']['invisible']   = (($cluster_block_data['flags_raw'] & 0x08) >> 3);
+											$cluster_block_data['flags']['invisible']   = (($cluster_block_data['flags_raw'] & 0x08) >> 3);
 											$cluster_block_data['flags']['lacing']      = (($cluster_block_data['flags_raw'] & 0x06) >> 1);  // 00=no lacing; 01=Xiph lacing; 11=EBML lacing; 10=fixed-size lacing
 											$cluster_block_data['flags']['discardable'] = (($cluster_block_data['flags_raw'] & 0x01));
 

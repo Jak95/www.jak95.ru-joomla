@@ -7,3 +7,11 @@
 	padding-bottom: 5px;
 	padding-right: 5px;
 }
+
+#tiptip_content {
+	text-align: left;
+}
+
+#tiptip_content ul {
+	margin-left: 10px;
+}

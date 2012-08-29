@@ -3,13 +3,18 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
-
+/** @var $active_id integer */
+/** @var $is_submenu bool */
+/** @var $is_vertical bool */
+/** @var $menu array */
+/** @var $params JRegistry */
+/** @var $submenu array */
 ?>
 <?php if(!$is_submenu) : ?>
 <div class="menu<?php echo htmlspecialchars($params->get('class_sfx')); ?>">

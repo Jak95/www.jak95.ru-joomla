@@ -120,5 +120,5 @@ class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
         $this->_initializedRelations = null;
         $this->_collections = null;
         $this->_tables = null;
-    }
+    }
 }

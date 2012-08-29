@@ -3,16 +3,16 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
 function modChrome_xhtml_m($module, &$params, &$attribs)
 {
-	/** @var JParameter $params */
+	/** @var $params JRegistry */
 	if(!empty($module->content))
 	{
 		?><div class="moduletable<?php echo $params->get('moduleclass_sfx'); ?>"><?php

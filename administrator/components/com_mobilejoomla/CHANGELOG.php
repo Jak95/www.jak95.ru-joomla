@@ -3,15 +3,23 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 ?>
 
 CHANGELOG
+
+1.1.0
+Stable Release
+- Use GPL AMDD detector plugin instead of MPL TeraWURFL
+- Optional download ScientiaMobile plugin
+- Improve Mobile-Simple detector plugin
+- Fix issue with styles in mobile_iphone template
+- Fix backend updater issue (J!1.6+)
 
 1.0.3
 Stable release

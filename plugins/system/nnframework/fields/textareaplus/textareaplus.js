@@ -1,17 +1,18 @@
 /**
  * JavaScript file for Element: Text Area Plus
  *
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2012 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 TextAreaResizer = new Class({
-	initialize: function(id, options) {
+	initialize: function(id, options)
+	{
 		this.element = document.getElement('#'+id);
 		if (this.element.getStyle('resize')) {
 			return;
@@ -26,7 +27,8 @@ TextAreaResizer = new Class({
 		this.handleid = id+'_handle';
 		this.build();
 	},
-	build: function() {
+	build: function()
+	{
 		var wrapper = new Element('div', { 'class': 'textarea_wrapper' });
 		var handle = new Element('div', { 'class': 'textarea_handle', 'id': this.handleid });
 		wrapper.injectAfter(this.element);
@@ -39,14 +41,17 @@ TextAreaResizer = new Class({
 			grid: 20,
 			modifiers: { x: 'width', y: 'height' },
 			limit: { x: [this.options.min_x, this.options.max_x], y: [this.options.min_y, this.options.max_y] },
-			onStart: function(el) {
+			onStart: function(el)
+			{
 				autoHeightParents(handle);
 				document.getElement('body').addClass('dragging');
 			},
-			onComplete: function(el) {
+			onComplete: function(el)
+			{
 				document.getElement('body').removeClass('dragging');
 			},
-			onDrag: function(el) {
+			onDrag: function(el)
+			{
 				document.getElement('#'+handle.id).setStyle('width', this.element.getStyle('width'));
 			}
 		});
@@ -54,7 +59,8 @@ TextAreaResizer = new Class({
 });
 
 if (typeof this.window['autoHeightParents'] != 'function') {
-	function autoHeightParents(element) {
+	function autoHeightParents(element)
+	{
 		var parent = element.parentNode;
 		for (var i = 0; i < 50; i++) {
 			if (parent) {

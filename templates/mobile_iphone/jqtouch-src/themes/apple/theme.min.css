@@ -138,6 +138,9 @@ ul {
 
 ul li {
     color: #666;
+    /*font: 13px; /* Helvetica;*/
+	font-weight: normal;
+	font-size: 14px;
     border-top: 1px solid #B4B4B4;
     list-style-type: none;
     padding: 10px 10px 10px 10px;

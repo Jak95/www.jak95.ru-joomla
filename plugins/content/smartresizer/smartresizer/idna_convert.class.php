@@ -1002,7 +1002,7 @@ class idna_convert
         if (!isset($instances)) {
             $instances = array();
         }
-        $signature = serialize($params);
+        $signature = serialize($params);
         if (!isset($instances[$signature])) {
             $instances[$signature] = idna_convert::getInstance($params);
         }

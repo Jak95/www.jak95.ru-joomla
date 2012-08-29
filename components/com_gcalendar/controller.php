@@ -20,32 +20,4 @@
 
 jimport('joomla.application.component.controller');
 
-class GCalendarController extends JController
-{
-	function display()
-	{
-		$hiddenView = null;
-		if(JRequest::getVar('view', null) == 'event')
-		$hiddenView = 'Event';
-		if(JRequest::getVar('view', null) == 'day')
-		$hiddenView = 'Day';
-		if(JRequest::getVar('view', null) == 'jsonfeed')
-		$hiddenView = 'JSONFeed';
-		if(JRequest::getVar('view', null) == 'ical')
-		$hiddenView = 'Ical';
-		
-		if($hiddenView !=null){
-			$document =& JFactory::getDocument();
-
-			$viewType	= $document->getType();
-			$viewName	= JRequest::getCmd( 'view', $hiddenView );
-			$viewLayout	= JRequest::getCmd( 'layout', 'default' );
-				
-			$this->addViewPath($this->basePath.DS.'hiddenviews');
-			$view = & $this->getView( $viewName, $viewType, '', array( 'base_path'=>$this->basePath, 'layout' => $viewLayout));
-			$view->addTemplatePath($this->basePath.DS.'hiddenviews'.DS.strtolower($viewName).DS.'tmpl');
-		}
-		parent::display();
-	}
-}
-?>
+class GCalendarController extends JController{}

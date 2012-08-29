@@ -255,7 +255,7 @@ class Doctrine_Query_Tokenizer
     /**
      * Explodes a string into array using custom brackets and quote delimeters
      * Each array element is a array of length 2 where the first entry contains
-     * the term, and the second entry contains the corresponding delimiter
+     * the term, and the second entry contains the corresponding delimiter
      *
      * example:
      *

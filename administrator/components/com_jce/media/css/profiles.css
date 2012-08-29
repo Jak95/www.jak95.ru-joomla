@@ -1,6 +1,6 @@
 /**
  * @package   	JCE
- * @copyright 	Copyright © 2009-2011 Ryan Demmer. All rights reserved.
+ * @copyright 	Copyright (c) 2009-2011 Ryan Demmer. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * JCE is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -12,7 +12,7 @@
 @import url("colorpicker.css");
 @import url("extensions.css");
 @import url("../../../../../components/com_jce/editor/libraries/css/files.css");
-@import url("../../../../../components/com_jce/editor/tiny_mce/themes/advanced/skins/default/ui.css");
+/*@import url("../../../../../components/com_jce/editor/tiny_mce/themes/advanced/skins/default/ui.css");*/
 @import url("layout.css");
 
 #profile-list a {
@@ -46,7 +46,7 @@ input#components-all, input#components-select, label[for="components-all"], labe
 	display: inline;
 	margin: 0 5px 0 0;
 }
-#jce button span.icon-add, #jce button span.icon-remove, #jce button span.icon-legend {
+#jce a.ui-button span.icon-add, #jce a.ui-button span.icon-remove, #jce a.ui-button span.icon-legend {
 	left: 0;
 	margin-top: -10px;
 	width: 20px;
@@ -57,13 +57,13 @@ input#components-all, input#components-select, label[for="components-all"], labe
 	width: 200px;
 }
 
-#jce button span.icon-legend { 
+#jce a.ui-button span.icon-legend { 
 	background: url("../../../../../components/com_jce/editor/libraries/img/icons.png") no-repeat 0 -880px;
 }
-#jce button span.icon-remove { 
+#jce a.ui-button span.icon-remove { 
 	background: url("../../../../../components/com_jce/editor/libraries/img/icons.png") no-repeat 0 -180px;
 }
-#jce button span.icon-add { 
+#jce a.ui-button span.icon-add { 
 	background: url("../../../../../components/com_jce/editor/libraries/img/icons.png") no-repeat 0 -300px;
 }
 #jce span.profiles-enable,  #jce span.profiles-disable {
@@ -151,4 +151,48 @@ html[dir="rtl"] .ui-jce .ui-tabs-vertical .ui-tabs-nav li {
 }
 html[dir="rtl"] .ui-jce .ui-tabs-vertical .ui-tabs-panel {
 	margin: 0 13em 0 0;
+}
+
+#jce #tabs-setup ul li span.list {
+    width : 300px;
+    display: inline-block;
+}
+
+#jce #users {
+    width : 100%;
+    padding: 2px 5px;
+}
+
+#jce input.checkbox-list-toggle-all {
+    margin : 2px 6px;
+}
+#jce input.checkbox-list-toggle-all + label {
+    margin : 0 5px;
+}
+
+#jce #tabs-setup input.checkbox-list-toggle-all {
+    margin : 2px 1px;
+}
+
+#jce input[name="area[]"] {
+    margin : 2px;
+}
+
+#jce input[name="area[]"]  + label {
+    margin : 0 5px;
+}
+
+#jce ul.checkbox-list {
+    border: 1px solid #EEEEEE;
+    height: 200px;
+    overflow: auto;
+    padding: 2px 5px;
+    white-space: nowrap;
+    word-wrap: normal;
+    margin : 0;
+    list-style : none;
+    min-width : 200px;
+}
+#jce ul.checkbox-list li label {
+    margin : 0 5px;
 }

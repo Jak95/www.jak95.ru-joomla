@@ -1,9 +1,17 @@
 <?php
-/**
- * plugin_googlemap2_proxy.php,v 2.12 2008/07/29 13:34:11
- * @copyright (C) Reumer.net
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- */
+/*------------------------------------------------------------------------
+# plugin_googlemap2_proxy.php - Google Maps plugin
+# ------------------------------------------------------------------------
+# author    Mike Reumer
+# copyright Copyright (C) 2011 tech.reumer.net. All Rights Reserved.
+# @license - http://www.gnu.org/copyleft/gpl.html GNU/GPL
+# Websites: http://tech.reumer.net
+# Technical Support: http://tech.reumer.net/Contact-Us/Mike-Reumer.html 
+# Documentation: http://tech.reumer.net/Google-Maps/Documentation-of-plugin-Googlemap/
+--------------------------------------------------------------------------*/
+
+// No protection of Joomla because this php program may be called directly to deliver content
+// defined( '_JEXEC' ) or die( 'Restricted access' );
 
 if (!isset($HTTP_RAW_POST_DATA)){
 $HTTP_RAW_POST_DATA = file_get_contents('php://input');

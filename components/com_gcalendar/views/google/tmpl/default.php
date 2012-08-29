@@ -21,16 +21,16 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-$component	= &JComponentHelper::getComponent('com_gcalendar');
-$menu = &JSite::getMenu();
-$items		= $menu->getItems('component_id', $component->id);
+$component = JComponentHelper::getComponent('com_gcalendar');
+$menu = JFactory::getApplication()->getMenu();
+$items = $menu->getItems('component_id', $component->id);
 
 $model = & $this->getModel();
 if (is_array($items)){
-	$mainframe = &JFactory::getApplication();
-	$pathway	= &$mainframe->getPathway();
+	$mainframe = JFactory::getApplication();
+	$pathway = $mainframe->getPathway();
 	foreach($items as $item) {
-		$paramsItem	=& $menu->getParams($item->id);
+		$paramsItem	= $menu->getParams($item->id);
 		//if($paramsItem->get('calendars')===$this->params->get('calendars')){
 		//	$pathway->addItem($this->params->get('name'), '');
 		//}
@@ -103,7 +103,6 @@ foreach($this->calendars as $calendar) {
 }
 $calendar_list .="</table></div>\n";
 if($params->get('show_selection')==1){
-	JHTML::_('behavior.mootools');
 	$document = &JFactory::getDocument();
 	$document->addScript(JURI::base(). 'components/com_gcalendar/views/google/tmpl/gcalendar.js' );
 	$document->addStyleSheet(JURI::base().'components/com_gcalendar/views/google/tmpl/gcalendar.css');
@@ -115,7 +114,6 @@ if($params->get('show_selection')==1){
 }
 $calendar_url="";
 if ($params->get('use_custom_css')) {
-	GCalendarUtil::loadJQuery();
 	$calendar_url= JURI::base().'components/com_gcalendar/libraries/restylegc/restylegc.php'.$variables;
 } else {
 	$calendar_url=$domain.$variables;
@@ -131,5 +129,6 @@ echo $params->get( 'textbefore' );
 
 <?php
 echo $params->get( 'textafter' );
-echo "\n<div style=\"text-align:center;margin-top:10px\" id=\"gcalendar_powered\"><a href=\"http://g4j.laoneo.net\">Powered by GCalendar</a></div>\n";
+if(!JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendarap'.DS.'gcalendarap.php'))
+	echo "\n<div style=\"text-align:center;margin-top:10px\" ><a href=\"http://g4j.laoneo.net\">Powered by GCalendar</a></div>\n";
 ?>

@@ -795,7 +795,7 @@ class Zend_Gdata_App
 
     /**
      * Imports a feed represented by $string.
-     *
+     *
      * @param string $string
      * @param string $className The class which is used as the return type
      * @param integer $majorProcolVersion (optional) The major protocol version

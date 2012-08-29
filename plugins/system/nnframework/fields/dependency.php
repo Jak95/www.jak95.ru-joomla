@@ -3,17 +3,17 @@
  * Element: Dependency
  * Displays an error if given file is not found
  *
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2012 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 // No direct access
-defined( '_JEXEC' ) or die();
+defined('_JEXEC') or die;
 
 /**
  * Dependency Element
@@ -24,24 +24,24 @@ defined( '_JEXEC' ) or die();
  */
 class nnFieldDependency
 {
-	var $_version = '12.1.6';
+	var $_version = '12.7.9';
 
-	function getInput( $name, $id, $value, $params, $children, $j15 = 0 )
+	function getInput($name, $id, $value, $params, $children)
 	{
 		$this->params = $params;
 
-		JHtml::_( 'behavior.mootools' );
+		JHtml::_('behavior.mootools');
 		$document = JFactory::getDocument();
-		$document->addScript( JURI::root( true ).'/plugins/system/nnframework/js/script.js?v='.$this->_version );
+		$document->addScript(JURI::root(true).'/plugins/system/nnframework/js/script.js?v='.$this->_version);
 
-		$file = $this->def( 'file' );
-		if ( !$file ) {
-			$path = ( $this->def( 'path' ) == 'site' ) ? '' : '/administrator';
-			$label = $this->def( 'label' );
-			$file = $this->def( 'alias', $label );
-			$file = preg_replace( '#[^a-z-]#', '', strtolower( $file ) );
-			$extension = $this->def( 'extension' );
-			switch ( $extension ) {
+		$file = $this->def('file');
+		if (!$file) {
+			$path = ($this->def('path') == 'site') ? '' : '/administrator';
+			$label = $this->def('label');
+			$file = $this->def('alias', $label);
+			$file = preg_replace('#[^a-z-]#', '', strtolower($file));
+			$extension = $this->def('extension');
+			switch ($extension) {
 				case 'com';
 					$file = $path.'/components/com_'.$file.'/com_'.$file.'.xml';
 					break;
@@ -55,109 +55,72 @@ class nnFieldDependency
 					$file = '/plugins/system/'.$file.'.xml';
 					break;
 			}
-			$label = JText::_( $label ).' ('.JText::_( 'NN_'.strtoupper( $extension ) ).')';
+			$label = JText::_($label).' ('.JText::_('NN_'.strtoupper($extension)).')';
 		} else {
-			$label = $this->def( 'label', 'the main extension' );
+			$label = $this->def('label', 'the main extension');
 		}
 
-		$this->setMessage( $file, $label );
+		$this->setMessage($file, $label);
 
-		if ( $j15 ) {
-			$random = rand( 100000, 999999 );
-			return '<div id="end-'.$random.'"></div><script type="text/javascript">NNFrameworkHideTD( "end-'.$random.'" );</script>';
-		} else {
-			return;
-		}
+		return;
 	}
 
-	static function setMessage( $file, $name )
+	static function setMessage($file, $name)
 	{
-		jimport( 'joomla.filesystem.file' );
+		jimport('joomla.filesystem.file');
 
-		$file = str_replace( '\\', '/', $file );
-		if ( strpos( $file, '/administrator' ) === 0 ) {
-			$file = str_replace( '/administrator', JPATH_ADMINISTRATOR, $file );
+		$file = str_replace('\\', '/', $file);
+		if (strpos($file, '/administrator') === 0) {
+			$file = str_replace('/administrator', JPATH_ADMINISTRATOR, $file);
 		} else {
 			$file = JPATH_SITE.'/'.$file;
 		}
-		$file = str_replace( '//', '/', $file );
+		$file = str_replace('//', '/', $file);
 
-		$file_alt = preg_replace( '#(com|mod)_([a-z-_]+\.)#', '\2', $file );
+		$file_alt = preg_replace('#(com|mod)_([a-z-_]+\.)#', '\2', $file);
 
-		if ( !JFile::exists( $file ) && !JFile::exists( $file_alt ) ) {
+		if (!JFile::exists($file) && !JFile::exists($file_alt)) {
 			$app = JFactory::getApplication();
-			$msg = JText::sprintf( 'NN_THIS_EXTENSION_NEEDS_THE_MAIN_EXTENSION_TO_FUNCTION', JText::_( $name ) );
+			$msg = JText::sprintf('NN_THIS_EXTENSION_NEEDS_THE_MAIN_EXTENSION_TO_FUNCTION', JText::_($name));
 			$message_set = 0;
 			$messageQueue = $app->getMessageQueue();
-			foreach ( $messageQueue as $queue_message ) {
-				if ( $queue_message['type'] == 'error' && $queue_message['message'] == $msg ) {
+			foreach ($messageQueue as $queue_message) {
+				if ($queue_message['type'] == 'error' && $queue_message['message'] == $msg) {
 					$message_set = 1;
 					break;
 				}
 			}
-			if ( !$message_set ) {
-				$app->enqueueMessage( $msg, 'error' );
+			if (!$message_set) {
+				$app->enqueueMessage($msg, 'error');
 			}
 		}
 	}
 
-	private function def( $val, $default = '' )
+	private function def($val, $default = '')
 	{
-		return ( isset( $this->params[$val] ) && (string) $this->params[$val] != '' ) ? (string) $this->params[$val] : $default;
+		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
 	}
 }
 
-if ( version_compare( JVERSION, '1.6.0', 'l' ) ) {
-	// For Joomla 1.5
-	class JElementNN_Dependency extends JElement
+jimport('joomla.form.formfield');
+
+class JFormFieldNN_Dependency extends JFormField
+{
+	/**
+	 * The form field type
+	 *
+	 * @var		string
+	 */
+	public $type = 'Dependency';
+
+	protected function getLabel()
 	{
-		/**
-		 * Element name
-		 *
-		 * @access	protected
-		 * @var		string
-		 */
-		var $_name = 'Dependency';
-
-		function fetchTooltip( $label, $description, &$node, $control_name, $name )
-		{
-			return;
-		}
-
-		function fetchElement( $name, $value, &$node, $control_name )
-		{
-			$this->_nnfield = new nnFieldDependency();
-			return $this->_nnfield->getInput( $control_name.'['.$name.']', $control_name.$name, $value, $node->attributes(), $node->children(), 1 );
-		}
-
-		function setMessage( $file, $name )
-		{
-			$this->_nnfield = new nnFieldDependency();
-			return $this->_nnfield->setMessage( $file, $name );
-		}
+		return;
 	}
-} else {
-	// For Joomla 1.6
-	jimport( 'joomla.form.formfield' );
 
-	class JFormFieldNN_Dependency extends JFormField
+	protected function getInput()
 	{
-		/**
-		 * The form field type
-		 *
-		 * @var		string
-		 */
-		public $type = 'Dependency';
-
-		protected function getLabel()
-		{
-			return;
-		}
-
-		protected function getInput()
-		{
-			$this->_nnfield = new nnFieldDependency();
-			return $this->_nnfield->getInput( $this->name, $this->id, $this->value, $this->element->attributes(), $this->element->children() );
-		}
+		$this->_nnfield = new nnFieldDependency();
+		return $this->_nnfield->getInput($this->name, $this->id, $this->value, $this->element->attributes(), $this->element->children());
 	}
 }

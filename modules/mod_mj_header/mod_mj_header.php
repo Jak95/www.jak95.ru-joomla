@@ -3,14 +3,14 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die ('Restricted access');
 
-/** @var JParameter $params */
+/** @var $params JRegistry */
 
 // Include the syndicate functions only once
 require_once (dirname(__FILE__).DS.'helper.php');
@@ -23,9 +23,7 @@ $cutTitle = $params->get('cut_title', 1);
 
 $imgURL = JString::str_ireplace('{{root}}', JURI::base(), $imgURL);
 
-/** @var JSite $app */
 $app = JFactory::getApplication();
-/** @var JDocument $doc */
 $doc = JFactory::getDocument();
 
 $sitename = $app->getCfg('sitename');

@@ -47,21 +47,21 @@ class plgContentgcalendar_next extends JPlugin {
 
 		$helper = new GCalendarKeywordsHelper($this->params, $param_str, $fmt_str);
 		if (!$helper->event()) {
-			return $helper->params->get('no_event');
+			return $this->params->get('no_event');
 		}
 
 		$start = $helper->event()->getStartDate();
 		$end = $helper->event()->getEndDate();
 		$now = time();
-		$start_soon = date($this->params->get('start_soon', '-4 hours'), $start);
-		$end_soon = date($this->params->get('end_soon', '-2 hours'), $end);
+		$start_soon = date($this->params->get('start_soon', '-4 hours'), $start->format('U', true));
+		$end_soon = date($this->params->get('end_soon', '-2 hours'), $end->format('U', true));
 		$text = '';
 
 		if ($fmt_str) {
 			$this->params->set('output', $fmt_str);
 		}
 
-		if ($end <= $now) {
+		if ($end->format('U') <= $now) {
 			// AND it hasn't ended
 			if ($start >= $now) {
 				// If it has started
@@ -146,12 +146,12 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 			JError::raiseWarning( 500, 'The selected calendar(s) were not found in the database.');
 			return null;
 		}
-	
+
 		$orderBy = $this->params->get( 'order', 1 ) == 1 ? GCalendarZendHelper::ORDER_BY_START_TIME : GCalendarZendHelper::ORDER_BY_LAST_MODIFIED;
 		$maxEvents = $this->params->get('max_events', 10);
 		$filter = $this->params->get('find', '');
 		$titleFilter = $this->params->get('title_filter', '.*');
-	
+
 		$values = array();
 		foreach ($results as $result) {
 			$events = GCalendarZendHelper::getEvents($result, null, null, $maxEvents, $filter, $orderBy);
@@ -165,25 +165,25 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 				}
 			}
 		}
-	
+
 		usort($values, array("GCalendar_Entry", "compare"));
-	
+
 		$events = array_filter($values, array('GCalendarKeywordsHelper', "filter"));
-	
+
 		$offset = $this->params->get('offset', 0);
 		$numevents = $this->params->get('count', $maxEvents);
-	
+
 		return array_shift($values);
 	}
-	
+
 	private static function filter($event) {
 		if (!preg_match('/'.$event->getParam('moduleFilter').'/', $event->getTitle())) {
 			return false;
 		}
-		if ($event->getEndDate() > time()) {
+		if ($event->getEndDate()->format('U') > time()) {
 			return true;
 		}
-	
+
 		return false;
 	}
 
@@ -196,7 +196,7 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 		if ($format == "") {
 			$format = $this->params->get("dateformat", 'F d, Y @ g:ia');
 		}
-		return GCalendarUtil::formatDate($format, $time);
+		return JFactory::getDate($time)->format($format, true);
 	}
 
 	public function datecalc($param, $time) {
@@ -206,11 +206,11 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 
 
 	public function startoffset($param) {
-		return $this->datecalc($param, $this->event()->getStartDate());
+		return $this->datecalc($param, $this->event()->getStartDate()->format('U', true));
 	}
 
 	public function finishoffset($param) {
-		return $this->datecalc($param, $this->event()->getEndDate());
+		return $this->datecalc($param, $this->event()->getEndDate()->format('U', true));
 	}
 
 	public function startdate($param) {
@@ -218,7 +218,7 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 	}
 
 	public function start($param) {
-		return $this->date($param, $this->event()->getStartDate());
+		return $this->date($param, $this->event()->getStartDate()->format('U', true));
 	}
 
 	public function finishdate($param) {
@@ -229,7 +229,7 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 		$ftime = $this->event()->getEndDate();
 		$daytype = $this->event()->getDayType();
 		if ($daytype == GCalendar_Entry::MULTIPLE_WHOLE_DAY) {
-			$ftime = $ftime - 1; // to account for midnight
+			$ftime = $ftime->format('U') - 1; // to account for midnight
 		}
 
 		return $this->date($param, $ftime);
@@ -292,15 +292,15 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 	}
 
 	public function lasts($param) {
-		return $this->duration($param, $this->event()->getEndDate() - $this->event()->getStartDate());
+		return $this->duration($param, $this->event()->getEndDate()->format('U', true) - $this->event()->getStartDate()->format('U', true));
 	}
 
 	public function startsin($param) {
-		return $this->duration($param, $this->event()->getStartDate() - time());
+		return $this->duration($param, $this->event()->getStartDate()->format('U', true) - time());
 	}
 
 	public function endsin($param) {
-		return $this->duration($param, $this->event()->getEndDate() - time());
+		return $this->duration($param, $this->event()->getEndDate()->format('U', true) - time());
 	}
 
 	public function title($param) {
@@ -320,10 +320,7 @@ class GCalendarKeywordsHelper extends PluginKeywordsHelper {
 	}
 
 	public function link($param) {
-		$timezone = GCalendarUtil::getComponentParameter('timezone');
-		if ($timezone == ''){
-			$timezone = $this->event()->getTimezone();
-		}
+		$timezone = GCalendarUtil::getComponentParameter('timezone', 'UTC');
 		return $this->event()->getLink() . '&ctz=' . $timezone;
 	}
 

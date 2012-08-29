@@ -859,7 +859,7 @@ class getid3_mp3 extends getid3_handler
 
 							$thisfile_mpeg_audio['bitrate_mode'] = 'cbr';
 							$thisfile_mpeg_audio['bitrate'] = getid3_mp3::ClosestStandardMP3Bitrate($thisfile_mpeg_audio['bitrate']);
-							$info['audio']['bitrate'] = $thisfile_mpeg_audio['bitrate'];
+							$info['audio']['bitrate'] = $thisfile_mpeg_audio['bitrate'];
 							//if (empty($thisfile_mpeg_audio['bitrate']) || (!empty($thisfile_mpeg_audio_lame['bitrate_min']) && ($thisfile_mpeg_audio_lame['bitrate_min'] != 255))) {
 							//	$thisfile_mpeg_audio['bitrate'] = $thisfile_mpeg_audio_lame['bitrate_min'];
 							//}
@@ -1178,7 +1178,7 @@ class getid3_mp3 extends getid3_handler
 				} elseif ((substr($NextSyncPattern, 2, strlen($SyncPattern1)) == $SyncPattern1) || (substr($NextSyncPattern, 2, strlen($SyncPattern2)) == $SyncPattern2)) {
 					// ok - found one byte later than expected (last frame was padded, first frame wasn't)
 					$ActualFrameLengthValues[] = ($framelength + 1);
-					$nextoffset++;
+					$nextoffset++;
 				} else {
 					$info['error'][] = 'Did not find expected free-format sync pattern at offset '.$nextoffset;
 					return false;

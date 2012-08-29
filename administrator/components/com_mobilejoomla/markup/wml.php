@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -64,7 +64,6 @@ class MobileJoomla_WML extends MobileJoomla
 		if($this->getParam('jfooter'))
 		{
 			$app = JFactory::getApplication();
-			/** @var JLanguage $lang */
 			$lang = JFactory::getLanguage();
 			$lang->load('com_mobilejoomla', JPATH_ADMINISTRATOR);
 			$fyear = (substr(JVERSION,0,3) != '1.5') ? 'Y' : '%Y';

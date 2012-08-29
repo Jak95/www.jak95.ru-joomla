@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -189,6 +189,35 @@ class plgMobileSimple extends JPlugin
 			$MobileJoomla_Device['screenwidth']  = (int)$matches[1];
 			$MobileJoomla_Device['screenheight'] = (int)$matches[2];
 			return;
+		}
+		if(isset($_SERVER['HTTP_X_SKYFIRE_SCREEN'])
+				&& preg_match('#^(\d{3,4}),(\d{3,4})(,|$)#', $_SERVER['HTTP_X_SKYFIRE_SCREEN'], $matches))
+		{
+			$MobileJoomla_Device['screenwidth']  = (int)$matches[1];
+			$MobileJoomla_Device['screenheight'] = (int)$matches[2];
+			return;
+		}
+
+		if(isset($_SERVER['HTTP_USER_AGENT']))
+		{
+			if(strpos($_SERVER['HTTP_USER_AGENT'], ' WQVGA ') !== false)
+			{
+				$MobileJoomla_Device['screenwidth']  = 240;
+				$MobileJoomla_Device['screenheight'] = 400;
+				return;
+			}
+			if(strpos($_SERVER['HTTP_USER_AGENT'], ' HVGA ') !== false)
+			{
+				$MobileJoomla_Device['screenwidth']  = 320;
+				$MobileJoomla_Device['screenheight'] = 480;
+				return;
+			}
+			if(strpos($_SERVER['HTTP_USER_AGENT'], ' WVGA ') !== false)
+			{
+				$MobileJoomla_Device['screenwidth']  = 480;
+				$MobileJoomla_Device['screenheight'] = 800;
+				return;
+			}
 		}
 
 		$screen = '';

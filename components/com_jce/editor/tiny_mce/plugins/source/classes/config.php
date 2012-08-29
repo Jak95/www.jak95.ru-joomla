@@ -18,14 +18,12 @@ class WFSourcePluginConfig
 
 		$settings['source_higlight'] 	= $wf->getParam('source.highlight', 1, 1, 'boolean');
 		$settings['source_numbers'] 	= $wf->getParam('source.numbers', 1, 1, 'boolean');
-		$settings['source_wrap'] 		= $wf->getParam('source.wrap', 1, 1, 'boolean');
+		$settings['source_wrap'] 	= $wf->getParam('source.wrap', 1, 1, 'boolean');
+                $settings['source_format'] 	= $wf->getParam('source.foramt', 1, 1, 'boolean');
+                $settings['source_tag_closing'] = $wf->getParam('source.tag_closing', 1, 1, 'boolean');
+                $settings['source_selection_match'] = $wf->getParam('source.selection_match', 1, 1, 'boolean');
 		
 		$theme = $wf->getParam('source.theme', 'textmate', 'textmate');
-		
-		// codemirror2 themes...
-		if (preg_match('#(cobalt|default|elegant|monokai|neat|night|rubyblue)#', $theme)) {
-			$theme = 'textmate';
-		}
 		
 		$settings['source_theme'] = $theme;
 	}

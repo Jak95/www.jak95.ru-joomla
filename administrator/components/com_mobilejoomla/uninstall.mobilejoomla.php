@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -16,7 +16,7 @@ jimport('joomla.filesystem.folder');
 
 function MJ_version()
 {
-	return '1.0.3';
+	return '1.1.0';
 }
 
 function isJoomla15()
@@ -29,7 +29,6 @@ function isJoomla15()
 
 function getExtensionId($type, $name, $group='')
 {
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
  	if(!isJoomla15())
 	{
@@ -63,12 +62,11 @@ function InstallPlugin($group, $sourcedir, $name, $publish = 1, $ordering = -99)
 		return false;
 	if(!$upgrade)
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		if(!isJoomla15())
 			$db->setQuery("UPDATE `#__extensions` SET `enabled`=$publish, `ordering`=$ordering WHERE `type`='plugin' AND `element`='$name' AND `folder`='$group'");
 		else
-			$db->setQuery("UPDATE `#__plugins` SET `published`=$publish, `ordering`=$ordering  WHERE `element`='$name' AND `folder`='$group'");
+			$db->setQuery("UPDATE `#__plugins` SET `published`=$publish, `ordering`=$ordering WHERE `element`='$name' AND `folder`='$group'");
 		$db->query();
 	}
 	return true;
@@ -116,7 +114,6 @@ function InstallTemplate($sourcedir, $name)
 
 	if(isJoomla15())
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		$db->setQuery('SELECT COUNT(*) FROM #__templates_menu WHERE template = '.$db->Quote($name));
 		if($db->loadResult()==0)
@@ -146,7 +143,6 @@ function UninstallTemplate($name)
 		return false;
 	if(isJoomla15())
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		$db->setQuery('DELETE FROM #__templates_menu WHERE template = '.$db->Quote($name));
 		$db->query();
@@ -167,7 +163,6 @@ function InstallModule($sourcedir, $name, $title, $position, $published = 1, $sh
 		$id = getExtensionId('module', $name);
 		if($id)
 		{
-			/** @var JDatabase $db */
 			$db = JFactory::getDBO();
 
 			if(!isJoomla15())
@@ -221,6 +216,7 @@ function UpdateConfig($prev_version)
 	$configfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
 	$defconfigfile = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'defconfig.php';
 
+	/** @var $MobileJoomla_Settings array */
 	if(is_file($configfile))
 	{
 		include($configfile);
@@ -235,11 +231,13 @@ function UpdateConfig($prev_version)
 		return false;
 	}
 
+	$conf = JFactory::getConfig();
+	$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+
 	if(!$upgrade)
 	{ // first install
-		$conf = JFactory::getConfig();
-		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
-		$MobileJoomla_Settings['global.gzip'] = $conf->getValue('gzip');
+		$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue($c.'sitename');
+		$MobileJoomla_Settings['global.gzip'] = $conf->getValue($c.'gzip');
 	}
 	else
 	{ // update from previous version
@@ -291,8 +289,7 @@ function UpdateConfig($prev_version)
 
 		if(version_compare('0.9.9', $prev_version, '>'))
 		{
-			$conf = JFactory::getConfig();
-			$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue('sitename');
+			$MobileJoomla_Settings['mobile_sitename'] = $conf->getValue($c.'sitename');
 			$MobileJoomla_Settings['tmpl_xhtml_img_addstyles'] = 0;
 			$MobileJoomla_Settings['tmpl_iphone_img_addstyles'] = 0;
 		}
@@ -439,6 +436,17 @@ function UpdateConfig($prev_version)
 			if(JFolder::exists($admin.'cachestorage'))
 				JFolder::delete($admin.'cachestorage');
 		}
+
+		if(version_compare('1.1.0', $prev_version, '>'))
+		{
+			if(getExtensionId('plugin', 'terawurfl', 'mobile') !== null)
+			{
+				if(!UninstallPlugin('mobile', 'terawurfl'))
+					JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - TeraWURFL.');
+				clear_terawurfl_db();
+			}
+		}
+
 	}
 
 	$MobileJoomla_Settings['desktop_url'] = JURI::root();
@@ -487,120 +495,6 @@ function UpdateConfig($prev_version)
 	return true;
 }
 
-function terawurfl_install_procedure()
-{
-	/** @var JDatabase $db */
-	$db = JFactory::getDBO();
-
-	if(version_compare($db->getVersion(), '5.0.0', '<'))
-		return false;
-
-	$TeraWurfl_RIS = "CREATE PROCEDURE `#__TeraWurfl_RIS`(IN ua VARCHAR(255), IN tolerance INT, IN matcher VARCHAR(64))
-BEGIN
-DECLARE curlen INT;
-DECLARE wurflid VARCHAR(64) DEFAULT NULL;
-DECLARE curua VARCHAR(255);
-
-SELECT CHAR_LENGTH(ua)  INTO curlen;
-findua: WHILE ( curlen >= tolerance ) DO
-	SELECT CONCAT(LEFT(ua, curlen ),'%') INTO curua;
-	SELECT idx.DeviceID INTO wurflid
-		FROM #__TeraWurflIndex idx INNER JOIN #__TeraWurflMerge mrg ON idx.DeviceID = mrg.DeviceID
-		WHERE mrg.match = 1 AND idx.matcher = matcher
-		AND mrg.user_agent LIKE curua
-		LIMIT 1;
-	IF wurflid IS NOT NULL THEN
-		LEAVE findua;
-	END IF;
-	SELECT curlen - 1 INTO curlen;
-END WHILE;
-
-SELECT wurflid as DeviceID;
-END";
-	$db->setQuery($TeraWurfl_RIS);
-	$isSuccessful = $db->query();
-
-	$TeraWurfl_FallBackDevices = "CREATE PROCEDURE `#__TeraWurfl_FallBackDevices`(current_fall_back VARCHAR(64))
-BEGIN
-WHILE current_fall_back != 'root' DO
-	SELECT capabilities FROM #__TeraWurflMerge WHERE deviceID = current_fall_back;
-	SELECT fall_back FROM #__TeraWurflMerge WHERE deviceID = current_fall_back INTO current_fall_back;
-END WHILE;
-END";
-	$db->setQuery($TeraWurfl_FallBackDevices);
-	$isSuccessful = $db->query() && $isSuccessful;
-
-	return $isSuccessful;
-}
-
-function terawurfl_test()
-{
-	$test = true;
-
-	if(version_compare(phpversion(), '5.0.0', '<'))
-	{
-		JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_PHP5_ONLY'));
-		$test = false;
-	}
-
-	if(!class_exists('mysqli') || !function_exists('mysqli_connect'))
-	{
-		JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_MYSQLI_LIBRARY'));
-		$test = false;
-	}
-
-	if(!$test)
-		return false;
-	
-	/** @var JRegistry $config */
-	$config = JFactory::getConfig();
-	$host = $config->getValue('host');
-	$port = NULL;
-	$socket = NULL;
-	if(strpos($host, ':')!==false)
-	{
-		list($host, $port) = explode(':', $host);
-		if(!is_numeric($port))
-		{
-			$socket = $port;
-			$port = NULL;
-		}
-	}
-	if($host == '')
-		$host = 'localhost';
-	$user = $config->getValue('user');
-	$pass = $config->getValue('password');
-	$dbname = $config->getValue('db');
-
-	$mysqli = new mysqli($host, $user, $pass, $dbname, $port, $socket);
-	if(mysqli_connect_error())
-	{
-		JError::raiseWarning(0, JText::sprintf('COM_MJ__FAILED_TO_CONNECT_MYSQLI', mysqli_connect_errno(), mysqli_connect_error()));
-		return false;
-	}
-	$mysqli->close();
-
-	return true;
-}
-
-function safe_dl($name)
-{
-	if(extension_loaded($name))
-		return true;
-	if(!(bool)ini_get('enable_dl')
-		|| (bool)ini_get('safe_mode')
-		|| !function_exists('dl'))
-		return false;
-	$sapi_name = php_sapi_name();
-	if($sapi_name!='cli' && (substr($sapi_name,0,3)!='cgi' || isset($_SERVER['GATEWAY_INTERFACE'])))
-		return false;
-	if(substr(PHP_OS, 0, 3) == 'WIN')
-		@dl('php_'.$name.'.dll');
-	else
-		@dl($name.'.'.PHP_SHLIB_SUFFIX);
-	return extension_loaded($name);
-}
-
 function parse_mysql_dump($handler, $uri)
 {
 	static $methods = array(
@@ -621,11 +515,10 @@ function parse_mysql_dump($handler, $uri)
 	if(!$f)
 		return false;
 
-	/** @var JRegistry $conf */
 	$conf = JFactory::getConfig();
-	$debuglevel = $conf->getValue('config.debug');
+	$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+	$debuglevel = $conf->getValue($c.'debug');
 
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
 	$db->debug(0);
 
@@ -656,65 +549,19 @@ function parse_mysql_dump($handler, $uri)
 	$db->debug($debuglevel);
 	if($debuglevel)
 	{
-		$db->setQuery("# Insert $counter terawurfl queries");
+		$db->setQuery("# Insert $counter amdd queries");
 		$db->query();
 	}
 	return true;
 }
 
-function load_mysql_dump($bz2_file)
+function load_mysql_dump($file)
 {
-	safe_dl('bz2');
-	if(parse_mysql_dump('bz2', $bz2_file))
-		return true;
-
-	$teraPath = dirname($bz2_file).DS;
-	$teraSQL = $teraPath.'tera_dump.sql';
-	$disable_functions = ini_get('disable_functions');
-	if( !(bool)ini_get('safe_mode') && JFile::exists($bz2_file) &&
-		(preg_match('#\bescapeshellarg\b#', $disable_functions)==0) &&
-		(preg_match('#\bexec\b#', $disable_functions)==0) )
-	{
-		$pwd = getcwd();
-		chdir($teraPath);
-		@exec('bunzip2 -k '.escapeshellarg($bz2_file).' 2>&1');
-		chdir($pwd);
-	}
-
-	$teraSQL_root = JPATH_SITE.DS.'tera_dump.sql';
-	if(!JFile::exists($teraSQL) && JFile::exists($teraSQL_root))
-		$teraSQL = $teraSQL_root;
-
-	if(JFile::exists($teraSQL))
-	{
-		$dump_ok = parse_mysql_dump('file', $teraSQL);
-		if(!$dump_ok)
-			JError::raiseWarning(0, JText::_('COM_MJ__ERROR_READING').' '.$teraSQL);
-		if($teraSQL != $teraSQL_root)
-			JFile::delete($teraSQL);
-		return $dump_ok;
-	}
-	elseif(ini_get('allow_url_fopen'))
-	{
-		safe_dl('zlib');
-		if(parse_mysql_dump('gz', 'http://www.mobilejoomla.com/tera_dump.sql.gz'))
-			return true;
-		$url = 'http://www.mobilejoomla.com/tera_dump.sql';
-		if(parse_mysql_dump('file', $url))
-			return true;
-		JError::raiseWarning(0, JText::_('COM_MJ__ERROR_DOWNLOADING').' '.$url);
-		return false;
-	}
-	else
-	{
-		JError::raiseWarning(0, JText::_('COM_MJ__CANNOT_DOWNLOAD_TERAWURFL'));
-		return false;
-	}
+	return parse_mysql_dump('gz', $file);
 }
 
 function clear_terawurfl_db()
 {
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
 	$tables = array ('#__TeraWurflCache', '#__TeraWurflCache_TEMP', '#__TeraWurflIndex', '#__TeraWurflMerge',
 					 '#__TeraWurflSettings',
@@ -739,6 +586,15 @@ function clear_terawurfl_db()
 		$db->setQuery("DROP PROCEDURE IF EXISTS `#__TeraWurfl_FallBackDevices`");
 		$db->query();
 	}
+}
+
+function clear_amdd_db()
+{
+	$db = JFactory::getDBO();
+	$tables = array ('#__mj_amdd', '#__mj_amdd_cache');
+	$query = 'DROP TABLE IF EXISTS `'.implode('`, `',$tables).'`';
+	$db->setQuery($query);
+	$db->query();
 }
 
 function str2int($str)
@@ -769,9 +625,6 @@ function com_install()
 	if($memory_limit && str2int($memory_limit) < str2int($mj_memory_limit))
 		@ini_set('memory_limit', $mj_memory_limit);
 
-	/** @var JDatabase $db */
-	$db = JFactory::getDBO();
-	/** @var JLanguage $lang */
 	$lang = JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
@@ -878,63 +731,22 @@ function com_install()
 			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - '.ucfirst($plugin).'.');
 		}
 
-	// install terawurfl plugin
-	$teraSQL = $PluginSource.DS.'terawurfl'.DS.'tera_dump.sql.bz2';
-	if(file_exists($teraSQL))
+	// install amdd plugin
+	$amddSQL = $PluginSource.DS.'amdd'.DS.'amdd_dump.sql.gz';
+	if(file_exists($amddSQL))
 	{
-		if(!InstallPlugin('mobile', $PluginSource, 'terawurfl', 1, 0))
+		if(!InstallPlugin('mobile', $PluginSource, 'amdd', 1, 0))
 		{
 			$status = false;
-			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - TeraWURFL');
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_INSTALL').' Mobile - AMDD');
 		}
 		else
 		{
-			clear_terawurfl_db();
-			$dump_ok = load_mysql_dump($teraSQL);
-			JFile::delete($teraSQL);
-			if($dump_ok && !terawurfl_install_procedure())
-			{
-				$table = isJoomla15() ? '#__plugins' : '#__extensions';
-
-				$query = "SELECT params FROM $table WHERE element = 'terawurfl' AND folder = 'mobile'";
-				$db->setQuery($query);
-				$data = $db->loadResult();
-
-				jimport('joomla.registry.format');
-				$parser = JRegistryFormat::getInstance(isJoomla15() ? 'ini' : 'json');
-				$data = $parser->stringToObject($data);
-				if(!isset($data))
-					$data = new stdClass;
-				$data->cache = isset($data->cache) ? $data->cache : 0;
-				$data->mysql4 = 1;
-				$data = $parser->objectToString($data, array());
-				$data = $db->Quote($data);
-
-				$query = "UPDATE $table SET params = $data WHERE element = 'terawurfl' AND folder = 'mobile'";
-				$db->setQuery($query);
-				$db->query();
-			}
-			if(!$dump_ok || !terawurfl_test()) // disable terawurfl
-			{
-				JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_WILL_BE_DISABLED'));
-				if(!isJoomla15())
-					$query = "UPDATE #__extensions SET enabled = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
-				else
-					$query = "UPDATE #__plugins SET published = 0 WHERE element = 'terawurfl' AND folder = 'mobile'";
-				$db->setQuery($query);
-				$db->query();
-				clear_terawurfl_db();
-			}
-			else
-			{
-				if(!isJoomla15())
-					$db->setQuery("SELECT enabled FROM `#__extensions` WHERE element = 'terawurfl' AND folder = 'mobile'");
-				else
-					$db->setQuery("SELECT published FROM `#__plugins` WHERE element = 'terawurfl' AND folder = 'mobile'");
-				$published = $db->loadResult();
-				if(!$published)
-					JError::raiseWarning(0, JText::_('COM_MJ__TERAWURFL_MAY_BE_ENABLED'));
-			}
+			require_once JPATH_PLUGINS.DS.'mobile'.DS.(isJoomla15()?'':'amdd'.DS).'amdd'.DS.'database'.DS.'database.php';
+			$amdddb = AmddDatabase::getInstance('joomla');
+			$amdddb->createTables();
+			load_mysql_dump($amddSQL);
+			JFile::delete($amddSQL);
 		}
 	}
 
@@ -958,6 +770,27 @@ function com_install()
 	<a href="http://www.mobilejoomla.com/" id="mjupdate" target="_blank"></a>
 	<?php echo $msg; ?>
 <?php
+	$postInstallActions = array(
+		'installScientia' => true
+	);
+	if(function_exists('MJAddonPostInstall'))
+		MJAddonPostInstall($postInstallActions);
+
+	if($postInstallActions['installScientia'])
+	{
+		JHtml::_('behavior.modal');
+		$app = JFactory::getApplication();
+		$app->setUserState( "com_mobilejoomla.scientiainstall", true );
+?>
+<script type="text/javascript">
+window.addEvent('domready', function() {
+	SqueezeBox.fromElement($('scientiapopup'), {parse:'rel'});
+});
+</script>
+<a id="scientiapopup" style="display:none" href="components/com_mobilejoomla/scientia/index.php" rel="{handler: 'iframe', size: {x: 560, y: 380}}"></a> 
+<?php
+	}
+
 	return true;
 }
 
@@ -965,9 +798,7 @@ function com_uninstall()
 {
 	JError::setErrorHandling(E_ERROR, 'Message');
 
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
-	/** @var JLanguage $lang */
 	$lang = JFactory::getLanguage();
 	$lang->load('com_mobilejoomla');
 
@@ -990,12 +821,12 @@ function com_uninstall()
 	foreach($checkers as $plugin)
 		if(!UninstallPlugin('mobile', $plugin))
 			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - '.ucfirst($plugin).'.');
-	//uninstall terawurfl
-	if(getExtensionId('plugin', 'terawurfl', 'mobile') !== null)
+	//uninstall amdd
+	if(getExtensionId('plugin', 'amdd', 'mobile') !== null)
 	{
-		if(!UninstallPlugin('mobile', 'terawurfl'))
-			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - TeraWURFL.');
-		clear_terawurfl_db();
+		if(!UninstallPlugin('mobile', 'amdd'))
+			JError::raiseError(0, JText::_('COM_MJ__CANNOT_UNINSTALL').' Mobile - AMDD.');
+		clear_amdd_db();
 	}
 
 	//uninstall templates

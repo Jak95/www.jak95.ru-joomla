@@ -41,19 +41,6 @@ function GCalendarBuildRoute( &$query )
 			$segments[] = $query['eventID'];
 			unset( $query['eventID'] );
 		}
-	}else if($view === 'day'){
-		if(isset($query['gcids']))
-		{
-			$segments[] = 'calendars';
-			$calendars = $query['gcids'];
-			if(empty($calendars))
-			$calendars = array();
-			if( !is_array( $calendars ) ) {
-				$calendars = array($calendars);
-			}
-			$segments[] = implode("-", $calendars);
-			unset( $query['gcids'] );
-		}
 	}
 	return $segments;
 }
@@ -82,23 +69,6 @@ function GCalendarParseRoute( $segments )
 			$vars['eventID'] = $segments[2];
 			$vars['Itemid'] = GCalendarUtil::getItemId($segments[2]);
 			break;
-		case 'day':
-			$vars['gcids'] = explode("-",$segments[2]);
-			$calids = $vars['gcids'];
-			if(count($calids) > 0){
-				$itemid = GCalendarUtil::getItemId($calids[0]);
-				foreach ($calids as $cal) {
-					$id = GCalendarUtil::getItemId($cal);
-					if($id != $itemid){
-						$itemid = null;
-						break;
-					}
-				}
-				if($itemid !=null){
-					$vars['Itemid'] = $itemid;
-				}
-			}
-			break;
 		case 'google':
 		case 'gcalendar':
 			// do nothing
@@ -106,4 +76,3 @@ function GCalendarParseRoute( $segments )
 	}
 	return $vars;
 }
-?>

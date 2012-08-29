@@ -737,7 +737,7 @@ class plgXMLRPCJoomla extends JPlugin
 		$row->checkout((int)$user->id);
 
 		$cmodel = $this->getModel('Category');
-
+
 		if($blogid && is_array($categories) && count($categories)){
 			$catid = 0;
 			$primary_catid = 0;

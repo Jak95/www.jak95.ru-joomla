@@ -14,10 +14,12 @@
 .nnms_filtercontrols {
 	padding: 7px 0;
 	border-bottom: 1px solid #CCCCCC;
+	float: left;
 }
 .nnms_filtercontrols li {
-	display: inline;
+	display: inline-block;
 	padding: 0 5px !important;
+	white-space: nowrap;
 }
 .nnms_filtercontrols a {
 	color: #84D1E0;

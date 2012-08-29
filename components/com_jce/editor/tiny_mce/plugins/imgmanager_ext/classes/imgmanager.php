@@ -414,7 +414,7 @@ class WFImageManagerPlugin extends WFMediaManager {
 		$browser = $this->getBrowser();
 		$filesystem = $browser->getFileSystem();
 
-		$params = $this->getParams(array('key' => 'imgmanager_ext'));
+		$params = $this->getParams(array('key' => 'imgmanager_ext'));
 
 		$path 		= WFUtility::makePath($browser->getBaseDir(), $relative);
 		$dim 		= @getimagesize($path);

@@ -3,30 +3,22 @@
 <name>plg_gcalendar_next</name>
 <author>G4J Project</author>
 <authorEmail>info@g4j.laoneo.net</authorEmail>
-<creationDate>Feb 2012</creationDate>
+<creationDate>Aug 2012</creationDate>
 <copyright>This extension is released under the GNU/GPL License. </copyright>
 <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 <authorUrl>g4j.laoneo.net</authorUrl>
-<version>2.5.3</version>
+<version>2.7.5</version>
 <description>PLG_GCALENDAR_NEXT_XML_DESCRIPTION</description>
 
 <files>
 <filename plugin="gcalendar_next">gcalendar_next.php</filename>
+<folder>language</folder>
 </files>
-
-<languages>
-	<language tag="en-GB">languages/en-GB.plg_content_gcalendar_next.ini</language>
-	<language tag="en-GB">languages/en-GB.plg_content_gcalendar_next.sys.ini</language>
-	<language tag="de-DE">languages/de-DE.plg_content_gcalendar_next.ini</language>
-	<language tag="de-DE">languages/de-DE.plg_content_gcalendar_next.sys.ini</language>
-	<language tag="nl-NL">languages/nl-NL.plg_content_gcalendar_next.ini</language>
-	<language tag="nl-NL">languages/nl-NL.plg_content_gcalendar_next.sys.ini</language>
-</languages>
 
 <config>
 	<fields name="params" addfieldpath="/administrator/components/com_gcalendar/models/fields">
 		<fieldset name="basic">
-			<field name="calendarids" type="gcalendar" default="" label="PLG_GCALENDAR_NEXT_FIELD_CALENDAR_IDS_LABEL" description="PLG_GCALENDAR_NEXT_FIELD_CALENDAR_IDS_DESC" />>
+			<field name="calendarids" type="gcalendar" multiple="true" default="" label="PLG_GCALENDAR_NEXT_FIELD_CALENDAR_IDS_LABEL" description="PLG_GCALENDAR_NEXT_FIELD_CALENDAR_IDS_DESC" />>
 			<field name="class" type="text" size="80" default="" label="PLG_GCALENDAR_NEXT_FIELD_CLASS_LABEL" description="PLG_GCALENDAR_NEXT_FIELD_CLASS_DESC" />
 			<field name="output" type="textarea2" default="" label="PLG_GCALENDAR_NEXT_FIELD_OUTPUT_LABEL" description="PLG_GCALENDAR_NEXT_FIELD_OUTPUT_DESC" rows="5" cols="50" filter="raw">
 				<content>[$ startdate $] at [$ maplink $]</content>

@@ -54,7 +54,7 @@ class JFormFieldGoogleColorChooser extends JFormFieldText
 
 		$buffer = "<input type=\"text\" name=\"".$this->name."\" id=\"".$this->id."\" readonly=\"readonly\" class=\"inputbox\" \n";
 		$buffer .= "size=\"100%\" value=\"".$this->value."\" style=\"background-color: ".GCalendarUtil::getFadedColor($this->value)."\" />\n";
-		$buffer .= "<br CLEAR=\"both\"/><table><tbody>\n";
+		$buffer .= "<br CLEAR=\"both\"/><label id=\"jform_colors-lbl\" title=\"\" for=\"jform_color\"></label><table><tbody>\n";
 		for ($i = 0; $i < count($this->googleColors); $i++) {
 			if($i % 7 == 0)
 			$buffer .= "<tr>\n";

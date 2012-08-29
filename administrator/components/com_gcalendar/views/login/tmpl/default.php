@@ -21,7 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 <fieldset><legend><?php echo JText::_('COM_GCALENDAR_VIEW_LOGIN_AUTH_DEFAULT_LABEL');?></legend>
-<form action="<?php echo JRoute::_( JFactory::getURI()->toString());?>" method="post">
+<form action="<?php echo JRoute::_( 'index.php?option=com_gcalendar&task='.JRequest::getCmd('task'));?>" method="post">
 	<table>
 	<tr><td><?php echo JText::_('COM_GCALENDAR_VIEW_LOGIN_AUTH_DEFAULT_FIELD_NAME');?>:</td><td><input type="text" name="user" size="100"/></td></tr>
 	<tr><td><?php echo JText::_('COM_GCALENDAR_VIEW_LOGIN_AUTH_DEFAULT_FIELD_PASSWORD');?>:</td><td><input type="password"name="pass" size="100"/></td></tr>

@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -38,7 +38,6 @@ class plgMobileDomains extends JPlugin
 		$domain_chtml = $MobileJoomla_Settings['chtml.domain'];
 		$domain_iphone = $MobileJoomla_Settings['iphone.domain'];
 
-		/** @var JRegistry $config */
 		$config = JFactory::getConfig();
 
 		// Check for current domain
@@ -110,7 +109,7 @@ class plgMobileDomains extends JPlugin
 				$MobileJoomla_Device['markup'] = $this->_domain_markup;
 		}
 
-		if($markup == '')
+		if($markup == '' || @$_SERVER['REQUEST_METHOD']=='POST')
 			return;
 
 		$http = 'http';
@@ -121,7 +120,6 @@ class plgMobileDomains extends JPlugin
 		$parsed = parse_url($uri->toString());
 		$path = isset($parsed['path']) ? $parsed['path'] : '/';
 
-		/** @var JSite $app */
 		$app = JFactory::getApplication();
 		switch($markup)
 		{

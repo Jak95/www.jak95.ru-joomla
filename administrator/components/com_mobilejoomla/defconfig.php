@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-$MobileJoomla_Settings = array ('version' => '1.0.3',
+$MobileJoomla_Settings = array ('version' => '1.1.0',
 'caching' => 0,
 'httpcaching' => 0,
 'pcpage' => '',

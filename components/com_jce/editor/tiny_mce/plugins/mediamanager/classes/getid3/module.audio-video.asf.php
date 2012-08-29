@@ -1589,7 +1589,7 @@ class getid3_asf extends getid3_handler
 		return (isset($ASFIndexObjectIndexTypeLookup[$id]) ? $ASFIndexObjectIndexTypeLookup[$id] : 'invalid');
 	}
 
-	static function GUIDtoBytestring($GUIDstring) {
+	static function GUIDtoBytestring($GUIDstring) {
 		// Microsoft defines these 16-byte (128-bit) GUIDs in the strangest way:
 		// first 4 bytes are in little-endian order
 		// next 2 bytes are appended in little-endian order

@@ -1,4 +1,4 @@
-/* Mobile Joomla! 1.0.3 | mobilejoomla.com/license.html */
+/* Mobile Joomla! 1.1.0 | mobilejoomla.com/license.html */
 function init()
 {
 	var myStyleTweaks = new StyleTweaker();

@@ -35,7 +35,7 @@ class WFExtension extends JObject
 	 * @access  public
 	 * @return  object WFExtension
 	 */
-	public static function getInstance()
+	/*public static function getInstance()
 	{
 		static $instance;
 
@@ -43,7 +43,7 @@ class WFExtension extends JObject
 			$instance = new WFExtension();
 		}
 		return $instance;
-	}
+	}*/
 	
 	/**
 	 * Display the extension
@@ -189,5 +189,14 @@ class WFExtension extends JObject
 
 		return $wf->getParam($param, $default);
 	}
+        
+        protected function getView($name, $layout) {
+            $view = new WFView(array(
+                'name'      => $name,
+                'layout'    => $layout
+            ));
+
+            return $view;
+        }
 }
 ?>

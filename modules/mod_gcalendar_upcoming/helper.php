@@ -56,7 +56,7 @@ class ModGCalendarUpcomingHelper{
 		}
 
 		usort($values, array("GCalendar_Entry", "compare"));
-		
+
 		return array_slice($values, 0, $maxEvents);
 	}
 }

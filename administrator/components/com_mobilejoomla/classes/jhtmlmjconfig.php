@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -71,7 +71,13 @@ class JHTMLMjconfig
 	static function positionParam($param_name, $positions, $MobileJoomla_Settings)
 	{
 		$name = JHTMLMjconfig::formName($param_name);
-		return JHTML::_('select.genericlist', $positions, $name, 'class="inputbox" size="1"', 'value', 'value', $MobileJoomla_Settings[$param_name]);
+		$position = $MobileJoomla_Settings[$param_name];
+
+		$item = array('value' => $position);
+		if(!in_array($item, $positions))
+			$positions[] = $item;
+
+		return JHTML::_('select.genericlist', $positions, $name, 'class="inputbox" size="1"', 'value', 'value', $position);
 	}
 
 	static function label($label, $tooltip = '', $for_input = '')

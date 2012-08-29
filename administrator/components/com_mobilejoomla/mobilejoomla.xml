@@ -2,10 +2,10 @@
 <!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
 <install type="component" version="1.5.0" method="upgrade">
 	<name>Mobile Joomla!</name>
-	<version>1.0.3</version>
+	<version>1.1.0</version>
 	<author>Mobile Joomla!</author>
 	<copyright>(C) 2008-2012 Kuneri Ltd.</copyright>
-	<creationDate>April 2012</creationDate>
+	<creationDate>June 2012</creationDate>
 	<authorEmail>hello@mobilejoomla.com</authorEmail>
 	<authorUrl>http://www.mobilejoomla.com</authorUrl>
 	<license>GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html</license>
@@ -40,6 +40,7 @@
 			<folder>markup</folder>
 			<folder>override</folder>
 			<folder>packages</folder>
+			<folder>scientia</folder>
 		</files>
 	</administration>
 	<installfile>uninstall.mobilejoomla.php</installfile>

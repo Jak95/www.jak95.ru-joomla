@@ -3,14 +3,14 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
-/** @var JParameter $params */
+/** @var $params JRegistry */
 
 // check that MJ plugin was loaded
 if(!class_exists('MobileJoomla'))
@@ -28,7 +28,6 @@ if(!defined('_MJ'))
 }
 else
 {
-	/** @var MobileJoomla $MobileJoomla */
 	$MobileJoomla = MobileJoomla::getInstance();
 	$markup = $MobileJoomla->getMarkup();
 }
@@ -114,4 +113,7 @@ if($params->get('chtml_show', 0))
 	}
 }
 
-require(JModuleHelper::getLayoutPath('mod_mj_markupchooser', $markup?$markup:'default'));
+$layout_file = JModuleHelper::getLayoutPath('mod_mj_markupchooser', $markup?$markup:'default');
+if(!is_file($layout_file))
+	$layout_file = JModuleHelper::getLayoutPath('mod_mj_markupchooser', 'xhtml');
+require($layout_file);

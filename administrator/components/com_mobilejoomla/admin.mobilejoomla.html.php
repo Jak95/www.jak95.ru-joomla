@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -38,7 +38,16 @@ class HTML_mobilejoomla
 		{
 			$document = JFactory::getDocument();
 			$document->addStyleSheet(JURI::base(true).'/components/com_mobilejoomla/css/mjbanner.css');
-			$document->addStyleSheet('http://www.mobilejoomla.com/checker.php?v='.urlencode($version).'&amp;j='.urlencode(JVERSION));
+			jimport('joomla.plugins.helper');
+			if(JPluginHelper::isEnabled('mobile', 'scientia'))
+				$detector = 'wurfl';
+			elseif(JPluginHelper::isEnabled('mobile', 'amdd'))
+				$detector = 'amdd';
+			else
+				$detector = 'simple';
+			$document->addStyleSheet('http://www.mobilejoomla.com/checker.php?v='.urlencode($version)
+										.'&amp;j='.urlencode(JVERSION)
+										.'&amp;d='.$detector);
 		}
 	}
 	
@@ -450,13 +459,28 @@ class HTML_mobilejoomla
 				)
 			)
 		);
-		if($lists['dbsize'])
+
+		if(count($lists['dbsize']))
 		{
-			$config_blobs['COM_MJ__GENERAL_SETTINGS'][1]['COM_MJ__INFORMATION'][] = array(
-					'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DEVICE_DATABASE_SIZE'),
-					'input_blob' => '<p>'.$lists['dbsize'].' MB</p>'
-				);
+			$text = '';
+			foreach($lists['dbsize'] as $plugin)
+			{
+				$title = $plugin[0];
+				if(is_int($plugin[1]) || ctype_digit($plugin[1]))
+					$size = number_format($plugin[1]/(1024*1024), 2, '.', '') . ' Mb';
+				else
+					$size = $plugin[1];
+				$date = isset($plugin[2]) ? '<i>'.$plugin[2].'</i>' : '';
+				$text .= "<p>$title $date &nbsp; [$size]</p>";
+			}
 		}
+		else
+			$text = 'N/A';
+			$config_blobs['COM_MJ__GENERAL_SETTINGS'][1]['COM_MJ__INFORMATION'][] = array(
+				'label_blob' => JHTML::_('mjconfig.label', 'COM_MJ__DEVICE_DATABASE_SIZE'),
+				'input_blob' => $text
+			);
+
 		$tplmod_devices = array(
 			'COM_MJ__XHTMLMP_SETTINGS' => 'xhtml',
 			'COM_MJ__IPHONE_SETTINGS' => 'iphone',
@@ -485,7 +509,7 @@ class HTML_mobilejoomla
 		}
 		
 		$dispatcher = JDispatcher::getInstance();
-		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings));
+		$dispatcher->trigger('onMJDisplayConfig', array(&$config_blobs, &$MobileJoomla_Settings, $lists));
 
 		include(JPATH_COMPONENT.DS.'admin_tpl'.DS.'config_tabs.php');
 	}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="content" method="upgrade">
+  <name>Content - pPGallery</name>
+  <author>CS</author>
+  <creationDate>Nov 2011</creationDate>
+  <copyright>This plugin is released under the GNU/GPL License</copyright>
+  <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+  <authorEmail>cs.sh34@googlemail.com</authorEmail>
+  <authorUrl>http://joomlacode.org/gf/project/ppgallery/</authorUrl>
+  <version>4.313</version>
+  <description>
+  Content-Plugin for Joomla! 1.6.+ to create an simple image gallery based on 'prettyPhoto' display engine (a jQuery lightbox clone). Images from folders or directly inserted into the content/article can be processed with automatic thumbnail generation.
+  Install and activate this plugin as usual. Insert {ppgallery}*folder* or *images*{/ppgallery} in the content/article where the gallery shall appear. 
+  More detailed information about each parameter setting and inline override parameters can be found in the popup help text of the plugin parameter settings pane or via "http://joomlacode.org/gf/project/ppgallery/".
+  [Bundled with prettyPhoto 3.1.3 and jQuery 1.6.1] // pPGallery-first released: Nov.2009.
+  </description>
+  <files>
+    <filename plugin="ppgallery">ppgallery.php</filename>
+    <folder plugin="ppgallery">ppgallery/</folder>
+  </files>
+
+   <config>
+    <fields name="params">
+      <fieldset name="basic" label="Thumbnail parameters">
+        <field name="width" type="text" default="200" size="5" label="Width" description="State the maximum width of thumbnails (in px without the unit).&lt;br /&gt;{width}" />
+        <field name="height" type="text" default="200" size="5" label="Height" description="State the maximum height of thumbnails (in px without the unit).&lt;br /&gt;{height}" />
+        <field name="crop" type="radio" default="0" label="Square (cropped)" description="State if all thumbnails shall be in square format (the above stated 'width' value will be applied).&lt;br /&gt;{crop}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="fixed_w" type="radio" default="0" label="Horizontal alignment&lt;br /&gt;(fixed spacing)" description="State if all thumbnail-'boxes' shall have the same width (portrait-image-thumbnails will occupy the same space as the landscape thumbs).&lt;br /&gt;{fixed_w}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="valign" type="list" default="top" label="Vertical alignment" description="Select the desired vertical alignment of the thumbnails (only effective when different thumbnail heights are claculated).&lt;br /&gt;{valign}  [top|middle|bottom]">
+          <option value="top">top</option>
+          <option value="middle">middle</option>
+          <option value="bottom">bottom</option>
+        </field>
+        <field name="padd_h" type="text" default="5" size="5" label="Horizontal padding" description="State the desired lateral padding between thumbnails (in px without the unit).&lt;br /&gt;{padding_h}" />
+        <field name="padd_v" type="text" default="5" size="5" label="Vertical padding" description="State the desired vertical padding between thumbnails (in px without the unit).&lt;br /&gt;{padding_v}" />
+        <field name="quality_jpg" type="text" default="75" size="5" label="JPG thumbnail quality" description="State the desired quality for jpg thumbnail generation in percent (without '%' sign).&lt;br /&gt;(0-100)&lt;br /&gt;{quality_j}" />
+        <field name="quality_png" type="text" default="6" size="5" label="PNG thumbnail quality" description="State the desired compression-rate for png thumbnail generation.&lt;br /&gt;(0-9)&lt;br /&gt;{quality_p}" />
+        <field name="logo" type="media" default="" filter="\.png$" label="Logo/Watermark (png)" description="Select the desired Logo/Watermark file (png only!). Upload own custom png-files to Joomla!s images directory.&lt;br /&gt;{logo}" />
+        <field name="logo_pos" type="list" default="9" label="Logo/Watermark position" description="Select the desired position where the Logo/Watermark shall appear on the thumbnail.&lt;br /&gt;{logo_pos}  [1-9] (1=top-left, 2=top-center, 3=top-right, 4=middle-left, 5=middle-center, 6=middle-right, 7=bottom-left, 8=bottom-center, 9=bottom-right)">
+          <option value="1">top-left</option>
+          <option value="2">top-center</option>
+          <option value="3">top-right</option>
+          <option value="4">middle-left</option>
+          <option value="5">middle-center</option>
+          <option value="6">middle-right</option>
+          <option value="7">bottom-left</option>
+          <option value="8">bottom-center</option>
+          <option value="9">bottom-right</option>
+        </field>
+        <field name="caption" type="list" default="none" label="Caption" description="State if a caption (taken from the images 'alt'-tag) shall be displayed with the thumbnail.&lt;br /&gt;{caption}  [none|top|label|bottom]">
+          <option value="none">None</option>
+          <option value="top">Top</option>
+          <option value="label">Label</option>
+          <option value="bottom">Bottom</option>
+        </field>
+        <field name="t_limit" type="text" default="" size="5" label="No. of thumbnails" description="State the max. number of thumbnails to be shown on the content/item page (the remaining images will be displayed in the gallery, of course!). Leave blank to show all images. When choosing '0' no thumbnails will generated at all, only the scripts for prettyPhoto will be loaded (in this case prettyPhoto engine can be used as 'standalone' and the links have to be entered as described on the prettyPhoto homepage!)&lt;br /&gt;{limit}" />
+        <field name="pre_txt" type="text" default="" size="35" label="Prefix text" description="The inserted text will be displayed in front of all image-descriptions.&lt;br /&gt;{prefix_txt}" />
+        <field name="lnk_pop" type="text" default="" size="35" label="Link popup text" description="The inserted text will always be displayed as link popup text when moving the cursor overhead a thumbnail image. If left blank either the 'caption-text' (taken from the images 'alt'-tag) or the filename will be used.&lt;br /&gt;{link_popup}" />
+        <field name="t_only" type="radio" default="0" label="Thumbnails only" description="State if only thumbnails shall be displayed, in this case PrettyPhoto Gallery will not be used.&lt;br /&gt;{t_only}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="layout" type="list" default="default" label="Layout" description="Select a desired thumbnail layout/behaviour. This layout will only be used if 'CSS class suffix' (below) is left blank.&lt;br /&gt;use also {css_class}&lt;br /&gt;[(blank)|_noshadow|_canvas_hover|&lt;br /&gt;_canvas|_border|_hover|_none]">
+          <option value="default">Default</option>
+          <option value="_noshadow">No dropshadow</option>
+          <option value="_canvas_hover">No dropshadow, no borders</option>
+          <option value="_canvas">No dropshadow, no borders, no mouse-hover-effect</option>
+          <option value="_border">No dropshadow, no canvas</option>
+          <option value="_hover">No dropshadow, no canvas, no borders</option>
+          <option value="_none">No effects only the plain thumbnail</option>
+        </field>
+        <field name="cssclass_sfx" type="text" default="" label="CSS class-suffix" description="Insert the desired css class-suffix. This setting will overrule the 'layout' selection above.&lt;br /&gt;{css_class}" />
+        <field name="@spacer" type="spacer" default="&lt;b&gt;Folder Directives&lt;/b&gt;" label="" description="" />
+        <field name="subfolders" type="radio" default="0" label="Include subfolders" description="When using *folders*, state if subfolders shall be included.&lt;br /&gt;{subfolders}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="filter" type="text" default="" size="35" label="File-filter&lt;br /&gt; (RegEx only!)" description="&lt;b&gt;For Advanced Users, use with caution!&lt;/b&gt;&lt;br /&gt;Insert the desired file-fliter strings (only regular expressions are possible!). If left blank the standard filter (all valid jpg, gif and png images) will be used.&lt;br /&gt;{filter}" />
+      </fieldset>
+      <fieldset name="ppgallery" group="basic" label="prettyPhoto settings">
+        <field name="ppTitle" type="radio" default="1" label="Show title" description="Select weather or not the 'caption-text' (taken from the images 'alt'-tag) or the filename shall be displayed as title at the top of the image-box.&lt;br /&gt;{title}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="ppResize" type="radio" default="1" label="Allow resize" description="Select if the image will be displayed in real-size or will fit into the browser window (in this case a zoom-button is available in the top right corner).&lt;br /&gt;{resize}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="ppSlide" type="text" default="" size="5" label="Slideshow" description="Enter the slideshow-time-interval in ms. Leave blank to disable the slideshow feature.&lt;br /&gt;{slide}" />
+        <field name="ppSlideAuto" type="radio" default="0" label="Autoplay slideshow" description="State if the slideshow shall start automatically.&lt;br /&gt;{slideauto}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="ppThumbs" type="radio" default="1" label="Overlay Gallery" description="State if an overly-gallery of thumbnails shall be visible on the bottom of the fullscreen image when moving with the mouse over.&lt;br /&gt;{thumbs}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="ppSep" type="text" default="/" size="5" label="Separator label for image counter" description="Insert the desired separator letter or word for the gallery image counter (e.g. 1 'of' 7 or 1'/'7).&lt;br /&gt;{separator}" />
+        <field name="ppTheme" type="folderlist" default="light_rounded" label="Theme" directory="/plugins/content/ppgallery/ppgallery/images/prettyPhoto" hide_none="1" hide_default="1" description="Choose the desired theme.&lt;br /&gt;{theme}" />
+        <field name="ppAni" type="list" default="normal" label="Animation speed" description="Select the desired speed for the image-box to appear.&lt;br /&gt;{ani}  [fast|normal|slow]">
+          <option value="normal">Normal</option>
+          <option value="fast">Fast</option>
+          <option value="slow">Slow</option>
+        </field>
+        <field name="ppOpac" type="text" default="0.80" size="5" label="Background opacity" description="Select the desired opacity factor for the background fading.&lt;br /&gt;{opac}  [0-1] (0=no opacity, 1=solid black)" />
+        <field name="ppModal" type="radio" default="0" label="Close button only" description="State if only the close button shall be used to close the window.&lt;br /&gt;{modal}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="ppHidef" type="radio" default="0" label="Hide flash objects" description="Select 'yes' if flash objects appear over prettyPhoto display box and background.&lt;br /&gt;{hideflash}  [0|1] (0=no, 1=yes)">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="ppDeeplnk" type="radio" default="0" label="Show deeplink url" description="Select 'yes' to allow updating the address-bar and show the 'deeplinking' url.">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+      </fieldset>
+      <fieldset name="advanced" label="System settings">
+        <field name="csvfile" type="text" default="ppgallery.txt" size="35" label="Text/csv file name" description="&lt;b&gt;Attention: use with caution!&lt;/b&gt;&lt;br /&gt;Insert the desired file name for the text/csv file containing the titles and descriptions for image galleries when using the '*folder*' mode.&lt;br /&gt;{csvfile}" />
+        <field name="plgstring" type="text" default="ppgallery" size="35" label="Plugin string" description="&lt;b&gt;Attention: use with caution!&lt;/b&gt;&lt;br /&gt;Insert the desired plugin string (content/article string between the {...}) to be used for identifying the gallery in the content/article (only useful when already having large amount of images used with other gallery plugins)." />
+        <field name="noconflict" type="radio" default="1" label="No-Conflict mode" description="Select 'yes' if jQuery 'no conflict' mode shall be activated (e.g. with 'purity' based templates or other javascript based extensions).">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+        <field name="loadjq" type="radio" default="1" label="Load jQuery" description="&lt;b&gt;Attention: use with caution!&lt;/b&gt;&lt;br /&gt;Select 'no' if jQuery shall not be loaded at all by pPGallery (Note: use only if conflicts occur, that can not be solved with the 'no conflict'-mode and jQuery can or has to be used from other installed extensions).">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </field>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

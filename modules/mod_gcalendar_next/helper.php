@@ -14,10 +14,10 @@
  * along with GCalendar.  If not, see <http://www.gnu.org/licenses/>.
  *
  * This code was based on Allon Moritz's great work in the companion
- * upcoming module. 
- * 
+ * upcoming module.
+ *
  * @author Eric Horne
- * @copyright 2009-2011 Eric Horne 
+ * @copyright 2009-2011 Eric Horne
  * @since 2.2.0
  */
 
@@ -55,23 +55,23 @@ class ModGCalendarNextHelper  {
 		}
 
 		usort($values, array("GCalendar_Entry", "compare"));
-		
+
 		$events = array_filter($values, array('ModGCalendarNextHelper', "filter"));
-	
+
 		$offset = $params->get('offset', 0);
 		$numevents = $params->get('count', $maxEvents);
-	
+
 		return array_shift($values);
 	}
-	
+
 	private static function filter($event) {
 		if (!preg_match('/'.$event->getParam('moduleFilter').'/', $event->getTitle())) {
 			return false;
 		}
-		if ($event->getEndDate() > time()) {
+		if ($event->getEndDate()->format('U') > JFactory::getDate()->format('U')) {
 			return true;
 		}
-	
+
 		return false;
 	}
 }

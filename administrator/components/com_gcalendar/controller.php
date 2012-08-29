@@ -20,17 +20,11 @@
 
 jimport('joomla.application.component.controller');
 
-/**
- * GCalendar Component Controller
- *
- */
-class GCalendarController extends JController
-{
+class GCalendarController extends JController{
 
-	function display()
-	{
+	public function display($cachable = false, $urlparams = false){
 		JRequest::setVar('view', JRequest::getCmd('view', 'cpanel'));
-		parent::display();
+		parent::display($cachable, $urlparams);
 		$view = JRequest::getVar('view', 'cpanel');
 
 		JSubMenuHelper::addEntry(JText::_('COM_GCALENDAR_SUBMENU_CPANEL'), 'index.php?option=com_gcalendar&view=cpanel', $view == 'cpanel');
@@ -39,9 +33,14 @@ class GCalendarController extends JController
 		JSubMenuHelper::addEntry(JText::_('COM_GCALENDAR_SUBMENU_SUPPORT'), 'index.php?option=com_gcalendar&view=support', $view == 'support');
 		$document = JFactory::getDocument();
 		$document->addStyleDeclaration('.icon-48-calendar {background-image: url(../media/com_gcalendar/images/48-calendar.png);background-repeat: no-repeat;}');
+
+		$params = JComponentHelper::getParams('com_gcalendar');
+		if($params->get('timezone', '') == ''){
+			JError::raiseNotice(0, JText::_('COM_GCALENDAR_FIELD_CONFIG_SETTINGS_TIMEZONE_WARNING'));
+		}
 	}
 
-	function import(){
+	public function import(){
 		if(JRequest::getVar('user', null) != null){
 			$data = $this->getModel('Import', 'GCalendarModel')->getOnlineData();
 			if($data == null){

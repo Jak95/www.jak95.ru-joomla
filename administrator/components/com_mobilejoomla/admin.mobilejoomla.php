@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -59,7 +59,6 @@ function showconfig()
 	elseif(!is_writable(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php'))
 		$app->enqueueMessage(JText::_('COM_MJ__CONFIG_UNWRITEABLE'), 'warning');
 
-	/** @var JDatabase $db */
 	$db = JFactory::getDBO();
 	$query = 'SELECT DISTINCT(position) FROM #__modules WHERE client_id = 0';
 	$db->setQuery($query);
@@ -100,13 +99,8 @@ function showconfig()
 
 	$lists = array ();
 
-	$db->setQuery('SHOW TABLE STATUS FROM `'.$app->getCfg('db').'` LIKE '.$db->Quote($app->getCfg('dbprefix').'TeraWurfl%'));
-	$result = $db->loadObjectList();
-	$size = 0;
-	foreach($result as $row)
-		$size += $row->Data_length;
-	$size /= 1024*1024;
-	$lists['dbsize'] = $size ? number_format($size, 2, '.', '') : '';
+	JPluginHelper::importPlugin('mobile');
+	$lists['dbsize'] = $app->triggerEvent('onGetDatabaseSize');
 
 	$img = array (JHTML::_('select.option', 0, JText::_('COM_MJ__IMG_DONT_RESCALE')),
 	              JHTML::_('select.option', 2, JText::_('COM_MJ__IMG_RESCALE')),
@@ -136,6 +130,11 @@ function showconfig()
 	$wmldoctype = array (JHTML::_('select.option', 0, JText::_('COM_MJ__NONE')),
 	                     JHTML::_('select.option', 1, 'WAPFORUM/WML1.1'),
 	                     JHTML::_('select.option', 2, 'WAPFORUM/WML1.2'));
+
+	$lists['private.templates'] = $templates;
+	$lists['private.gzip'] = $gzip;
+	$lists['private.img'] = $img;
+	$lists['private.modulepositions'] = $modulepositions;
 
 	//Global settings
 	$lists['global.removetags'] = JHTML::_('mjconfig.booleanparam', 'global.removetags', $MobileJoomla_Settings);
@@ -242,7 +241,6 @@ function showconfig()
 
 	function menuoptions()
 	{
-		/** @var JDatabase $db */
 		$db = JFactory::getDBO();
 		$isJoomla15 = (substr(JVERSION,0,3) == '1.5');
 		if(!$isJoomla15)
@@ -307,6 +305,7 @@ function showconfig()
 function saveconfig()
 {
 	$configfname = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mobilejoomla'.DS.'config.php';
+	/** @var $MobileJoomla_Settings array */
 	include($configfname);
 
 	$settings = array ('caching', 'httpcaching', 'pcpage', 'templatewidth', 'jpegquality',
@@ -424,7 +423,8 @@ function update()
 		_initStatus();
 		$filename = $app->getUserState( "$option.updatefilename", false );
 		$config = JFactory::getConfig();
-		$path = $config->getValue('config.tmp_path').DS.$filename;
+		$c = (substr(JVERSION,0,3)=='1.5') ? 'config.' : '';
+		$path = $config->getValue($c.'tmp_path').DS.$filename;
 		if($path)
 		{
 			$result = JInstallerHelper::unpack($path);

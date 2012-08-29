@@ -2,12 +2,12 @@
 <install type="plugin" group="system" version="1.6">
 	<name>PLG_SYSTEM_NNFRAMEWORK</name>
 	<description>PLG_SYSTEM_NNFRAMEWORK_DESC</description>
-	<version>12.1.6</version>
-	<creationDate>January 2012</creationDate>
-	<author>NoNumber! (Peter van Westen)</author>
+	<version>12.7.9</version>
+	<creationDate>July 2012</creationDate>
+	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>
-	<copyright>Copyright © 2011 NoNumber! All Rights Reserved</copyright>
+	<copyright>Copyright © 2012 NoNumber All Rights Reserved</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 
 	<!-- Files -->

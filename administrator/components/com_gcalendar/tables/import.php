@@ -21,47 +21,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendar'.DS.'tables'.DS.'gcalendar.php');
 
-/**
- * GCalendar Table class
- *
- */
-class TableImport extends JTable
+class GCalendarTableImport extends GCalendarTableGCalendar
 {
-	/**
-	 * Primary Key
-	 *
-	 * @var int
-	 */
-	var $id = null;
-
-	/**
-	 * @var string
-	 */
-	var $name = null;
-	
-	/**
-	 * @var string
-	 */
-	var $calendar_id = null;
-	
-	/**
-	 * @var string
-	 */
-	var $magic_cookie = null;
-	
-	/**
-	 * @var string
-	 */
-	var $color = null;
-
-	/**
-	 * Constructor
-	 *
-	 * @param object Database connector object
-	 */
-	function TableImport(& $db) {
-		parent::__construct('#__gcalendar', 'id', $db);
-	}
 }
-?>

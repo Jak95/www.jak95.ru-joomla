@@ -2847,7 +2847,7 @@ xmlrpc_encode_entitites($this->errstr, $GLOBALS['xmlrpc_internalencoding'], $cha
 				case 1:
 					return 'scalar';
 					break;
-				default:
+				default:
 					return 'undef';
 			}
 		}

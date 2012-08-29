@@ -36,14 +36,17 @@ class modOSTimerHelper
 		$trans_min 		 = @$params->get('ev_trans_min');
 		$trans_sec 		 = @$params->get('ev_trans_sec');
         //$ev_hour = $ev_hour+$ev_offset;
-		$eventdown = mktime($ev_hour, $ev_minutes, 0, $ev_month, $ev_day, $ev_year, 1);
+
+		$eventdown = mktime($ev_hour, $ev_minutes, 0, $ev_month, $ev_day, $ev_year);
 		$today = time();
-      		$sec	= $eventdown - $today;
+		$sec	= $eventdown - $today;
 		$days	= floor(($eventdown - $today) /86400);
+		if ($days * 86400 + $today > $eventdown)
+			$days--;
 		$h1		= floor(($eventdown - $today) /3600);
 		$m1		= floor(($eventdown - $today) /60);
 		$hour	= floor($sec/60/60 - $days*24);
-		$min	= floor($sec/60 - $hours*60);
+		//$min	= floor($sec/60 - $hours*60);
 
 		//collect data in an array
 		$i		= 0;
@@ -83,15 +86,20 @@ class modOSTimerHelper
 			$lists[$i]->JS_trans_min	= $trans_min;
 			$lists[$i]->JS_trans_sec	= $trans_sec;
 	 	} else if (($ev_displayhour == '1') && ($ev_js == '0')) {
-            $curmin = date('i');
+            /*$curmin = date('i');
             if ($curmin >= $ev_minutes) {
             	$min = $curmin - $ev_minutes;
             } else {
             	$min = $ev_minutes - $curmin;
             }
-	 		$lists[$i]->DetailCount = $hour.' Hrs. '.$min.' Min.';
+	 		$lists[$i]->DetailCount = $hour.' Hrs. '.$min.' Min.';*/
 
-	 	} else {}
+	 	} else {
+				if ($days <= 0)
+				{
+					$lists[$i]->DetailCount = $ev_endtime;
+				}
+			}
 
 			 	if(($ev_displayURL == '1') && $ev_URL && $ev_URLtitle ) {
         	$lists[$i]->DetailLink = '<a href="'.$ev_URL.'" title="'.$ev_URLtitle.'">'.$ev_URLtitle.'</a>'; }
@@ -140,6 +148,11 @@ function countdounJS($ev_month, $ev_day, $ev_year, $ev_hour, $ev_minutes, $ev_en
 	    document.getElementById("clockJS").innerHTML = FinishMessage;
 	    return;
 	  }
+	  if (calcage(secs,86400,100000)==0 && calcage(secs,3600,24) == 0)
+		DisplayFormat = "%%M%% <?php echo $trans_min; ?> %%S%% <?php echo $trans_sec; ?>";
+	  if (calcage(secs,86400,100000)==0 && calcage(secs,3600,24) == 0 && calcage(secs,60,60) == 0)
+		DisplayFormat = "%%S%% <?php echo $trans_sec; ?>";
+
 	  DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs,86400,100000));
 	  DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs,3600,24));
 	  DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs,60,60));

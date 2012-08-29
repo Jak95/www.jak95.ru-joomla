@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 class ModGCalendarHelper {
 
-	function getCalendars($params) {
+	public static function getCalendars($params) {
 		$calendarids = null;
 		if($params != null){
 			$calendarids = $params->get('calendarids');
@@ -33,10 +33,4 @@ class ModGCalendarHelper {
 			return GCalendarDBUtil::getAllCalendars();
 		}
 	}
-
-	function getModuleId(){
-		static $moduleID= 0;
-		return $moduleID++;
-	}
 }
-?>

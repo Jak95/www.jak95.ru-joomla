@@ -373,7 +373,7 @@ class getid3_flac extends getid3_handler
 				$IndexNumber       = getid3_lib::BigEndian2Int(substr($METAdataBlockData, $offset, 1));
 				$offset += 1;
 
-				$offset += 3; // reserved
+				$offset += 3; // reserved
 
 				$info['flac']['CUESHEET']['tracks'][$TrackNumber]['indexes'][$IndexNumber] = $IndexSampleOffset;
 			}

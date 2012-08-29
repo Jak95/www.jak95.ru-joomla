@@ -3,7 +3,7 @@
 	client="site">
 	<name>MOD_GCALENDAR_UPCOMING</name>
 	<author>G4J Project</author>
-	<creationDate>Feb 2012</creationDate>
+	<creationDate>Aug 2012</creationDate>
 	<copyright>This extension is released under the GNU/GPL License.
 	</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html
@@ -11,7 +11,7 @@
 	<authorEmail>info@g4j.laoneo.net
 	</authorEmail>
 	<authorUrl>g4j.laoneo.net</authorUrl>
-	<version>2.5.3</version>
+	<version>2.7.5</version>
 	<description>MOD_GCALENDAR_UPCOMING_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_gcalendar_upcoming">mod_gcalendar_upcoming.php
@@ -19,25 +19,18 @@
 		<filename>index.html</filename>
 		<filename>helper.php</filename>
 		<folder>tmpl</folder>
+		<folder>language</folder>
 	</files>
-	<languages>
-		<language tag="en-GB">languages/en-GB.mod_gcalendar_upcoming.ini</language>
-		<language tag="en-GB">languages/en-GB.mod_gcalendar_upcoming.sys.ini</language>
-		<language tag="de-DE">languages/de-DE.mod_gcalendar_upcoming.ini</language>
-		<language tag="de-DE">languages/de-DE.mod_gcalendar_upcoming.sys.ini</language>
-		<language tag="nl-NL">languages/nl-NL.mod_gcalendar_upcoming.ini</language>
-		<language tag="nl-NL">languages/nl-NL.mod_gcalendar_upcoming.sys.ini</language>
-	</languages>
 	<config>
 		<fields name="params"
 			addfieldpath="/administrator/components/com_gcalendar/models/fields">
 			<fieldset name="basic">
-				<field name="calendarids" type="gcalendar" default=""
+				<field name="calendarids" type="gcalendar" default="" multiple="true"
 					label="MOD_GCALENDAR_UPCOMING_FIELD_CALENDAR_IDS_LABEL"
 					description="MOD_GCALENDAR_UPCOMING_FIELD_CALENDAR_IDS_DESC" />
-				<field name="date_format" type="text" size="80" default="d.m.Y"
+				<field name="date_format" type="text" size="80"
 					label="MOD_GCALENDAR_UPCOMING_FIELD_DATE_FORMAT_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_DATE_FORMAT_DESC" />
-				<field name="time_format" type="text" size="80" default="H:i"
+				<field name="time_format" type="text" size="80"
 					label="MOD_GCALENDAR_UPCOMING_FIELD_TIME_FORMAT_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_TIME_FORMAT_DESC" />
 				<field name="max_events" type="text" size="2" default="5"
 					label="MOD_GCALENDAR_UPCOMING_FIELD_MAX_EVENTS_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_MAX_EVENTS_DESC" />
@@ -52,53 +45,36 @@
 					label="MOD_GCALENDAR_UPCOMING_FIELD_FILTER_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_FILTER_DESC" />
 				<field name="@spacer" type="spacer" default="" label=""
 					description="" />
-				<field name="images" type="list" default="yes"
-					label="MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_DESC">
-					<option value="yes">MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_YES
-					</option>
-					<option value="custom">MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_CUSTOM
-					</option>
-					<option value="no">MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_NO
-					</option>
-				</field>
-				<field name="calimage_background" type="color" size="7"
-					default="729FCC" label="MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_BACKGROUND_LABEL"
-					description="MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_BACKGROUND_DESC" />
-				<field name="calimage_month" type="color" size="7" default="FFFFFF"
-					label="MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_MONTH_LABEL"
-					description="MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_MONTH_DESC" />
-				<field name="calimage_day" type="color" size="7" default="7CADDE"
-					label="MOD_GCALENDAR_UPCOMING_FIELD_IMAGES_DAY_LABEL" description="" />
-				<field name="@spacer" type="spacer" default="" label=""
-					description="" />
 				<field name="moduleclass_sfx" type="text"
 					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 			</fieldset>
 			<fieldset name="advanced">
-				<field name="text_before" type="textarea" default=""
-					label="MOD_GCALENDAR_UPCOMING_FIELD_TEXT_BEFORE_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_TEXT_BEFORE_DESC"
-					rows="3" cols="50" filter="raw" />
 				<field name="output" type="textarea2" default=""
 					label="MOD_GCALENDAR_UPCOMING_FIELD_OUTPUT_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_OUTPUT_DESC"
-					rows="5" cols="50" filter="raw">
-					<content>&lt;p&gt;{startdate} {starttime} {dateseparator} {enddate} {endtime}&lt;br/&gt;&lt;a href="{backlink}"&gt;{title}&lt;/a&gt;&lt;/p&gt;</content>
+					rows="20" cols="70" filter="raw">
+					<content>
+					<![CDATA[{{#events}}
+{{#header}}<p style="clear: both;"><strong>{{header}}</strong></p>{{/header}}
+<p style="clear: both;"/>
+<div style="float:left;margin-right:6px;width:42px;height:42px;background-image:url('modules/mod_gcalendar_upcoming/tmpl/images/calendar-icon.gif')">
+	<div style="background-color: #{{calendarcolor}};width:32px;height:10px;margin-top:6px;margin-left:5px;"></div>
+	<div style="color: #FFFFFF;padding:2px;font-weight:bold;font-size:10px;text-align:center;position:relative;margin-top:-13px;margin-bottom:-4px;">{{month}}</div>
+	<div style="color: #{{calendarcolor}};font-weight:bold;font-size:1.3em;width:42px;text-align:center;">{{day}}</div>
+</div>
+<p>{{date}}<br/><a href="{{{backlink}}}">{{title}}</a></p>
+<p style="clear: both;"/>
+{{/events}}
+{{^events}}
+{{emptyText}}
+{{/events}}]]>
+					</content>
 					<description>
 						MOD_GCALENDAR_UPCOMING_FIELD_OUTPUT_LONG_DESC
 					</description>
 				</field>
-				<!-- 12 Nov 2011 Grouping mod by Bernie Sumption -->
 				<field name="output_grouping" type="text" size="80" default=""
 					label="MOD_GCALENDAR_UPCOMING_FIELD_OUTPUT_GROUPING_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_OUTPUT_GROUPING_DESC">
 				</field>
-				<!-- End mod -->
-				<field name="output_grouping_content" type="textarea2" default=""
-					label="MOD_GCALENDAR_UPCOMING_FIELD_OUTPUT_GROUPING_CONTENT_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_OUTPUT_GROUPING_CONTENT_DESC"
-					rows="5" cols="50" filter="raw">
-					<content>&lt;p style="clear: both;"&gt;&lt;strong&gt;{header}&lt;/strong&gt;&lt;/p&gt;</content>
-				</field>
-				<field name="text_after" type="textarea" default=""
-					label="MOD_GCALENDAR_UPCOMING_FIELD_TEXT_AFTER_LABEL" description="MOD_GCALENDAR_UPCOMING_FIELD_TEXT_AFTER_DESC"
-					rows="3" cols="50" filter="raw" />
 				<field name="start_date" type="text" size="80" default=""
 					label="MOD_GCALENDAR_UPCOMING_FIELD_START_DATE_LABEL"
 					description="MOD_GCALENDAR_UPCOMING_FIELD_START_DATE_DESC" />

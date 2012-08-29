@@ -1,12 +1,12 @@
 <?php
 /**
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber!
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright		Copyright © 2012 NoNumber
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 /**
@@ -15,10 +15,9 @@
  */
 
 /**
- * @version		$Id: search.php 22338 2011-11-04 17:24:53Z github_bot $
  * @package		Joomla.Site
  * @subpackage	com_search
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -168,13 +167,13 @@ class SearchModelSearch extends JModel
 
 			/* >>> ADDED: Run content plugins over results */
 			$app = JFactory::getApplication();
-			$params = $app->getParams( 'com_content' );
-			$params->set( 'nn_search', 1 );
-			foreach( $this->_data as $item ) {
-				if ( $item->text != '' ) {
-					$results = $dispatcher->trigger( 'onContentPrepare', array ( 'com_content.article', &$item, &$params, 0 ) );
+			$params = $app->getParams('com_content');
+			$params->set('nn_search', 1);
+			foreach ($this->_data as $item) {
+				if ($item->text != '') {
+					$results = $dispatcher->trigger('onContentPrepare', array('com_content.article', &$item, &$params, 0));
 					// strip html tags from title
-					$item->title = strip_tags( $item->title );
+					$item->title = strip_tags($item->title);
 				}
 			}
 			/* <<< */

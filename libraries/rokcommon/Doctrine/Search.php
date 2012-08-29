@@ -219,7 +219,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
      * @return void
      */
     public function batchUpdateIndex($limit = null, $offset = null, $encoding = null)
-    {
+    {
         $table = $this->_options['table'];
 
         $this->initialize($table);

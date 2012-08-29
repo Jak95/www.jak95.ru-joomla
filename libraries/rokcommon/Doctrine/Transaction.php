@@ -100,7 +100,7 @@ class Doctrine_Transaction extends Doctrine_Connection_Module
         return $this;
     }
 
-    /**
+    /**
      * getState
      * returns the state of this transaction module.
      *

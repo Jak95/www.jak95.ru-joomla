@@ -24,22 +24,29 @@ jimport( 'joomla.application.component.model' );
 
 class GCalendarModelGCalendar extends JModel {
 
-	var $cached_data = null;
+	private $cached_data = null;
+	protected $_extension = 'com_gcalendar';
 
-	/**
-	 * Returns all calendars in the database. The returned
-	 * rows contain an additional attribute selected which is set
-	 * to true when the specific calendar is mentioned in the
-	 * parameters property calendarids.
-	 *
-	 * @return the calendars specified in the database
-	 */
-	function getDBCalendars(){
+	protected function populateState(){
+		$this->setState('filter.extension', $this->_extension);
+
+		$calendarids = JFactory::getApplication()->getParams()->get('calendarids');
+		if(!is_array($calendarids) && !empty($calendarids)){
+			$calendarids = array($calendarids);
+		}
+		$tmp = JRequest::getVar('gcids', null);
+		if(!empty($tmp)){
+			$calendarids = explode(',', $tmp);
+		}
+		$this->setState('calendarids', $calendarids);
+
+		$this->setState('params', JFactory::getApplication()->getParams());
+	}
+
+	public function getDBCalendars(){
 		if($this->cached_data == null){
-			$params = $this->getState('parameters.menu');
-			$calendarids = null;
-			if($params != null){
-				$calendarids=$params->get('calendarids');
+			$calendarids = $this->getState('calendarids');
+			if(!empty($calendarids)){
 				$this->cached_data = GCalendarDBUtil::getCalendars($calendarids);
 			} else {
 				$this->cached_data = GCalendarDBUtil::getAllCalendars();
@@ -47,5 +54,4 @@ class GCalendarModelGCalendar extends JModel {
 		}
 		return $this->cached_data;
 	}
-
 }

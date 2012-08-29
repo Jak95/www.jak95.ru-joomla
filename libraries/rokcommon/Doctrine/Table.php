@@ -1357,7 +1357,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
                     //All the DataDict driver classes have work-arounds to deal
                     //with unset lengths.
                     $length = null;
-                break;
+                break;
                 case 'boolean':
                     $length = 1;
                 case 'date':

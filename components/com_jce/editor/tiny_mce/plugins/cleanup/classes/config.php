@@ -18,30 +18,12 @@ class WFCleanupPluginConfig
 		$wf 	= WFEditor::getInstance();
 		$model 	= JModel::getInstance('editor', 'WFModel');
 
-		$settings['cleanup_pluginmode'] = $wf->getParam('cleanup.pluginmode', 0, 0, 'boolean');
-		
-		/** TODO Re-visit in 2.1
-		
-		// get validate schema
-		$schema = $wf->getParam('editor.verify_html', 'html4');
-		
-		// backwards compatability
-		if ($schema == 1) {
-			$schema = 'html4';
-		}
-		
-		if ($schema == 'xml') {
-			$settings['verify_html'] 	= false;
-		} else {
-			$settings['schema'] 		= $schema;
-		} **/
-		
-		$settings['verify_html'] = $wf->getParam('editor.verify_html', 0, 1, 'boolean');
+		$settings['cleanup_pluginmode'] = $wf->getParam('cleanup.pluginmode', 0, 0, 'boolean');		
+		$settings['verify_html']        = $wf->getParam('editor.verify_html', 0, 1, 'boolean');
+                
+                // set schema
+                $settings['schema'] = $wf->getParam('editor.schema', 'html4', 'html4');
 
-		// Tables & Lists
-		$settings['table_inline_editing'] 	= true;
-		$settings['fix_list_elements'] 		= true;
-		
 		// Get Extended elements
 		$settings['extended_valid_elements'] = $wf->getParam('editor.extended_elements', '', '');
 		// Configuration list of invalid elements as array

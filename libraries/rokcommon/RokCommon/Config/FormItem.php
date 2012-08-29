@@ -458,7 +458,7 @@ abstract class RokCommon_Config_FormItem
             }
             else {
                 $groups = explode('.', $group);
-                if (count($groups > 0)) {
+                if (count($groups > 0)) {
                     //array_shift($groups);
                     $groups[] = $name;
                     $gantry_name = implode('-',$groups);

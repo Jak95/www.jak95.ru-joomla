@@ -118,7 +118,7 @@ class getid3_lib
 				$pointpos = strpos($binarypointnumber, '.');
 				$exponent += ($pointpos - 1);
 				$binarypointnumber = str_replace('.', '', $binarypointnumber);
-				$binarypointnumber = $binarypointnumber{0}.'.'.substr($binarypointnumber, 1);
+				$binarypointnumber = $binarypointnumber{0}.'.'.substr($binarypointnumber, 1);
 			}
 		}
 		$binarypointnumber = str_pad(substr($binarypointnumber, 0, $maxbits + 2), $maxbits + 2, '0', STR_PAD_RIGHT);
@@ -864,7 +864,7 @@ class getid3_lib
 		for ($i = 0; $i < strlen($string); $i += 2) {
 			$charval = getid3_lib::LittleEndian2Int(substr($string, $i, 2));
 			$newcharstring .= getid3_lib::iconv_fallback_int_utf8($charval);
-		}
+		}
 		return $newcharstring;
 	}
 

@@ -3,10 +3,10 @@
  * Mobile Joomla!
  * http://www.mobilejoomla.com
  *
- * @version		1.0.3
+ * @version		1.1.0
  * @license		GNU/GPL v2 - http://www.gnu.org/licenses/gpl-2.0.html
  * @copyright	(C) 2008-2012 Kuneri Ltd.
- * @date		April 2012
+ * @date		June 2012
  */
 defined('_JEXEC') or die('Restricted access');
 
@@ -23,7 +23,7 @@ class JMobileMenuHelper
 	static function getItems($attributes, $values)
 	{
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
-        $app = JFactory::getApplication();
+		$app = JFactory::getApplication();
 		$menu = $app->getMenu();
 		if($is_joomla15)
 		{
@@ -83,12 +83,11 @@ class JMobileMenuHelper
 		$MobileJoomla = MobileJoomla::getInstance();
 		$is_joomla15 = JMobileMenuHelper::_isJoomla15();
 
-		/** @var JUser $user */
 		$user = JFactory::getUser();
 		$aid = $user->get('aid', 0);
 
-        $app = JFactory::getApplication();
-        $sitemenu = $app->getMenu();
+		$app = JFactory::getApplication();
+		$sitemenu = $app->getMenu();
 		$router = $app->getRouter();
 
 		foreach($menu as $i=>$item)
@@ -161,7 +160,6 @@ class JMobileMenuHelper
 	
 	static function _renderMenu($menu, &$params, $submenu = array())
 	{
-		/** @var MobileJoomla $MobileJoomla */
 		$MobileJoomla = MobileJoomla::getInstance();
 		$markup = $MobileJoomla->getMarkup();
 		switch($markup)
@@ -175,15 +173,18 @@ class JMobileMenuHelper
 			$markup = 'xhtml';
 		}
 
-        $app = JFactory::getApplication();
-        $sitemenu = $app->getMenu();
+		$app = JFactory::getApplication();
+		$sitemenu = $app->getMenu();
 		$active	= $sitemenu->getActive();
 		$active_id = isset($active) ? $active->id : 0;
 
 		$is_vertical = $params->get('layout')=='v';
 		$is_submenu = $params->get('class_prefix')=='submenu';
 
-		require(JModuleHelper::getLayoutPath('mod_mj_menu', $markup));
+		$layout_file = JModuleHelper::getLayoutPath('mod_mj_menu', $markup);
+		if(!is_file($layout_file))
+			$layout_file = JModuleHelper::getLayoutPath('mod_mj_menu', 'xhtml');
+		require($layout_file);
 	}
 
 	static function renderMenu($menu, &$params, $submenu = array())

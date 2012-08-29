@@ -99,7 +99,7 @@ class Doctrine_Connection_Mssql extends Doctrine_Connection_Common
         
         return '[' . str_replace(']', ']]', $identifier) . ']';
     }
-
+
     /**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      * [ original code borrowed from Zend Framework ]

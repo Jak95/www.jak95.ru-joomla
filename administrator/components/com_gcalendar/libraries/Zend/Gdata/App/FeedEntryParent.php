@@ -640,7 +640,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     public function getMinorProtocolVersion()
     {
         return $this->_minorProtocolVersion;
-    }
+    }
 
     /**
      * Get the full version of a namespace prefix

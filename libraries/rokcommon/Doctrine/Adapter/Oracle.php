@@ -112,7 +112,7 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface
             $this->config['password'] = $config['password'];
             $this->config['dbname']   = $config['dbname'];
 
-            if (isset($config['charset'])) { 
+            if (isset($config['charset'])) { 
                 $this->config['charset']  = $config['charset']; 
             } 
  

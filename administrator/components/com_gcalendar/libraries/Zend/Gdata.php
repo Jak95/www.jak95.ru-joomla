@@ -125,7 +125,7 @@ class Zend_Gdata extends Zend_Gdata_App
     {
         $app = new Zend_Gdata($client);
         $requestData = $app->decodeRequest('GET', $uri);
-        $response = $app->performHttpRequest($requestData['method'], $requestData['url']);
+        $response = $app->performHttpRequest($requestData['method'], $requestData['url']);
 
         $feedContent = $response->getBody();
 

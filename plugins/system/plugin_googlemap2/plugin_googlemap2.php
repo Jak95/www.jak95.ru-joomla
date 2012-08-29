@@ -1,12 +1,14 @@
 <?php
-/**
- * plugin_googlemap2.php,v 2.15 2011/01/09 13:34:11
- * @copyright (C) Reumer.net
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- *
- /* ----------------------------------------------------------------
-
-/** ensure this file is being included by a parent file */
+/*------------------------------------------------------------------------
+# plugin_googlemap2.php - Google Maps plugin
+# ------------------------------------------------------------------------
+# author    Mike Reumer
+# copyright Copyright (C) 2011 tech.reumer.net. All Rights Reserved.
+# @license - http://www.gnu.org/copyleft/gpl.html GNU/GPL
+# Websites: http://tech.reumer.net
+# Technical Support: http://tech.reumer.net/Contact-Us/Mike-Reumer.html 
+# Documentation: http://tech.reumer.net/Google-Maps/Documentation-of-plugin-Googlemap/
+--------------------------------------------------------------------------*/
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
@@ -56,17 +58,18 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 		$this->document = NULL;
 		$this->doctype = NULL;
 		// Get params
+		$this->publ = $this->params->get( 'publ', 1 );
 		$this->plugincode = $this->params->get( 'plugincode', 'mosmap' );
 		$this->brackets = $this->params->get( 'brackets', '{' );
 		// define the regular expression for the bot
 		if ($this->brackets=="both") {
-			$this->regex="/(<p\b[^>]*>\s*)?(\{|\[)".$this->plugincode."\s*(.*?)(\}|\])(\s*<\/p>)?/si";
+			$this->regex="/(<p\b[^>]*>\s*)?(\{|\[)".$this->plugincode.".*?(([a-z0-9A-Z]+((\{|\[)[0-9]+(\}|\]))?='[^']+'.*?\|?.*?)*)(\}|\])(\s*<\/p>)?/msi";
 			$this->countmatch = 3;
 		} elseif ($this->brackets=="[") {
-			$this->regex="/(<p\b[^>]*>\s*)?\[".$this->plugincode."\s*(.*?)\](\s*<\/p>)?/si";
+			$this->regex="/(<p\b[^>]*>\s*)?\[".$this->plugincode.".*?(([a-z0-9A-Z]+(\{[0-9]+\})?='[^']+'.*?\|?.*?)*)\](\s*<\/p>)?/msi";
 			$this->countmatch = 2;
 		} else {
-			$this->regex="/(<p\b[^>]*>\s*)?{".$this->plugincode."\s*(.*?)}(\s*<\/p>)?/si";
+			$this->regex="/(<p\b[^>]*>\s*)?\{".$this->plugincode.".*?(([a-z0-9A-Z]+(\[[0-9]+\])?='[^']+'.*?\|?.*?)*)\}(\s*<\/p>)?/msi";
 			$this->countmatch = 2;
 		}
 		// The helper class
@@ -99,18 +102,23 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 		// get document types
 		$this->_getdoc();
 
-		$text = &$article->text;
-		$introtext = &$article->introtext;
-		
-		// check whether plugin has been unpublished
-		if ( !$this->params->get( 'publ', 1 ) ) {
-			$text = preg_replace( $this->regex, '', $text );
+		// Check if fields exists. If article and text does not exists then stop
+		if (isset($article)&&isset($article->text))
+			$text = &$article->text;
+		else
 			return true;
-		}
-		
-		// PDF can't show maps so remove it
-		if ($this->doctype=='pdf') {
+			
+		if (isset($article)&&isset($article->introtext))
+			$introtext = &$article->introtext;
+		else
+			$introtext = "";
+			
+		// check whether plugin has been unpublished
+		// PDF or feed can't show maps so remove it
+		if ( !$this->publ ||($this->doctype=='pdf'||$this->doctype=='feed') ) {
 			$text = preg_replace( $this->regex, '', $text );
+			$introtext = preg_replace( $this->regex, '', $introtext );
+			unset($app, $text, $introtext);
 			return true;
 		}
 		
@@ -138,18 +146,23 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 		// get document types
 		$this->_getdoc();
 
-		$text = &$article->text;
-		$introtext = &$article->introtext;
-		
-		// check whether plugin has been unpublished
-		if ( !$this->params->get( 'publ', 1 ) ) {
-			$text = preg_replace( $this->regex, '', $text );
+		// Check if fields exists. If article and text does not exists then stop
+		if (isset($article)&&isset($article->text))
+			$text = &$article->text;
+		else
 			return true;
-		}
-		
+			
+		if (isset($article)&&isset($article->introtext))
+			$introtext = &$article->introtext;
+		else
+			$introtext = "";
+			
+		// check whether plugin has been unpublished
 		// PDF or feed can't show maps so remove it
-		if ($this->doctype=='pdf'||$this->doctype=='feed') {
+		if ( !$this->publ ||($this->doctype=='pdf'||$this->doctype=='feed') ) {
 			$text = preg_replace( $this->regex, '', $text );
+			$introtext = preg_replace( $this->regex, '', $introtext );
+			unset($app, $text, $introtext);
 			return true;
 		}
 		
@@ -191,6 +204,8 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 				$text = &$item->description;
 				$text = preg_replace( $this->regex, '', $text );
 			}
+			// Clean up variables
+			unset($app, $item, $text);
 			return true;
 		}
 		
@@ -199,6 +214,8 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 			$text = $this->document->getBuffer("component");
 			$text = preg_replace( $this->regex, '', $text );
 			$this->document->setBuffer($text, "component"); 
+			// Clean up variables
+			unset($app, $item, $text);
 			return true;
 		}
 		
@@ -207,7 +224,7 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 		if (strlen($text)>0) {
 			
 			// check whether plugin has been unpublished
-			if ( !$this->params->get( 'publ', 1 ) )
+			if ( !$this->publ )
 				$text = preg_replace( $this->regex, '', $text );
 			else
 				$this->_replace($text);			
@@ -215,7 +232,7 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 		}
 		
 		// Clean up variables
-		unset($app, $item, $text, $introtext);
+		unset($app, $item, $text);
 	}
 	
 	/**
@@ -237,14 +254,18 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 		$text = JResponse::getBody();
 		
 		// check whether plugin has been unpublished
-		if ( !$this->params->get( 'publ', 1 ) ) {
+		if ( !$this->publ ) {
 			$text = preg_replace( $this->regex, '', $text );
+			// Clean up variables
+			unset($app, $text);
 			return true;
 		}
 		
 		// PDF or feed can't show maps so remove it
 		if ($this->doctype=='pdf'||$this->doctype=='feed') {
 			$text = preg_replace( $this->regex, '', $text );
+			// Clean up variables
+			unset($app, $text);
 			return true;
 		}
 		
@@ -255,7 +276,7 @@ class plgSystemPlugin_googlemap2 extends JPlugin
         JResponse::setBody($text);
 
 		// Clean up variables
-		unset($app, $text, $introtext);
+		unset($app, $text);
 	}
 	
 	function _getdoc() {
@@ -267,6 +288,7 @@ class plgSystemPlugin_googlemap2 extends JPlugin
 	
 	function _replace(&$text) {
 		$matches = array();
+		$text=preg_replace("/&#0{0,2}39;/",'\'',$text);
 		preg_match_all($this->regex,$text,$matches,PREG_OFFSET_CAPTURE | PREG_PATTERN_ORDER);
 //		print_r($matches);
 		// Remove plugincode that are in head of the page

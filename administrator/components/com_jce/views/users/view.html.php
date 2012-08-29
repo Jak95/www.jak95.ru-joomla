@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   	JCE
- * @copyright 	Copyright � 2009-2011 Ryan Demmer. All rights reserved.
+ * @copyright 	Copyright © 2009-2011 Ryan Demmer. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * JCE is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -33,8 +33,8 @@ class WFViewUsers extends JView
 
 		$filter_order		= $app->getUserStateFromRequest("$option.$view.filter_order",		'filter_order',		'a.name',	'cmd' );
 		$filter_order_Dir	= $app->getUserStateFromRequest("$option.$view.filter_order_Dir",	'filter_order_Dir',	'',			'word' );
-		$filter_type		= $app->getUserStateFromRequest("$option.$view.filter_type",		'filter_type', 		0,			'string' );
-		$search				= $app->getUserStateFromRequest("$option.$view.search",				'search', 			'',			'string' );
+		$filter_type		= $app->getUserStateFromRequest("$option.$view.filter_type",		'filter_type', 		0,			'word' );
+		$search				= $app->getUserStateFromRequest("$option.$view.search",				'search', 			'',			'cmd' );
 		$search				= JString::strtolower( $search );
 
 		$limit				= $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'), 'int' );

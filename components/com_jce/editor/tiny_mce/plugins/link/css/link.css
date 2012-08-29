@@ -3,7 +3,7 @@
 	margin-top: 7px;
 }
 .ui-tabs-panel {
-	height: 390px;
+	height: 420px;
 }
 
 input[type="text"] {
@@ -29,9 +29,22 @@ select {
 	width: 380px;
 }
 
-#link-options {
-	height: 200px;
-	overflow: auto;
+
+#link_tab fieldset {
+    margin : 10px 0;
+}
+
+#link-options {}
+
+#link-browser {
+    height: 160px;
+    overflow : auto;
+    padding : 5px;
+}
+
+#search-browser {
+    padding : 5px 0;
+    position: relative;
 }
 
 input.disabled {
@@ -44,7 +57,9 @@ span.email.disabled {border:1px solid white; -moz-opacity:0.3; opacity:0.3; filt
 span.email.disabled:hover {border:1px solid white; background-color:transparent;}
 
 div.tree ul {}
-div.tree ul li {}
+div.tree ul li {
+    padding-bottom : 5px;
+}
 div.tree ul li span {}
 div.tree ul li div {}
 div.tree ul li span.file {

@@ -574,13 +574,13 @@ class GKWHelper {
      * function to parse Celsius to Farhenheit
      */
     function Cel2F($value) {
-    	return floor(32 + ((5/9) * $value)).'&deg;F';
+    	return round(32 + ((5/9) * $value)).'&deg;F';
     }
 	/*
  	 * function to parse Farhenheit to Celsius
  	 */    
     function F2Cel($value) {
-    	return floor((5/9) * ($value - 32)).'&deg;C';
+    	return round((5/9) * ($value - 32)).'&deg;C';
     }
 }
 /*eof*/

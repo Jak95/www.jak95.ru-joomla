@@ -12,7 +12,7 @@
 defined('_JEXEC') or die('RESTRICTED');	
 ?>
 <form action="index.php" method="post" name="adminForm">
-	<div id="jce">
+    <div id="jce">
 		<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
 			<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 				<li class="ui-state-default ui-corner-top ui-state-active tooltip" title="<?php echo JText :: _('WF_PROFILES_SETUP'). '::'. JText :: _('WF_PROFILES_SETUP_DESC');?>"><a href="#tabs-setup"><?php echo JText :: _('WF_PROFILES_SETUP');?></a></li>
@@ -28,14 +28,14 @@ defined('_JEXEC') or die('RESTRICTED');
 			</div>
 			<div id="tabs-editor" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
 				<ul>
-				<?php 
-				foreach($this->groups as $group => $num) :
-					echo '<li><a href="#tabs-editor-'. $group.'"><span>'. WFText::_('WF_PROFILES_EDITOR_' . strtoupper($group)). '</span></a></li>';
+				<?php 				
+				foreach($this->profile->editor_groups as $name => $group) :
+					echo '<li><a href="#tabs-editor-'. $name.'"><span>'. WFText::_('WF_PROFILES_EDITOR_' . strtoupper($name)). '</span></a></li>';
 				endforeach;?>
 				</ul>
 				<?php echo $this->loadTemplate('editor');?>
 			</div>
-			<div id="tabs-plugins" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
+			<div id="tabs-plugins" class="defaultSkin ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide">
 				<ul>
 				<?php
 				// Build tabs
@@ -63,8 +63,6 @@ defined('_JEXEC') or die('RESTRICTED');
 			</div>
 		</div>
 	</div>
-	<input type="hidden" name="rows" value="<?php echo $this->profile->rows; ?>" />
-	<input type="hidden" name="plugins" value="<?php echo $this->profile->plugins; ?>" />
 	<input type="hidden" name="option" value="com_jce" />
 	<input type="hidden" name="id" value="<?php echo $this->profile->id; ?>" />
 	<input type="hidden" name="cid[]" value="<?php echo $this->profile->id; ?>" />

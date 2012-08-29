@@ -1,13 +1,13 @@
 /**
- * NoNumber! Framework popup stylesheet
+ * NoNumber Framework popup stylesheet
  *
- * @package			NoNumber! Framework
- * @version			12.1.6
+ * @package         NoNumber Framework
+ * @version         12.7.9
  *
- * @author			Peter van Westen <peter@nonumber.nl>
- * @link			http://www.nonumber.nl
- * @copyright		Copyright © 2011 NoNumber! All Rights Reserved
- * @license			http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * @author          Peter van Westen <peter@nonumber.nl>
+ * @link            http://www.nonumber.nl
+ * @copyright       Copyright © 2012 NoNumber All Rights Reserved
+ * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
 .button2-left .hasicon {
@@ -39,7 +39,10 @@ div#toolbar-box.nn-toolbar-box div.pagetitle {
 div#toolbar-box.nn-toolbar-box div.pagetitle h2 {
 	line-height: 32px;
 }
-
+div#toolbar-box.nn-toolbar-box div.header {
+	padding-left: 10px;
+	line-height: 24px;
+}
 
 /* -- TOOLTIP STYLES ----------------------------- */
 .tip {

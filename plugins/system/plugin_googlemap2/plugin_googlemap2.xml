@@ -2,12 +2,12 @@
 <extension version="1.6.0" type="plugin" group="system" method="upgrade">
 	<name>Google Maps</name>
 	<author>Mike Reumer</author>
-	<creationDate>Januari 2010</creationDate>
-	<copyright>(C) 2011 Reumer</copyright>
+	<creationDate>June 2012</creationDate>
+	<copyright>(C) 2012 Reumer</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>tech@reumer.net</authorEmail>
 	<authorUrl>tech.reumer.net</authorUrl>
-	<version>2.15</version>
+	<version>2.17</version>
 	<description>PLUGIN_GOOGLE_MAPS_INSTALLATION</description>
 	<files>
 		<filename plugin="plugin_googlemap2">plugin_googlemap2.php</filename>
@@ -17,7 +17,8 @@
 		<filename>index.html</filename>
 	</files>
 	<media folder="media" destination="plugin_googlemap2">
-		<folder>site</folder>		
+		<folder>site</folder>
+		<filename>index.html</filename>	
     </media>
 	<languages>
 	   <language tag="en-GB">language/en-GB.plg_system_plugin_googlemap2.ini</language>
@@ -26,6 +27,8 @@
 	   <language tag="it-IT">language/it-IT.plg_system_plugin_googlemap2.sys.ini</language>
 	   <language tag="es-ES">language/es-ES.plg_system_plugin_googlemap2.ini</language>
 	   <language tag="es-ES">language/es-ES.plg_system_plugin_googlemap2.sys.ini</language>
+	   <language tag="fr-FR">language/fr-FR.plg_system_plugin_googlemap2.ini</language>
+	   <language tag="fr-FR">language/fr-FR.plg_system_plugin_googlemap2.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
@@ -224,6 +227,7 @@
 					<option value="1">Yes</option>
 					<option value="0">No</option>
 				</field>
+				<field name="styledmap" type="textarea" rows="5" cols="40" default="" export='1' label="GOOGLEMAPS_MAPS_STYLEDMAP" description="GOOGLEMAPS_TT_MAPS_STYLEDMAP" />
 				<field name="align" type="list" size= "4" default="center" export='1' label="GOOGLEMAPS_MAPS_ALIGN" description="GOOGLEMAPS_TT_MAPS_ALIGN">
 					<option value="left">GOOGLEMAPS_MAPS_ALIGNLEFT</option>
 					<option value="center">GOOGLEMAPS_MAPS_ALIGNCENTER</option>
@@ -371,7 +375,7 @@
 					<option value="1">1</option>
 					<option value="0">0</option>
 				</field>
-				<field name="rotation" type="radio" size= "1" default="0" export='1' label="GOOGLEMAPS_MAPS_ROTATION" description="GOOGLEMAPS_TT_MAPS_ROTATION">
+				<field name="rotation" type="radio" size= "1" default="1" export='1' label="GOOGLEMAPS_MAPS_ROTATION" description="GOOGLEMAPS_TT_MAPS_ROTATION">
 					<option value="1">Yes</option>
 					<option value="0">No</option>
 				</field>		
@@ -489,7 +493,7 @@
 					<option value="all">GOOGLEMAPS_MAPS_PANORAMIOALL</option>
 					<option value="popular">GOOGLEMAPS_MAPS_PANORAMIOPOPULAR</option>
 				</field>
-				<field name="panotype" type="text" size="8" default="none" export='1' label="GOOGLEMAPS_MAPS_PANORAMIOTYPE" description="GOOGLEMAPS_TT_MAPS_PANORAMIOTYPE" />
+				<field name="panotype" type="text" size="8" default="none" export='1' label="GOOGLEMAPS_MAPS_PANORAMIOTYPE" description="GOOGLEMAPS_TT_MAPS_PANORAMIOTYPE" />
 				<field name="panoorder" type="radio" size= "1" default="popularity" export='1' label="GOOGLEMAPS_MAPS_PANORAMIOORDER" description="GOOGLEMAPS_TT_MAPS_PANORAMIOORDER">
 					  <option value="popularity">GOOGLEMAPS_MAPS_PANORAMIOORDERPOPULARITY</option>
 					  <option value="upload_date">GOOGLEMAPS_MAPS_PANORAMIOORDERUPLOADDATE</option>
@@ -526,6 +530,27 @@
 				<option value="1">GOOGLEMAPS_MAPS_SEARCHZOOMPANZOOM</option>
 				<option value="0">GOOGLEMAPS_MAPS_SEARCHZOOMNOZOOM</option>
 				</field>
+				<field name="weather" type="radio" size= "1" default="0" export='1' label="GOOGLEMAPS_MAPS_WEATHER" description="GOOGLEMAPS_TT_MAPS_WEATHER">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="weathercloud" type="radio" size= "1" default="0" export='1' label="GOOGLEMAPS_MAPS_WEATHERCLOUD" description="GOOGLEMAPS_TT_MAPS_WEATHERCLOUD">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="weatherinfo" type="radio" size= "1" default="1" export='1' label="GOOGLEMAPS_MAPS_WEATHERINFO" description="GOOGLEMAPS_TT_MAPS_WEATHERINFO">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="weathertempunit" type="radio" size= "1" default="celsius" export='1' label="GOOGLEMAPS_MAPS_WEATHERTEMPUNIT" description="GOOGLEMAPS_TT_MAPS_WEATHERTEMPUNIT">
+					<option value="celsius">GOOGLEMAPS_MAPS_WEATHERCELSIUS</option>
+					<option value="fahrenheit">GOOGLEMAPS_MAPS_WEATHERFAHRENHEIT</option>
+				</field>
+				<field name="weatherwindunit" type="radio" size= "1" default="km" export='1' label="GOOGLEMAPS_MAPS_WEATHERWINDUNIT" description="GOOGLEMAPS_TT_MAPS_WEATHERWINDUNIT">
+					<option value="km">GOOGLEMAPS_MAPS_WEATHERKM</option>
+					<option value="m">GOOGLEMAPS_MAPS_WEATHERM</option>
+					<option value="miles">GOOGLEMAPS_MAPS_WEATHERMILES</option>
+				</field>
 			</fieldset>
 			<fieldset name="GOOGLEMAP_DIRECTIONS">
 				<field name="dir" type="list" size= "1" default="0" export='1' label="GOOGLEMAPS_MAPS_DIR" description="GOOGLEMAPS_TT_MAPS_DIR">
@@ -541,6 +566,14 @@
 					<option value="W">GOOGLEMAPS_MAPS_DIRTYPEWALKING</option>
 				</field>
 				<field name="avoidhighways" type="radio" size="1" default="0" export='1' label="GOOGLEMAPS_MAPS_AVOIDHIGHWAYS" description="GOOGLEMAPS_TT_MAPS_AVOIDHIGHWAYS">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="diroptimize" type="radio" size="1" default="0" export='1' label="GOOGLEMAPS_MAPS_DIROPTIMIZE" description="GOOGLEMAPS_TT_MAPS_DIROPTIMIZE">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="diralternatives" type="radio" size="1" default="0" export='1' label="GOOGLEMAPS_MAPS_DIRALTERNATIVES" description="GOOGLEMAPS_TT_MAPS_DIRALTERNATIVES">
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
@@ -594,6 +627,8 @@
 				<field name="txt_driving" type="textarea" filter="raw" rows="3" cols="40" default="" value="Driving" export='1' label="GOOGLEMAPS_MAPS_TXTLABELDRIVING" description="GOOGLEMAPS_TT_MAPS_TXTLABELDRIVING" />
 				<field name="txt_avhighways" type="textarea" filter="raw" rows="3" cols="40" default="" value="Avoid highways" export='1' label="GOOGLEMAPS_MAPS_TXTAVOIDHIGHWAYS" description="GOOGLEMAPS_TT_MAPS_TXTAVOIDHIGHWAYS" />
 				<field name="txt_walking" type="textarea" filter="raw" rows="3" cols="40" default="" value="Walking" export='1' label="GOOGLEMAPS_MAPS_TXTWALKING" description="GOOGLEMAPS_TT_MAPS_TXTWALKING" />
+				<field name="txt_optimize" type="textarea" rows="3" cols="40" default="" value="Optimize route" export='1' label="GOOGLEMAPS_MAPS_TXTOPTIMIZE" description="GOOGLEMAPS_TT_MAPS_TXTOPTIMIZE" />
+				<field name="txt_alternatives" type="textarea" rows="3" cols="40" default="" value="Route alternatives" export='1' label="GOOGLEMAPS_MAPS_TXTALTERNATIVES" description="GOOGLEMAPS_TT_MAPS_TXTALTERNATIVES" />
 				<field name="dirdefault" type="radio" size= "1" default="0" export='1' label="GOOGLEMAPS_MAPS_FROMTODEFAULT" description="GOOGLEMAPS_TT_MAPS_FROMTODEFAULT">
 				<option value="0">GOOGLEMAPS_MAPS_FROMTODEFAULTTO</option>
 				<option value="1">GOOGLEMAPS_MAPS_FROMTODEFAULTFROM</option>
@@ -674,6 +709,10 @@
 				<field name="svpitch" type="text" size= "10" default="0" export='1' label="GOOGLEMAPS_MAPS_SVPITCH" description="GOOGLEMAPS_TT_MAPS_SVPITCH" />
 				<field name="svzoom" type="text" size= "10" default="" export='1' label="GOOGLEMAPS_MAPS_SVZOOM" description="GOOGLEMAPS_TT_MAPS_SVZOOM" />
 				<field name="svautorotate" type="radio" size= "1" default="0" export='1' label="GOOGLEMAPS_MAPS_SVAUTOROTATE" description="GOOGLEMAPS_TT_MAPS_SVAUTOROTATE">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="svaddress" type="radio" size= "1" default="1" export='1' label="GOOGLEMAPS_MAPS_SVADDRESS" description="GOOGLEMAPS_TT_MAPS_SVADDRESS">
 					<option value="1">Yes</option>
 					<option value="0">No</option>
 				</field>
@@ -814,7 +853,7 @@
 					<option value="14">14</option>
 					<option value="13">13</option>
 					<option value="12">12</option>
-					<option value="11">11</option>
+					<option value="11">11</option>
 					<option value="10">10</option>
 					<option value="9">9</option>
 					<option value="8">8</option>
@@ -830,6 +869,7 @@
 			</fieldset>
 			<fieldset name="GOOGLEMAP_CUSTOMTILE">
 				<field name="tilelayer" type="text" size= "80" default="" export='1' label="GOOGLEMAPS_MAPS_TILELAYER" description="GOOGLEMAPS_TT_MAPS_TILELAYER" />
+				<field name="tilemethod" type="text" size= "80" default="" export='1' label="GOOGLEMAPS_MAPS_TILEMETHOD" description="GOOGLEMAPS_TT_MAPS_TILEMETHOD" />
 				<field name="tileopacity" type="text" size= "4" default="1" export='1' label="GOOGLEMAPS_MAPS_TILEOPACITY" description="GOOGLEMAPS_TT_MAPS_TILEOPACITY" />
 				<field name="tilebounds" type="text" size= "40" default="" export='1' label="GOOGLEMAPS_MAPS_TILEBOUNDS" description="GOOGLEMAPS_TT_MAPS_TILEBOUNDS" />
 				<field name="tileminzoom" type="list" size= "1" default="0" export='1' label="GOOGLEMAPS_MAPS_TILEMINZOOM" description="GOOGLEMAPS_TT_MAPS_TILEMINZOOM">

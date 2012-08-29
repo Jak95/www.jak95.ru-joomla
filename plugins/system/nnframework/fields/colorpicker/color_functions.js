@@ -1,4 +1,5 @@
-function baseConverter(number, ob, nb) {
+function baseConverter(number, ob, nb)
+{
 	number = number+"";
 	number = number.toUpperCase();
 	var list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -20,7 +21,8 @@ function baseConverter(number, ob, nb) {
 }
 
 // Converts a RGB color to HSV
-function toHSV(rgbColor) {
+function toHSV(rgbColor)
+{
 	rgbColor = rgbColor.replace('#', '');
 
 	red = baseConverter(rgbColor.substr(0, 2), 16, 10);
@@ -71,7 +73,8 @@ function toHSV(rgbColor) {
 	return returnArray;
 }
 
-function toRgb(hue, saturation, valueBrightness) {
+function toRgb(hue, saturation, valueBrightness)
+{
 	Hi = Math.floor(hue/60);
 	if (hue == 360) {
 		Hi = 0;
@@ -150,7 +153,8 @@ function toRgb(hue, saturation, valueBrightness) {
 	return rgbColor.toUpperCase();
 }
 
-function findColorByDegrees(rgbColor, degrees) {
+function findColorByDegrees(rgbColor, degrees)
+{
 	rgbColor = rgbColor.replace('#', '');
 	myArray = toHSV(rgbColor);
 	myArray[0] += degrees;
@@ -163,7 +167,8 @@ function findColorByDegrees(rgbColor, degrees) {
 	return toRgb(myArray[0], myArray[1], myArray[2]);
 }
 
-function findColorByBrightness(rgbColor, brightness) {
+function findColorByBrightness(rgbColor, brightness)
+{
 
 	rgbColor = rgbColor.replace('#', '');
 	myArray = toHSV(rgbColor);

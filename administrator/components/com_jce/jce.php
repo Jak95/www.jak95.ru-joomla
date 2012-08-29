@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   	JCE
- * @copyright 	Copyright � 2009-2011 Ryan Demmer. All rights reserved.
+ * @copyright 	Copyright © 2009-2011 Ryan Demmer. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * JCE is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -13,6 +13,7 @@ defined('_JEXEC') or die('RESTRICTED');
 
 // load base classes
 require_once(dirname(__FILE__) . DS . 'includes' . DS . 'base.php');
+
 // get the view
 $view = JRequest::getCmd('view', 'cpanel');
 // get task
@@ -29,22 +30,22 @@ jimport('joomla.application.component.helper');
 jimport('joomla.application.component.controller');
 
 // Require the base controller
-require_once (dirname( __FILE__ ) . DS . 'controller.php');
+require_once (WF_ADMINISTRATOR . DS . 'controller.php');
 
 // Load controller
-$controllerPath = dirname(__FILE__) . DS . 'controller' . DS . $view . '.php';
+$controllerPath = WF_ADMINISTRATOR . DS . 'controller' . DS . $view . '.php';
 
 if (file_exists($controllerPath)) {
     require_once ($controllerPath);
 
     $controllerClass = 'WFController'.ucfirst($view);
     $controller = new $controllerClass(array(
-    	'base_path' => dirname(__FILE__)
+    	'base_path' => WF_ADMINISTRATOR
     ));
 // load default controller
 } else {
     $controller = new WFController(array(
-    	'base_path' => dirname(__FILE__)
+    	'base_path' => WF_ADMINISTRATOR
     ));
 }
 
@@ -56,14 +57,12 @@ switch ($view) {
 		break;
 	default:
 		if ($view == 'cpanel') {
-			$view = 'manage';
+                    $view = 'manage';
 		}
 		// Authorise
 		$controller->authorize($view);
-		
-		$installer = WFInstaller::getInstance();
-		$installer->check();
-	
+                // check state of extension
+                $controller->check();
 		break;	
 }
 

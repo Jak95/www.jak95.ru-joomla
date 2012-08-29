@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension overwrite="true" version="1.7" type="plugin" group="xmlrpc" method="upgrade">
+	<name>plg_xmlrpc_joomla</name>
+	<author>Joomler!.net</author>
+	<creationDate>Oct 2011</creationDate>
+	<copyright>(C) 2007 - 2011 Joomler!.net</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>joomlers@gmail.com</authorEmail>
+	<authorUrl>www.joomler.net</authorUrl>
+	<version>1.7.1</version>
+	<description>PLGXMLRPC_JOOMLA_DESC</description>
+	<files>
+		<filename plugin="joomla">joomla.php</filename>
+		<filename plugin="joomla">index.html</filename>
+		<folder>xml</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">languages/en-GB.plg_xmlrpc_joomla.ini</language>
+		<language tag="en-GB">languages/en-GB.plg_xmlrpc_joomla.sys.ini</language>
+		<language tag="ja-JP">languages/ja-JP.plg_xmlrpc_joomla.ini</language>
+		<language tag="ja-JP">languages/ja-JP.plg_xmlrpc_joomla.sys.ini</language>
+		<language tag="ja-JU">languages/ja-JU.plg_xmlrpc_joomla.ini</language>
+		<language tag="ja-JU">languages/ja-JU.plg_xmlrpc_joomla.sys.ini</language>
+	</languages>
+	<config>
+	<fields name ="params" >
+		<fieldset name="basic">
+		
+		<field name="userfolder" type="radio" default="0" label="PLG_XMLRPC_JOOMLA_USER_FOLDER" description="PLG_XMLRPC_JOOMLA_USER_FOLDER_DESC" >
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		<field name="overwrite" type="radio" default="0" label="PLG_XMLRPC_JOOMLA_OVERWRITE" description="Overwrite if the same file name" >
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		
+		<field name="featured" type="radio" default="0" label="PLG_XMLRPC_JOOMLA_FEATURED" description="PLG_XMLRRPC_JOOMLA_FEATURED_DESC">
+			<option value="0">JNo</option>
+			<option value="1">JYes</option>
+		</field>
+		
+		<field name="language" type="contentlanguage" default="*" label="PLG_XMLRPC_JOOMLA_LANGUAGE" description="PLG_XMLRPC_JOOMLA_LANGUAGE_DESC">
+			<option value="*">JALL</option>
+		</field>
+		
+		</fieldset>
+		<fieldset name="PLG_XMLRPC_JOOMLA_FIELDSET_GOOGLE_OLD_DOCUMENT_OPTION">
+			<field name="readmore" type="radio" default="0" label="PLG_XMLRPC_JOOMLA_GOOGLE_DOC_READMORE" description="PLG_XMLRPC_JOOMLA_GOOGLE_DOC_READMORE_DESC">
+				<option value="0">PLG_XMLRPC_JOOMLA_GOOGLE_DOC_READMORE_FIRST_HORIZONTAL</option>
+				<option value="1">PLG_XMLRPC_JOOMLA_GOOGLE_DOC_READMORE_FIRST_PAGEBREAK</option>
+			</field>
+			<field name="pagebreak" type="radio" default="1" label="PLG_XMLRPC_JOOMLA_GOOGLE_DOC_PAGEBREAK" description="Enable/Disable Google Doc Pagebreak">
+				<option value="0">JNo</option>
+				<option value="1">JYes</option>
+			</field>
+		</fieldset>
+	</fields>
+	</config>
+</extension>

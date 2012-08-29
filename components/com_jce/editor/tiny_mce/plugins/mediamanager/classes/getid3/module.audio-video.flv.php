@@ -154,7 +154,7 @@ class getid3_flv extends getid3_handler
 									//	read the first SequenceParameterSet
 									$sps = fread($this->getid3->fp, $spsSize);
 									if (strlen($sps) == $spsSize) {	//	make sure that whole SequenceParameterSet was red
-										$spsReader = new AVCSequenceParameterSetReader($sps);
+										$spsReader = new AVCSequenceParameterSetReader($sps);
 										$spsReader->readData();
 										$info['video']['resolution_x'] = $spsReader->getWidth();
 										$info['video']['resolution_y'] = $spsReader->getHeight();

@@ -2,14 +2,14 @@
 <extension type="module" version="1.6.0" method="upgrade" client="site">
 	<name>MOD_GCALENDAR</name>
 	<author>G4J Project</author>
-	<creationDate>Feb 2012</creationDate>
+	<creationDate>Aug 2012</creationDate>
 	<copyright>This extension is released under the GNU/GPL License.
 	</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html
 		GNU/GPL</license>
 	<authorEmail>info@g4j.laoneo.net</authorEmail>
 	<authorUrl>g4j.laoneo.net</authorUrl>
-	<version>2.5.3</version>
+	<version>2.7.5</version>
 	<description>MOD_GCALENDAR_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_gcalendar">mod_gcalendar.php
@@ -17,19 +17,12 @@
 		<filename>index.html</filename>
 		<filename>helper.php</filename>
 		<folder>tmpl</folder>
+		<folder>language</folder>
 	</files>
-	<languages>
-		<language tag="en-GB">languages/en-GB.mod_gcalendar.ini</language>
-		<language tag="en-GB">languages/en-GB.mod_gcalendar.sys.ini</language>
-		<language tag="de-DE">languages/de-DE.mod_gcalendar.ini</language>
-		<language tag="de-DE">languages/de-DE.mod_gcalendar.sys.ini</language>
-		<language tag="nl-NL">languages/nl-NL.mod_gcalendar.ini</language>
-		<language tag="nl-NL">languages/nl-NL.mod_gcalendar.sys.ini</language>
-	</languages>
 	<config>
 		<fields name="params"  addfieldpath="/administrator/components/com_gcalendar/models/fields">
 			<fieldset name="basic">
-				<field name="calendarids" type="gcalendar" default=""
+				<field name="calendarids" type="gcalendar" default="" multiple="true"
 					label="MOD_GCALENDAR_FIELD_CALENDAR_IDS_LABEL" description="MOD_GCALENDAR_FIELD_CALENDAR_IDS_DESC" />
 				<field name="weekstart" type="list" default="1" label="MOD_GCALENDAR_FIELD_WEEK_START_LABEL"
 					description="MOD_GCALENDAR_FIELD_WEEK_START_DESC">

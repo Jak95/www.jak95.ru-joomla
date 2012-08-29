@@ -255,7 +255,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         
         if (count($result) <= 0) {
             return false;
-        }
+        }
                
         if ($result instanceof Doctrine_Collection) {
             $parent = $result->getFirst();

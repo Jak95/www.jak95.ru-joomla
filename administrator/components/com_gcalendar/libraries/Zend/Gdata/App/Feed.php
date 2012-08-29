@@ -295,7 +295,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
      * Retrieve the previous set of results from this feed.
      *
      * @throws Zend_Gdata_App_Exception
-     * @return mixed|null Returns the previous set of results as a feed of
+     * @return mixed|null Returns the previous set of results as a feed of
      *          the same class as this feed, or null if no results exist.
      */
     public function getPreviousFeed()

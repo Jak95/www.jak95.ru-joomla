@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" version="1.6.0" client="site" method="upgrade">
+	<name>PixSearchNG</name>
+	<author>Johan Sundell</author>
+	<creationDate>20110610</creationDate>
+	<copyright>Copyright (C) 2012 Pixpro Stockholm AB. All rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>johan@pixpro.net</authorEmail>
+	<authorUrl>http://labs.pixpro.net</authorUrl>
+	<version>0.1.6</version>
+	<description>PixSearch performs an Ajax search with help of com_search, and displays it underneath a searchbox.</description>
+	<files folder="site">
+		<filename module="mod_pixsearch_ng">tmpl/index.html</filename>
+		<filename module="mod_pixsearch_ng">tmpl/default.php</filename>
+		<filename module="mod_pixsearch_ng">index.html</filename>
+		<filename module="mod_pixsearch_ng">mod_pixsearch_ng.php</filename>
+		<filename module="mod_pixsearch_ng">helper.php</filename>
+		<filename module="mod_pixsearch_ng">media/images/icon_search.gif</filename>
+		<filename module="mod_pixsearch_ng">media/images/icon_spinner.gif</filename>
+		<filename module="mod_pixsearch_ng">media/images/icon_clear.gif</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/0A9476898799A150D840F0B1C3672921.cache.png</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/gpixsearch.nocache.js</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/C881DA319405A7EBAEC5CC705374105A.cache.html</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/ACBD538A1F3D0E255E59FEB638E93C13.cache.html</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/BBC1AC5686ADCFFC54CACD29789CA00A.cache.html</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/EDC7827FEEA59EE44AD790B1C6430C45.cache.png</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/clear.cache.gif</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/DF7764EEC1903CD03C9545B354D8D8E4.cache.png</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/B851ABC9A0A31B7745F4BE2E99D8C3A8.cache.html</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/FC89246B37E13176A5096B69D0827027.cache.html</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/E44767377485D18D6B6864F65BA8EF73.cache.png</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/9DEAC14066EE6A836C2B17D7F8E77625.cache.html</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/396F806CD63ABD414BFBB9D57429F05B.cache.png</filename>
+		<filename module="mod_pixsearch_ng">media/js/gpixsearch/hosted.html</filename>
+		<filename module="mod_pixsearch_ng">media/js/index.html</filename>
+		<filename module="mod_pixsearch_ng">media/css/mod_pixsearch_ng.css</filename>
+		<filename module="mod_pixsearch_ng">media/css/index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_pixsearch_ng.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+				<field name="searchphrase" type="list" default="any" label="Searchphrase">
+					<option value="any">Any words</option>
+					<option value="all">All words</option>
+					<option value="exact">Exact phrase</option>
+				</field>
+				<field name="pagesize" type="text" default="10" label="Page Size" />
+				<field name="searchstartchar" type="text" default="4" label="Chars to search start" />
+				<field name="use_images" type="radio" default="1" label="Show search images">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="show_readmore" type="radio" default="1" label="Show read more link">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+	
+	<updateservers>
+		<server type="extension" priority="1" name="PixSearch Update Site">http://labs.pixpro.net/pixsearch-update.xml</server>
+	</updateservers>
+</extension>

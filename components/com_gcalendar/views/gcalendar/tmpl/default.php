@@ -19,9 +19,8 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
-JHTML::_('behavior.mootools');
-GCalendarUtil::loadJQuery();
-$document = &JFactory::getDocument();
+
+$document = JFactory::getDocument();
 $document->addScript(JURI::base(). 'components/com_gcalendar/libraries/fullcalendar/fullcalendar.min.js' );
 $document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/fullcalendar/fullcalendar.css');
 $document->addScript(JURI::base().'components/com_gcalendar/libraries/jquery/ui/jquery-ui.custom.min.js');
@@ -30,26 +29,22 @@ $document->addScript(JURI::base().'components/com_gcalendar/libraries/jquery/fan
 $document->addScript(JURI::base().'components/com_gcalendar/libraries/jquery/fancybox/jquery.fancybox-1.3.4.pack.js');
 $document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/jquery/fancybox/jquery.fancybox-1.3.4.css');
 $document->addScript(JURI::base().'components/com_gcalendar/libraries/jquery/ext/jquery.ba-hashchange.min.js');
-$document->addScript(JURI::base().'components/com_gcalendar/libraries/jquery/ext/jquery.qtip-1.0.0.min.js');
-$document->addStyleDeclaration("#ui-datepicker-div { z-index: 15 important!; }");
+$document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/jquery/ext/tipTip.css');
+$document->addScript(JURI::base().'components/com_gcalendar/libraries/jquery/ext/jquery.tipTip.minified.js');
+$document->addStyleDeclaration("#ui-datepicker-div { z-index: 15 !important; }");
 $document->addStyleSheet(JURI::base().'components/com_gcalendar/views/gcalendar/tmpl/gcalendar.css');
 
 $params = $this->params;
 
 $theme = $params->get('theme', '');
 if(JRequest::getVar('theme', null) != null)
-$theme = JRequest::getVar('theme', null);
+	$theme = JRequest::getWord('theme', null);
 if(!empty($theme))
-$document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/jquery/themes/'.$theme.'/jquery-ui.custom.css');
+	$document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/jquery/themes/'.$theme.'/jquery-ui.custom.css');
 else
-$document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/jquery/themes/ui-lightness/jquery-ui.custom.css');
+	$document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/jquery/themes/ui-lightness/jquery-ui.custom.css');
 
-$calendarids = array();
-$tmp = $params->get('calendarids');
-if(is_array($tmp))
-	$calendarids = $tmp;
-else if(!empty($tmp))
-	$calendarids[] = $tmp;
+$calendarids = $this->calendarids;
 $allCalendars = GCalendarDBUtil::getAllCalendars();
 
 $calsSources = "		eventSources: [\n";
@@ -58,7 +53,7 @@ foreach($allCalendars as $calendar) {
 	$color = GCalendarUtil::getFadedColor($calendar->color);
 	$document->addStyleDeclaration(".".$cssClass.",.fc-agenda ".$cssClass." .fc-event-time, .".$cssClass." a, .".$cssClass." div{background-color: ".$color." !important; border-color: #".$calendar->color."; color: white;}");
 	if(empty($calendarids) || in_array($calendar->id, $calendarids)){
-		$value = html_entity_decode(JRoute::_('index.php?option=com_gcalendar&view=jsonfeed&format=raw&gcid='.$calendar->id));
+		$value = html_entity_decode(JRoute::_('index.php?option=com_gcalendar&view=jsonfeed&format=raw&gcid='.$calendar->id.'&Itemid='.JRequest::getInt('Itemid')));
 		$calsSources .= "				'".$value."',\n";
 	}
 }
@@ -67,9 +62,9 @@ $calsSources .= "	],\n";
 
 $defaultView = 'month';
 if($params->get('defaultView', 'month') == 'week')
-$defaultView = 'agendaWeek';
+	$defaultView = 'agendaWeek';
 else if($params->get('defaultView', 'month') == 'day')
-$defaultView = 'agendaDay';
+	$defaultView = 'agendaDay';
 
 $daysLong = "[";
 $daysShort = "[";
@@ -77,9 +72,9 @@ $daysMin = "[";
 $monthsLong = "[";
 $monthsShort = "[";
 for ($i=0; $i<7; $i++) {
-	$daysLong .= "'".GCalendarUtil::dayToString($i, false)."'";
-	$daysShort .= "'".GCalendarUtil::dayToString($i, true)."'";
-	$daysMin .= "'".substr(GCalendarUtil::dayToString($i, true), 0, 2)."'";
+	$daysLong .= "'".htmlspecialchars(GCalendarUtil::dayToString($i, false), ENT_QUOTES)."'";
+	$daysShort .= "'".htmlspecialchars(GCalendarUtil::dayToString($i, true), ENT_QUOTES)."'";
+	$daysMin .= "'".htmlspecialchars(mb_substr(GCalendarUtil::dayToString($i, true), 0, 2), ENT_QUOTES)."'";
 	if($i < 6){
 		$daysLong .= ",";
 		$daysShort .= ",";
@@ -87,8 +82,8 @@ for ($i=0; $i<7; $i++) {
 	}
 }
 for ($i=1; $i<=12; $i++) {
-	$monthsLong .= "'".GCalendarUtil::monthToString($i, false)."'";
-	$monthsShort .= "'".GCalendarUtil::monthToString($i, true)."'";
+	$monthsLong .= "'".htmlspecialchars(GCalendarUtil::monthToString($i, false), ENT_QUOTES)."'";
+	$monthsShort .= "'".htmlspecialchars(GCalendarUtil::monthToString($i, true), ENT_QUOTES)."'";
 	if($i < 12){
 		$monthsLong .= ",";
 		$monthsShort .= ",";
@@ -144,21 +139,21 @@ if($params->get('calendar_height', 0) > 0){
 }
 $calCode .= "		dayNamesShort: ".$daysShort.",\n";
 $calCode .= "		timeFormat: { \n";
-$calCode .= "			month: '".Fullcalendar::convertFromPHPDate($params->get('timeformat_month', 'H:i{ - H:i}'))."',\n";
-$calCode .= "			week: \"".Fullcalendar::convertFromPHPDate($params->get('timeformat_week', "H:i{ - H:i}"))."\",\n";
-$calCode .= "			day: '".Fullcalendar::convertFromPHPDate($params->get('timeformat_day', 'H:i{ - H:i}'))."'},\n";
+$calCode .= "			month: '".Fullcalendar::convertFromPHPDate($params->get('timeformat_month', 'g:i a{ - g:i a}'))."',\n";
+$calCode .= "			week: \"".Fullcalendar::convertFromPHPDate($params->get('timeformat_week', "g:i a{ - g:i a}"))."\",\n";
+$calCode .= "			day: '".Fullcalendar::convertFromPHPDate($params->get('timeformat_day', 'g:i a{ - g:i a}'))."'},\n";
 $calCode .= "			columnFormat: { month: 'ddd', week: 'ddd d', day: 'dddd d'},\n";
-$calCode .= "			axisFormat: '".Fullcalendar::convertFromPHPDate($params->get('axisformat', 'H:i'))."',\n";
-$calCode .= "			allDayText: '".JText::_( 'COM_GCALENDAR_GCALENDAR_VIEW_ALL_DAY' )."',\n";
+$calCode .= "			axisFormat: '".Fullcalendar::convertFromPHPDate($params->get('axisformat', 'g:i a'))."',\n";
+$calCode .= "			allDayText: '".htmlspecialchars(JText::_('COM_GCALENDAR_GCALENDAR_VIEW_ALL_DAY'), ENT_QUOTES)."',\n";
 $calCode .= "			buttonText: {\n";
 $calCode .= "			prev:     '&nbsp;&#9668;&nbsp;',\n";  // left triangle
 $calCode .= "			next:     '&nbsp;&#9658;&nbsp;',\n";  // right triangle
 $calCode .= "			prevYear: '&nbsp;&lt;&lt;&nbsp;',\n"; // <<
 $calCode .= "			nextYear: '&nbsp;&gt;&gt;&nbsp;',\n"; // >>
-$calCode .= "			today:    '".JText::_( 'COM_GCALENDAR_GCALENDAR_VIEW_TOOLBAR_TODAY' )."',\n";
-$calCode .= "			month:    '".JText::_( 'COM_GCALENDAR_GCALENDAR_VIEW_VIEW_MONTH' )."',\n";
-$calCode .= "			week:     '".JText::_( 'COM_GCALENDAR_GCALENDAR_VIEW_VIEW_WEEK' )."',\n";
-$calCode .= "			day:      '".JText::_( 'COM_GCALENDAR_GCALENDAR_VIEW_VIEW_DAY' )."'\n";
+$calCode .= "			today:    '".htmlspecialchars(JText::_('COM_GCALENDAR_GCALENDAR_VIEW_TOOLBAR_TODAY'), ENT_QUOTES)."',\n";
+$calCode .= "			month:    '".htmlspecialchars(JText::_('COM_GCALENDAR_GCALENDAR_VIEW_VIEW_MONTH'), ENT_QUOTES)."',\n";
+$calCode .= "			week:     '".htmlspecialchars(JText::_('COM_GCALENDAR_GCALENDAR_VIEW_VIEW_WEEK'), ENT_QUOTES)."',\n";
+$calCode .= "			day:      '".htmlspecialchars(JText::_('COM_GCALENDAR_GCALENDAR_VIEW_VIEW_DAY'), ENT_QUOTES)."'\n";
 $calCode .= "		},\n";
 $calCode .= $calsSources;
 $calCode .= "		viewDisplay: function(view) {\n";
@@ -168,22 +163,8 @@ $calCode .= "			if(window.location.hash.replace(/&amp;/gi, \"&\") != newHash)\n"
 $calCode .= "			window.location.hash = newHash;\n";
 $calCode .= "		},\n";
 $calCode .= "		eventRender: function(event, element) {\n";
-$calCode .= "			if (event.description)\n";
-$calCode .= "				jQuery(element).qtip({\n";
-$calCode .= "					content: event.description,\n";
-$calCode .= "					position: {\n";
-$calCode .= "						corner: {\n";
-$calCode .= "							target: 'topLeft',\n";
-$calCode .= "							tooltip: 'bottomLeft'\n";
-$calCode .= "						}\n";
-$calCode .= "					},\n";
-$calCode .= "					style: { name: 'cream', tip: 'bottomLeft',\n";
-$calCode .= "						border: {\n";
-$calCode .= "							radius: 5,\n";
-$calCode .= "							width: 1\n";
-$calCode .= "						}\n";
-$calCode .= "					}\n";
-$calCode .= "				});\n";
+$calCode .= "			if (event.description){\n";
+$calCode .= "				element.tipTip({content: event.description, defaultPosition: 'top'});}\n";
 $calCode .= "		},\n";
 if($params->get('show_event_as_popup', 1) == 1){
 	$popupWidth = $params->get('popup_width', 650);
@@ -199,8 +180,8 @@ if($params->get('show_event_as_popup', 1) == 1){
 	$calCode .= "		           transitionOut : 'elastic',\n";
 	$calCode .= "		           speedIn : 600,\n";
 	$calCode .= "		           speedOut : 200,\n";
-	$calCode .= "		           type : 'iframe',\n"; 	
-	$calCode .= "		           onStart : function() { element.qtip('hide'); },\n";
+	$calCode .= "		           type : 'iframe',\n";
+	$calCode .= "		           onCleanup : function(){if(jQuery('#fancybox-frame').contents().find('#content_table').length < 1){jQuery('#gcalendar_component').fullCalendar('refetchEvents');}}\n";
 	$calCode .= "		        });\n";
 	$calCode .= "		},\n";
 	$calCode .= "		eventClick: function(event) {if (event.url) {return false;}},\n";
@@ -308,14 +289,15 @@ $dispatcher = JDispatcher::getInstance();
 JPluginHelper::importPlugin('gcalendar');
 $dispatcher->trigger('onGCCalendarLoad', array('gcalendar_component'));
 
-echo "<div style=\"text-align:center;margin-top:10px\" id=\"gcalendar_powered\"><a href=\"http://g4j.laoneo.net\">Powered by GCalendar</a></div>\n";
+if(!JFile::exists(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_gcalendarap'.DS.'gcalendarap.php'))
+	echo "<div style=\"text-align:center;margin-top:10px\" ><a href=\"http://g4j.laoneo.net\">Powered by GCalendar</a></div>\n";
 
 //hide buttons and tune CSS for printable format
 if (JRequest::getVar('tmpl') == 'component'){
 	$document->addStyleSheet(JURI::base().'components/com_gcalendar/libraries/fullcalendar/fullcalendar.print.css', 'text/css', 'print');
 	$document->addStyleDeclaration('.fc-header-left, .fc-header-right { display:none; }');
 	$document->addStyleDeclaration('@page {size: A4 landscape;}');
-} else { 
+} else {
 	$document->addStyleDeclaration('@page {size: A4 landscape;}');
 	$document->addScriptDeclaration('function print_view() {
 					var loc=document.location.href.replace(/\?/,"\?tmpl=component\&");
@@ -325,4 +307,3 @@ if (JRequest::getVar('tmpl') == 'component'){
 					printWindow.focus();
 				}');
 }
-?>

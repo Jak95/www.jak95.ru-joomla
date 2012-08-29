@@ -20,49 +20,34 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-$document = &JFactory::getDocument();
-$document->addStyleSheet(JURI::base().'modules/mod_gcalendar_upcoming/tmpl/default.css');
+$tmp = clone JComponentHelper::getParams('com_gcalendar');
+$tmp->set('event_date_format', $params->get('date_format', $tmp->get('event_date_format')));
+$tmp->set('event_time_format', $params->get('time_format', $tmp->get('event_time_format')));
+$tmp->set('grouping', $params->get('output_grouping', ''));
 
-$event_display = $params->get('output', '');
-$group_format = trim($params->get('output_grouping', '')); // 12 Nov 2011 Grouping mod by Bernie Sumption
+// enable all params
+$tmp->set('show_calendar_name', 1);
+$tmp->set('show_event_title', 1);
+$tmp->set('show_event_date', 1);
+$tmp->set('show_event_attendees', 1);
+$tmp->set('show_event_location', 1);
+$tmp->set('show_event_location_map', 1);
+$tmp->set('show_event_description', 1);
+$tmp->set('show_event_author', 1);
+$tmp->set('show_event_copy_info', 1);
 
-$dateformat = $params->get('date_format', 'd.m.Y');
-$timeformat = $params->get('time_format', 'H:i');
-
-echo $params->get( 'text_before' );
-if(!empty($gcalendar_data)){
-	if($params->get('images', 'no') != 'no') {
-		echo '<p style="clear: both;"/>';
-	}
-	$lastHeading = ''; // 12 Nov 2011 Grouping mod by Bernie Sumption
-	foreach( $gcalendar_data as $item){
-		// 12 Nov 2011 Grouping mod by Bernie Sumption
-		$groupHeading = GCalendarUtil::formatDate($group_format, $item->getStartDate());
-		if ($groupHeading != $lastHeading) {
-			$lastHeading = $groupHeading;
-			echo str_replace("{header}", $groupHeading, $params->get('output_grouping_content', '<p style="clear: both;"><strong>{header}</strong></p>'));
-		}
-		// End mod
-		
-		// APRIL 2011 MOD - CALENDAR IMAGES by Tyson Moore
-		if($params->get('images', 'no') != 'no') {
-			$month_text = strtoupper(GCalendarUtil::formatDate('M', $item->getStartDate()));
-			$day = GCalendarUtil::formatDate('d', $item->getStartDate());
-			$colorImageBackground = $params->get('images', 'yes') == 'custom' ? '#'.$params->get('calimage_background') : GCalendarUtil::getFadedColor($item->getParam('gccolor'), 80);
-			$colorMonth = $params->get('images', 'yes') == 'custom' ? $params->get('calimage_month') : 'FFFFFF';
-			$colorDay = $params->get('images', 'yes') == 'custom' ? $params->get('calimage_day') : $item->getParam('gccolor');
-			echo '<div class="gc_up_mod_img">';
-			echo '<div class="gc_up_mod_month_background" style="background-color: ' . $colorImageBackground . ';"></div>';
-			echo '<div class="gc_up_mod_month_text" style="color: #' . $colorMonth . ';">' . $month_text . '</div>';
-			echo '<div class="gc_up_mod_day" style="color: #' . $colorDay . ';">' . $day . '</div>';
-			echo '</div>';
-		}
-		//END MOD
-		echo GCalendarUtil::renderEvent($item, $event_display, $dateformat, $timeformat);
-		if($params->get('images', 'no') != 'no') {
-			echo '<p style="clear: both;"/>';
-		}
-	}
-}
-echo $params->get( 'text_after' );
-?>
+$output = $params->get('output', '{{#events}}
+{{#header}}<p style="clear: both;"><strong>{{header}}</strong></p>{{/header}}
+<p style="clear: both;"/>
+<div style="float:left;margin-right:6px;width:42px;height:42px;background-image:url(\'modules/mod_gcalendar_upcoming/tmpl/images/calendar-icon.gif\')">
+	<div style="background-color: #{{calendarcolor}};width:32px;height:10px;margin-top:6px;margin-left:5px;"></div>
+	<div style="color: #FFFFFF;padding:2px;font-weight:bold;font-size:10px;text-align:center;position:relative;margin-top:-13px;margin-bottom:-4px;">{{month}}</div>
+	<div style="color: #{{calendarcolor}};font-weight:bold;font-size:1.3em;width:42px;text-align:center;">{{day}}</div>
+</div>
+<p>{{date}}<br/><a href="{{{backlink}}}">{{title}}</a></p>
+<p style="clear: both;"/>
+{{/events}}
+{{^events}}
+{{emptyText}}
+{{/events}}');
+echo GCalendarUtil::renderEvents($events, $output, $tmp);

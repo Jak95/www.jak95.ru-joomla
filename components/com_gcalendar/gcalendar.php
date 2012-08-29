@@ -29,4 +29,3 @@ require_once (JPATH_COMPONENT.DS.'controller.php');
 $controller = new GCalendarController( );
 $controller->execute( JRequest::getCmd('task'));
 $controller->redirect();
-?>
